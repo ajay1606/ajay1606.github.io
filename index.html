@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajay Kumar | Research Portfolio</title>
+  <meta name="description" content="Personal academic website for Ajay Kumar featuring research, projects, publications, and contact information." />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121935;
+      --card: rgba(255,255,255,0.06);
+      --text: #eaf0ff;
+      --muted: #b7c3e0;
+      --accent: #7cc6ff;
+      --accent-2: #8ef0d0;
+      --border: rgba(255,255,255,0.12);
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+      --maxw: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124,198,255,0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(142,240,208,0.10), transparent 22%),
+        linear-gradient(180deg, #08101e 0%, #0b1020 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { opacity: 0.9; }
+
+    .container {
+      width: min(var(--maxw), calc(100% - 2rem));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+      background: rgba(8, 16, 30, 0.75);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 0;
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      padding: 5.5rem 0 4rem;
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(124,198,255,0.10);
+      border: 1px solid rgba(124,198,255,0.25);
+      color: #d9ecff;
+      font-size: 0.92rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4.2rem);
+      line-height: 1.08;
+      margin: 0 0 1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.4rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.82rem 1.15rem;
+      border-radius: 14px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      transition: transform 0.18s ease, opacity 0.18s ease, border-color 0.18s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #06111e;
+      border: none;
+    }
+    .btn.secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .hero-card, .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 1.4rem;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .stat {
+      padding: 1rem;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    section {
+      padding: 1rem 0 3.4rem;
+    }
+
+    .section-title {
+      font-size: 1.7rem;
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-text {
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 1.5rem;
+    }
+
+    .grid-2, .grid-3 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      padding: 1.25rem;
+    }
+
+    .card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .muted { color: var(--muted); }
+
+    .timeline {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .timeline-item {
+      padding: 1.2rem 1.25rem;
+      border-left: 3px solid var(--accent);
+      background: rgba(255,255,255,0.05);
+      border-radius: 0 18px 18px 0;
+      border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tag-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.7rem;
+    }
+
+    .tag {
+      padding: 0.38rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: #d9ecff;
+      background: rgba(124,198,255,0.08);
+      border: 1px solid rgba(124,198,255,0.18);
+    }
+
+    .publication {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .publication:last-child { border-bottom: none; }
+    .publication-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.4rem 0 2.4rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 920px) {
+      .hero, .grid-2, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        padding-top: 4rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: flex-start;
+      }
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home">Ajay Kumar</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="container">
+    <section class="hero">
+      <div>
+        <div class="badge">Research Associate · University of Minnesota</div>
+        <h1>Autonomous Systems, Teleoperation, and Network-Aware Robotics</h1>
+        <p class="lead">
+          I work on remote driving, intelligent robotics, autonomous systems, and multimodal perception with a focus on real-world deployment under communication, sensing, and safety constraints.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#research">Explore Research</a>
+          <a class="btn secondary" href="#contact">Get in Touch</a>
+        </div>
+        <p class="muted">
+          Focus areas include teleoperation, AV-edge collaborative perception, V2X-enabled safety, human-in-the-loop autonomy, and vision-language reasoning for robotic systems.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <h3 style="margin-top:0;">Current Focus</h3>
+        <p class="muted">
+          Building practical autonomy systems that integrate networking, perception, reasoning, and human supervision for complex driving and robotic environments.
+        </p>
+        <div class="stat-grid">
+          <div class="stat">
+            <strong>Teleoperation</strong>
+            <span class="muted">Low-latency remote driving and operator support</span>
+          </div>
+          <div class="stat">
+            <strong>VLM Reasoning</strong>
+            <span class="muted">Context-aware decision support for intervention</span>
+          </div>
+          <div class="stat">
+            <strong>AV + Edge</strong>
+            <span class="muted">Collaborative perception under bandwidth limits</span>
+          </div>
+          <div class="stat">
+            <strong>V2X Safety</strong>
+            <span class="muted">Rural road and intersection intelligence</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <p class="section-text">
+        I am a Research Associate in the Department of Computer Science &amp; Engineering at the University of Minnesota. My work spans autonomous vehicles, teleoperation, multi-sensor perception, robotics, and network-aware intelligent systems. I am particularly interested in practical deployment challenges, including latency, bandwidth constraints, human factors, and robustness in real-world environments.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Research Interests</h3>
+          <div class="tag-wrap">
+            <span class="tag">Remote Driving</span>
+            <span class="tag">Autonomous Vehicles</span>
+            <span class="tag">Robot Navigation</span>
+            <span class="tag">Vision-Language Models</span>
+            <span class="tag">LiDAR-Camera Fusion</span>
+            <span class="tag">V2X Systems</span>
+            <span class="tag">Human-in-the-Loop AI</span>
+            <span class="tag">Edge Robotics</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Professional Snapshot</h3>
+          <p class="muted">
+            Research spanning autonomous driving, sensor calibration, 3D mapping, multimodal perception, teleoperation system design, and communication-aware robotics for safety-critical applications.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="research">
+      <h2 class="section-title">Research Themes</h2>
+      <p class="section-text">
+        My research aims to bridge advanced autonomy with real-world constraints by combining perception, reasoning, networking, and human oversight.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Remote Driving &amp; Teleoperation</h3>
+          <p class="muted">Adaptive video streaming, operator situational awareness, control responsiveness, and safe human intervention under network uncertainty.</p>
+        </div>
+        <div class="card">
+          <h3>Collaborative Perception</h3>
+          <p class="muted">Bandwidth-aware AV-edge cooperation, selective feature sharing, and perception enhancement for autonomous and remote operation.</p>
+        </div>
+        <div class="card">
+          <h3>Multimodal Reasoning</h3>
+          <p class="muted">Vision-language reasoning for escalation decisions, scene understanding, and context-aware robotic assistance.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Selected Projects</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>Scalable Remote Driving Systems</h3>
+          <p class="muted">Research on adaptive video streaming and human-factor requirements for real-world teleoperation deployment under variable wireless conditions.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Rural Road Safety with C-V2X</h3>
+          <p class="muted">Integrated communications, sensing, and simulation framework for improving safety at rural intersections with realistic network measurements.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>VLM-Driven Intervention and Escalation</h3>
+          <p class="muted">Developing semantically grounded reasoning systems to determine when autonomous systems should request human assistance.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>AV-Edge Collaborative Perception</h3>
+          <p class="muted">Designing adaptive feature and data-sharing strategies to improve operator awareness and perception robustness under bandwidth limitations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications">
+      <h2 class="section-title">Publications &amp; Manuscripts</h2>
+      <p class="section-text">Replace these placeholders with your selected papers, links, and preprints.</p>
+      <div class="card">
+        <div class="publication">
+          <div class="publication-title">MSM-Transformer: Cross-View Geo-Localization for Drone Image Matching</div>
+          <div class="muted">Research article · Add venue, year, and link here</div>
+        </div>
+        <div class="publication">
+          <div class="publication-title">Precise Synchronization Between LiDAR and Multiple Cameras for Autonomous Driving: An Adaptive Approach</div>
+          <div class="muted">Research article · Add venue, year, and link here</div>
+        </div>
+        <div class="publication">
+          <div class="publication-title">Toward Scalable Remote Driving Systems: Adaptive Video Streaming and Human-Factor Requirements for Real-World Deployment</div>
+          <div class="muted">Proposal / ongoing project · Add details here</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Contact</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Reach Out</h3>
+          <p class="muted">
+            Feel free to connect regarding research collaboration, project discussions, proposals, and academic partnerships.
+          </p>
+          <p>
+            <strong>Email:</strong> <a href="mailto:your.email@umn.edu">your.email@umn.edu</a><br />
+            <strong>GitHub:</strong> <a href="https://github.com/yourusername" target="_blank" rel="noreferrer">github.com/yourusername</a><br />
+            <strong>Google Scholar:</strong> <a href="#">Add your profile</a><br />
+            <strong>LinkedIn:</strong> <a href="#">Add your profile</a>
+          </p>
+        </div>
+        <div class="card">
+          <h3>GitHub Pages Deployment</h3>
+          <p class="muted">
+            1. Create a repository named <code>yourusername.github.io</code><br />
+            2. Save this file as <code>index.html</code><br />
+            3. Push it to the repository<br />
+            4. Your site will publish automatically through GitHub Pages
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Ajay Kumar · Built for GitHub Pages
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
