@@ -81,6 +81,48 @@
       padding: 12px 0;
       border-bottom: 1px solid #eee;
     }
+    .highlight-pub {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid #eee;
+      align-items: start;
+    }
+    .highlight-thumb {
+      width: 180px;
+      height: 120px;
+      object-fit: cover;
+      border: 1px solid #ddd;
+      background: #f3f3f3;
+      display: block;
+    }
+    .pub-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .pub-authors,
+    .pub-venue,
+    .pub-summary {
+      color: #666;
+      margin-bottom: 6px;
+    }
+    .pub-links a {
+      margin-right: 14px;
+    }
+    .pub-year {
+      font-weight: 700;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+    .all-pubs {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .all-pubs li {
+      margin-bottom: 10px;
+    }
     footer {
       margin-top: 40px;
       padding-top: 16px;
@@ -92,6 +134,15 @@
       .intro {
         grid-template-columns: 1fr;
       }
+      .highlight-pub {
+        grid-template-columns: 1fr;
+      }
+      .highlight-thumb {
+        width: 100%;
+        max-width: 260px;
+        height: auto;
+      }
+    }
     }
   </style>
 </head>
@@ -113,7 +164,7 @@
   <main id="top" class="container">
     <section class="intro">
       <div>
-        <img class="profile-photo" src="images/ajay.jpg" alt="Ajay Kumar" />
+        <img class="profile-photo" src="profile.jpg" alt="Ajay Kumar" />
       </div>
       <div>
         <h1>Ajay Kumar</h1>
@@ -148,22 +199,72 @@
 
     <section id="publications">
       <h2>Publications</h2>
-      <div class="pub-item">
-        <h3>MSM-Transformer: Cross-View Geo-Localization for Drone Image Matching</h3>
-        <div class="muted">Ajay Kumar and collaborators</div>
+
+      <h3 style="margin-top:0;">Selected Publications</h3>
+
+      <div class="highlight-pub">
+        <img class="highlight-thumb" src="images/pub_msm_transformer.jpg" alt="MSM-Transformer figure" />
+        <div>
+          <div class="pub-title">MSM-Transformer: Cross-View Geo-Localization for Drone Image Matching</div>
+          <div class="pub-authors"><strong>Ajay Kumar</strong> and collaborators</div>
+          <div class="pub-venue">Add journal / conference, year</div>
+          <div class="pub-summary">A cross-view geo-localization framework for matching drone imagery across viewpoint changes using transformer-based representation learning.</div>
+          <div class="pub-links">
+            <a href="#">Paper</a>
+            <a href="#">Code</a>
+            <a href="#">Project</a>
+          </div>
+        </div>
       </div>
-      <div class="pub-item">
-        <h3>Precise Synchronization Between LiDAR and Multiple Cameras for Autonomous Driving: An Adaptive Approach</h3>
-        <div class="muted">Ajay Kumar and collaborators</div>
+
+      <div class="highlight-pub">
+        <img class="highlight-thumb" src="images/pub_sync.jpg" alt="LiDAR camera synchronization figure" />
+        <div>
+          <div class="pub-title">Precise Synchronization Between LiDAR and Multiple Cameras for Autonomous Driving: An Adaptive Approach</div>
+          <div class="pub-authors"><strong>Ajay Kumar</strong> and collaborators</div>
+          <div class="pub-venue">Add journal / conference, year</div>
+          <div class="pub-summary">An adaptive synchronization framework for improving temporal alignment between LiDAR and multi-camera sensing systems in autonomous driving platforms.</div>
+          <div class="pub-links">
+            <a href="#">Paper</a>
+          </div>
+        </div>
       </div>
-      <div class="pub-item">
-        <h3>Toward Scalable Remote Driving Systems: Adaptive Video Streaming and Human-Factor Requirements for Real-World Deployment</h3>
-        <div class="muted">Ajay Kumar and collaborators</div>
+
+      <div class="highlight-pub">
+        <img class="highlight-thumb" src="images/pub_remote_driving.jpg" alt="Remote driving framework figure" />
+        <div>
+          <div class="pub-title">Toward Scalable Remote Driving Systems: Adaptive Video Streaming and Human-Factor Requirements for Real-World Deployment</div>
+          <div class="pub-authors"><strong>Ajay Kumar</strong> and collaborators</div>
+          <div class="pub-venue">Ongoing work</div>
+          <div class="pub-summary">Investigates adaptive streaming, operator situational awareness, and practical human-in-the-loop teleoperation under network and sensing constraints.</div>
+          <div class="pub-links">
+            <a href="#">Project</a>
+          </div>
+        </div>
       </div>
-      <div class="pub-item">
-        <h3>VLM-Driven Proactive Escalation for Human-in-the-Loop Autonomous Driving</h3>
-        <div class="muted">Ajay Kumar and collaborators</div>
+
+      <div class="highlight-pub">
+        <img class="highlight-thumb" src="images/pub_vlm.jpg" alt="VLM escalation figure" />
+        <div>
+          <div class="pub-title">VLM-Driven Proactive Escalation for Human-in-the-Loop Autonomous Driving</div>
+          <div class="pub-authors"><strong>Ajay Kumar</strong> and collaborators</div>
+          <div class="pub-venue">Ongoing work</div>
+          <div class="pub-summary">A vision-language reasoning framework for semantically grounded escalation decisions in safety-critical autonomous driving scenarios.</div>
+          <div class="pub-links">
+            <a href="#">Project</a>
+          </div>
+        </div>
       </div>
+
+      <h3>All Publications</h3>
+
+      <div class="pub-year">Selected / Current List</div>
+      <ol class="all-pubs">
+        <li><strong>MSM-Transformer: Cross-View Geo-Localization for Drone Image Matching.</strong> Ajay Kumar and collaborators. Add venue, year, and link.</li>
+        <li><strong>Precise Synchronization Between LiDAR and Multiple Cameras for Autonomous Driving: An Adaptive Approach.</strong> Ajay Kumar and collaborators. Add venue, year, and link.</li>
+        <li><strong>Toward Scalable Remote Driving Systems: Adaptive Video Streaming and Human-Factor Requirements for Real-World Deployment.</strong> Ajay Kumar and collaborators. Ongoing work.</li>
+        <li><strong>VLM-Driven Proactive Escalation for Human-in-the-Loop Autonomous Driving.</strong> Ajay Kumar and collaborators. Ongoing work.</li>
+      </ol>
     </section>
 
     <section id="awards">
