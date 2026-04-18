@@ -4,207 +4,92 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ajay Kumar - Homepage</title>
-  <meta name="description" content="Academic homepage of Ajay Kumar, Research Associate at the University of Minnesota." />
   <style>
-    :root {
-      --text: #222;
-      --muted: #666;
-      --border: #e5e5e5;
-      --link: #0b63c9;
-      --bg: #ffffff;
-      --maxw: 1100px;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
+      color: #222;
+      background: #fff;
+      line-height: 1.6;
     }
-
-    a {
-      color: var(--link);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
     .container {
-      width: min(var(--maxw), calc(100% - 2rem));
+      width: min(1000px, calc(100% - 2rem));
       margin: 0 auto;
     }
-
     header {
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #ddd;
       background: #fff;
+      position: sticky;
+      top: 0;
     }
-
     .nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
-      padding: 0.9rem 0;
-    }
-
-    .brand {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1rem;
+      padding: 14px 0;
+      gap: 16px;
       flex-wrap: wrap;
-      font-size: 0.95rem;
     }
-
+    .nav a {
+      text-decoration: none;
+      color: #0b63c9;
+      margin-right: 14px;
+      font-size: 15px;
+    }
+    .brand {
+      color: #222 !important;
+      font-weight: 700;
+    }
     main {
-      padding: 1.5rem 0 3rem;
+      padding: 28px 0 50px;
     }
-
     .intro {
       display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 2rem;
+      grid-template-columns: 220px 1fr;
+      gap: 28px;
       align-items: start;
-      margin-bottom: 2rem;
     }
-
-    .profile-box {
-      text-align: center;
-    }
-
     .profile-photo {
       width: 200px;
       height: 240px;
+      border: 1px solid #ddd;
       object-fit: cover;
-      border: 1px solid var(--border);
-      background: #f4f4f4;
-      display: block;
-      margin: 0 auto 1rem;
+      background: #f3f3f3;
     }
-
-    .name {
-      font-size: 2rem;
-      font-weight: 700;
-      margin: 0 0 0.5rem;
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
     }
-
-    .title, .affil, .location {
-      color: var(--muted);
-      margin-bottom: 0.35rem;
-    }
-
-    .socials {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1rem;
-      margin-top: 0.8rem;
-    }
-
     h2 {
-      font-size: 1.55rem;
-      margin: 2rem 0 1rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 0.35rem;
+      font-size: 28px;
+      margin-top: 40px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 6px;
     }
-
     h3 {
-      font-size: 1.1rem;
-      margin: 0 0 0.35rem;
+      margin: 0 0 6px;
+      font-size: 18px;
     }
-
-    p {
-      margin: 0 0 1rem;
+    .muted {
+      color: #666;
     }
-
-    ul {
-      margin: 0.2rem 0 1rem 1.25rem;
-      padding: 0;
+    .socials a {
+      margin-right: 14px;
     }
-
-    li {
-      margin: 0.45rem 0;
+    .pub-item {
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
     }
-
-    .news-list li,
-    .award-list li,
-    .service-list li,
-    .edu-list li {
-      line-height: 1.6;
-    }
-
-    .pub-card {
-      display: grid;
-      grid-template-columns: 84px 1fr;
-      gap: 1rem;
-      padding: 0.9rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .pub-card:last-child {
-      border-bottom: none;
-    }
-
-    .pub-thumb {
-      width: 84px;
-      height: 84px;
-      border: 1px solid var(--border);
-      background: #f6f6f6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #888;
-      font-size: 0.82rem;
-      text-align: center;
-      padding: 0.4rem;
-    }
-
-    .authors,
-    .venue,
-    .summary {
-      color: var(--muted);
-      font-size: 0.97rem;
-    }
-
-    .pub-links {
-      margin-top: 0.3rem;
-      font-size: 0.95rem;
-    }
-
-    .pub-links a {
-      margin-right: 0.75rem;
-    }
-
     footer {
-      border-top: 1px solid var(--border);
-      margin-top: 3rem;
-      padding-top: 1rem;
-      color: var(--muted);
-      font-size: 0.92rem;
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #ddd;
+      color: #666;
+      font-size: 14px;
     }
-
     @media (max-width: 760px) {
       .intro {
-        grid-template-columns: 1fr;
-      }
-
-      .profile-box {
-        text-align: left;
-      }
-
-      .profile-photo {
-        margin: 0 0 1rem 0;
-      }
-
-      .pub-card {
         grid-template-columns: 1fr;
       }
     }
@@ -214,7 +99,7 @@
   <header>
     <div class="container nav">
       <a class="brand" href="#top">Homepage</a>
-      <nav class="nav-links">
+      <nav>
         <a href="#about">About Me</a>
         <a href="#news">News</a>
         <a href="#publications">Publications</a>
@@ -227,134 +112,87 @@
 
   <main id="top" class="container">
     <section class="intro">
-      <div class="profile-box">
-        <img class="profile-photo" src="profile.jpg" alt="Ajay Kumar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-        <div class="profile-photo" style="display:none;">Add<br>profile.jpg</div>
-      </div>
-
       <div>
-        <h1 class="name">Ajay Kumar</h1>
-        <div class="title">Research Associate</div>
-        <div class="affil">Department of Computer Science &amp; Engineering, University of Minnesota</div>
-        <div class="location">Minnesota, USA</div>
+        <img class="profile-photo" src="profile.jpg" alt="Ajay Kumar" />
+      </div>
+      <div>
+        <h1>Ajay Kumar</h1>
+        <div class="muted">Research Associate</div>
+        <div class="muted">Department of Computer Science &amp; Engineering, University of Minnesota</div>
+        <div class="muted">Minnesota, USA</div>
 
-        <div class="socials">
+        <p class="socials" style="margin-top:12px;">
           <a href="mailto:your.email@umn.edu">Email</a>
-          <a href="https://github.com/ajay1606" target="_blank" rel="noreferrer">Github</a>
+          <a href="https://github.com/ajay1606" target="_blank">GitHub</a>
           <a href="#">Google Scholar</a>
           <a href="#">LinkedIn</a>
-        </div>
+        </p>
 
-        <p id="about" style="margin-top:1rem;">
-          I am a Research Associate in the Department of Computer Science &amp; Engineering at the University of Minnesota. My research focuses on autonomous systems, teleoperation, robotics, multimodal perception, and network-aware intelligent systems for real-world deployment.
+        <p id="about">
+          I am currently a Research Associate in the Department of Computer Science &amp; Engineering at the University of Minnesota, working on autonomous systems, teleoperation, and network-aware intelligent robotics. Previously, I served as a Postdoctoral Research Fellow at DGIST (South Korea), where I worked on Level-4 autonomous driving, including localization, 3D mapping, sensor calibration, and perception systems.
         </p>
         <p>
-          My recent work explores scalable remote driving systems, AV-edge collaborative perception, VLM-driven reasoning for intervention and escalation, and communication-aware safety systems for rural transportation and robotic autonomy. I am particularly interested in how perception, networking, and human-in-the-loop intelligence can be jointly designed to improve reliability and practical deployment.
+          My research lies at the intersection of robotics, mobility, and artificial intelligence, with a strong focus on real-world deployment challenges. I develop algorithms and system-level solutions that enable intelligent agents to perceive complex environments, collaborate with humans, and operate reliably under communication and sensing constraints. My research interests include multimodal perception, remote driving, AV-edge collaborative intelligence, vision-language reasoning, and communication-aware autonomy. I have contributed to multiple research projects spanning autonomous driving, V2X-enabled safety, and human-in-the-loop systems, with applications in transportation, robotics, and intelligent infrastructure.
         </p>
       </div>
     </section>
 
     <section id="news">
       <h2>News</h2>
-      <ul class="news-list">
+      <ul>
         <li><strong>2026.04:</strong> Personal academic homepage launched on GitHub Pages.</li>
         <li><strong>2026.04:</strong> Ongoing work on teleoperation, adaptive streaming, and VLM-driven reasoning for human intervention in autonomous systems.</li>
         <li><strong>2026.03:</strong> Continued development of AV-edge collaborative perception and communication-aware remote driving frameworks.</li>
-        <li><strong>2025:</strong> Active research on rural road safety using C-V2X, advanced sensing, and realistic network-aware simulation.</li>
       </ul>
     </section>
 
     <section id="publications">
       <h2>Publications</h2>
-
-      <div class="pub-card">
-        <div class="pub-thumb">Project / Paper</div>
-        <div>
-          <h3>MSM-Transformer: Cross-View Geo-Localization for Drone Image Matching</h3>
-          <div class="authors">Ajay Kumar and collaborators</div>
-          <div class="venue">Manuscript / Add venue and year</div>
-          <div class="pub-links">
-            <a href="#">Paper</a>
-            <a href="#">Code</a>
-            <a href="#">Project</a>
-          </div>
-          <div class="summary">Cross-view geo-localization framework for matching drone imagery across viewpoint changes.</div>
-        </div>
+      <div class="pub-item">
+        <h3>MSM-Transformer: Cross-View Geo-Localization for Drone Image Matching</h3>
+        <div class="muted">Ajay Kumar and collaborators</div>
       </div>
-
-      <div class="pub-card">
-        <div class="pub-thumb">Project / Paper</div>
-        <div>
-          <h3>Precise Synchronization Between LiDAR and Multiple Cameras for Autonomous Driving: An Adaptive Approach</h3>
-          <div class="authors">Ajay Kumar and collaborators</div>
-          <div class="venue">Manuscript / Add venue and year</div>
-          <div class="pub-links">
-            <a href="#">Paper</a>
-          </div>
-          <div class="summary">Adaptive synchronization framework for improving temporal alignment between LiDAR and multi-camera sensing systems.</div>
-        </div>
+      <div class="pub-item">
+        <h3>Precise Synchronization Between LiDAR and Multiple Cameras for Autonomous Driving: An Adaptive Approach</h3>
+        <div class="muted">Ajay Kumar and collaborators</div>
       </div>
-
-      <div class="pub-card">
-        <div class="pub-thumb">Project / Paper</div>
-        <div>
-          <h3>Toward Scalable Remote Driving Systems: Adaptive Video Streaming and Human-Factor Requirements for Real-World Deployment</h3>
-          <div class="authors">Ajay Kumar and collaborators</div>
-          <div class="venue">Ongoing research</div>
-          <div class="pub-links">
-            <a href="#">Project</a>
-          </div>
-          <div class="summary">Investigates adaptive streaming, operator situational awareness, and practical human-in-the-loop teleoperation under network constraints.</div>
-        </div>
+      <div class="pub-item">
+        <h3>Toward Scalable Remote Driving Systems: Adaptive Video Streaming and Human-Factor Requirements for Real-World Deployment</h3>
+        <div class="muted">Ajay Kumar and collaborators</div>
       </div>
-
-      <div class="pub-card">
-        <div class="pub-thumb">Project / Paper</div>
-        <div>
-          <h3>VLM-Driven Proactive Escalation for Human-in-the-Loop Autonomous Driving</h3>
-          <div class="authors">Ajay Kumar and collaborators</div>
-          <div class="venue">Ongoing research</div>
-          <div class="pub-links">
-            <a href="#">Project</a>
-          </div>
-          <div class="summary">A vision-language reasoning framework for semantically grounded escalation decisions in safety-critical driving scenarios.</div>
-        </div>
+      <div class="pub-item">
+        <h3>VLM-Driven Proactive Escalation for Human-in-the-Loop Autonomous Driving</h3>
+        <div class="muted">Ajay Kumar and collaborators</div>
       </div>
     </section>
 
     <section id="awards">
       <h2>Honors and Awards</h2>
-      <ul class="award-list">
+      <ul>
         <li>Add awards, recognitions, invited talks, or distinctions here.</li>
-        <li>Example: Poster awards, best paper recognitions, invited seminars, or fellowship honors.</li>
       </ul>
     </section>
 
     <section id="education">
       <h2>Education</h2>
-      <ul class="edu-list">
+      <ul>
         <li><strong>Ph.D.</strong> - Add university, department, year, and advisor details here.</li>
-        <li><strong>Current Position</strong> - Research Associate, Department of Computer Science &amp; Engineering, University of Minnesota.</li>
+        <li><strong>Current Position</strong> - Research Associate, University of Minnesota.</li>
         <li><strong>Previous Position</strong> - Postdoctoral Research Fellow, DGIST, South Korea.</li>
       </ul>
     </section>
 
     <section id="services">
       <h2>Services</h2>
-      <ul class="service-list">
+      <ul>
         <li>Workshop organization and academic service activities.</li>
         <li>Conference reviewer / TPC member details can be added here.</li>
-        <li>Mentoring, student supervision, and outreach activities can also be listed.</li>
       </ul>
     </section>
 
     <footer>
-      © <span id="year"></span> Ajay Kumar. Built with GitHub Pages.
+      © 2026 Ajay Kumar. Built with GitHub Pages.
     </footer>
   </main>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
