@@ -228,4 +228,133 @@
   <main id="top" class="container">
     <section class="intro">
       <div class="profile-box">
-        <img class="profile-photo" src="profile.jpg" alt="Ajay Kumar" onerror="this.style.di
+        <img class="profile-photo" src="profile.jpg" alt="Ajay Kumar" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="profile-photo" style="display:none;">Add<br>profile.jpg</div>
+      </div>
+
+      <div>
+        <h1 class="name">Ajay Kumar</h1>
+        <div class="title">Research Associate</div>
+        <div class="affil">Department of Computer Science &amp; Engineering, University of Minnesota</div>
+        <div class="location">Minnesota, USA</div>
+
+        <div class="socials">
+          <a href="mailto:your.email@umn.edu">Email</a>
+          <a href="https://github.com/ajay1606" target="_blank" rel="noreferrer">Github</a>
+          <a href="#">Google Scholar</a>
+          <a href="#">LinkedIn</a>
+        </div>
+
+        <p id="about" style="margin-top:1rem;">
+          I am a Research Associate in the Department of Computer Science &amp; Engineering at the University of Minnesota. My research focuses on autonomous systems, teleoperation, robotics, multimodal perception, and network-aware intelligent systems for real-world deployment.
+        </p>
+        <p>
+          My recent work explores scalable remote driving systems, AV-edge collaborative perception, VLM-driven reasoning for intervention and escalation, and communication-aware safety systems for rural transportation and robotic autonomy. I am particularly interested in how perception, networking, and human-in-the-loop intelligence can be jointly designed to improve reliability and practical deployment.
+        </p>
+      </div>
+    </section>
+
+    <section id="news">
+      <h2>News</h2>
+      <ul class="news-list">
+        <li><strong>2026.04:</strong> Personal academic homepage launched on GitHub Pages.</li>
+        <li><strong>2026.04:</strong> Ongoing work on teleoperation, adaptive streaming, and VLM-driven reasoning for human intervention in autonomous systems.</li>
+        <li><strong>2026.03:</strong> Continued development of AV-edge collaborative perception and communication-aware remote driving frameworks.</li>
+        <li><strong>2025:</strong> Active research on rural road safety using C-V2X, advanced sensing, and realistic network-aware simulation.</li>
+      </ul>
+    </section>
+
+    <section id="publications">
+      <h2>Publications</h2>
+
+      <div class="pub-card">
+        <div class="pub-thumb">Project / Paper</div>
+        <div>
+          <h3>MSM-Transformer: Cross-View Geo-Localization for Drone Image Matching</h3>
+          <div class="authors">Ajay Kumar and collaborators</div>
+          <div class="venue">Manuscript / Add venue and year</div>
+          <div class="pub-links">
+            <a href="#">Paper</a>
+            <a href="#">Code</a>
+            <a href="#">Project</a>
+          </div>
+          <div class="summary">Cross-view geo-localization framework for matching drone imagery across viewpoint changes.</div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-thumb">Project / Paper</div>
+        <div>
+          <h3>Precise Synchronization Between LiDAR and Multiple Cameras for Autonomous Driving: An Adaptive Approach</h3>
+          <div class="authors">Ajay Kumar and collaborators</div>
+          <div class="venue">Manuscript / Add venue and year</div>
+          <div class="pub-links">
+            <a href="#">Paper</a>
+          </div>
+          <div class="summary">Adaptive synchronization framework for improving temporal alignment between LiDAR and multi-camera sensing systems.</div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-thumb">Project / Paper</div>
+        <div>
+          <h3>Toward Scalable Remote Driving Systems: Adaptive Video Streaming and Human-Factor Requirements for Real-World Deployment</h3>
+          <div class="authors">Ajay Kumar and collaborators</div>
+          <div class="venue">Ongoing research</div>
+          <div class="pub-links">
+            <a href="#">Project</a>
+          </div>
+          <div class="summary">Investigates adaptive streaming, operator situational awareness, and practical human-in-the-loop teleoperation under network constraints.</div>
+        </div>
+      </div>
+
+      <div class="pub-card">
+        <div class="pub-thumb">Project / Paper</div>
+        <div>
+          <h3>VLM-Driven Proactive Escalation for Human-in-the-Loop Autonomous Driving</h3>
+          <div class="authors">Ajay Kumar and collaborators</div>
+          <div class="venue">Ongoing research</div>
+          <div class="pub-links">
+            <a href="#">Project</a>
+          </div>
+          <div class="summary">A vision-language reasoning framework for semantically grounded escalation decisions in safety-critical driving scenarios.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="awards">
+      <h2>Honors and Awards</h2>
+      <ul class="award-list">
+        <li>Add awards, recognitions, invited talks, or distinctions here.</li>
+        <li>Example: Poster awards, best paper recognitions, invited seminars, or fellowship honors.</li>
+      </ul>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <ul class="edu-list">
+        <li><strong>Ph.D.</strong> - Add university, department, year, and advisor details here.</li>
+        <li><strong>Current Position</strong> - Research Associate, Department of Computer Science &amp; Engineering, University of Minnesota.</li>
+        <li><strong>Previous Position</strong> - Postdoctoral Research Fellow, DGIST, South Korea.</li>
+      </ul>
+    </section>
+
+    <section id="services">
+      <h2>Services</h2>
+      <ul class="service-list">
+        <li>Workshop organization and academic service activities.</li>
+        <li>Conference reviewer / TPC member details can be added here.</li>
+        <li>Mentoring, student supervision, and outreach activities can also be listed.</li>
+      </ul>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Ajay Kumar. Built with GitHub Pages.
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
