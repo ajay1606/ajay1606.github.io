@@ -1,87 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>AutoRobot</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AMR: Behaviour model for Indoor Navigation</title>
+
   <style>
-    body{
-      max-width:1200px;
-      margin:auto;
-      font-family:Arial, sans-serif;
-      line-height:1.6;
-      padding:20px;
+    body {
+      max-width: 1200px;
+      margin: auto;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
     }
 
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
     }
 
-    .hero img{
-      width:100%;
-      max-width:1000px;
+    .hero img {
+      width: 100%;
+      max-width: 1000px;
+      height: auto;
     }
 
-    .video{
-      margin-top:20px;
-      text-align:center;
+    .framework-image,
+    .results-image {
+      width: 100%;
+      height: auto;
     }
 
-    video{
-      width:100%;
-      max-width:900px;
+    .video {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .video video {
+      width: 100%;
+      max-width: 900px;
+      height: auto;
     }
   </style>
 </head>
 
 <body>
 
-<div class="hero">
-  <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
+  <div class="hero">
+    <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
+
+    <p>
+      Rushikesh Zende,
+      Vivek Kumar,
+      Lalitaditya Divakarla,
+      Kalyan Sai,
+      <strong>Ajay Kumar</strong>,
+      Zhi-Li Zhang
+    </p>
+
+    <img src="/images/9.png"
+         alt="ReACT2 overview">
+  </div>
+
+
+  <h2>Abstract</h2>
 
   <p>
-    Rushikesh Zende,
-    Vivek Kumar,
-    Lalitaditya Divakarla,
-    Kalyan Sai,
-    <strong>Ajay Kumar</strong>,
-    Zhi-Li Zhang
+    Autonomous robots increasingly rely on teleoperation...
   </p>
 
-  <img src="../../images/9.png">
-</div>
 
-<h2>Abstract</h2>
+  <h2>Framework Overview</h2>
 
-<p>
-Autonomous robots increasingly rely on teleoperation...
-</p>
+  <img
+    class="framework-image"
+    src="/images/react2_framework.png"
+    alt="ReACT2 framework">
 
-<h2>Framework Overview</h2>
 
-<img src="../../images/react2_framework.png"
-     style="width:100%;">
+  <h2>Video Demo</h2>
 
-<h2>Video Demo</h2>
+  <div class="video">
+    <video controls preload="metadata" playsinline>
+      <source src="/videos/Auto_robot.mp4"
+              type="video/mp4">
 
-<div class="video">
-  <video controls>
-    <source src="../../videos/Auto_robot.mp4"
-            type="video/mp4">
-  </video>
-</div>
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
 
-<h2>Results</h2>
 
-<img src="../../images/react2_results.png"
-     style="width:100%;">
+  <h2>Results</h2>
 
-<h2>Resources</h2>
+  <img
+    class="results-image"
+    src="/images/react2_results.png"
+    alt="ReACT2 experimental results">
 
-<p>
-<a href="#">Paper</a> |
-<a href="#">Code</a> |
-<a href="#">Dataset</a>
-</p>
+
+  <h2>Resources</h2>
+
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Code</a> |
+    <a href="#">Dataset</a>
+  </p>
 
 </body>
 </html>
