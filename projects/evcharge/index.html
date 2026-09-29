@@ -1,87 +1,1020 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>ReACT2</title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="WeZON: An autonomous mobile robot for on-demand EV charging as a service using a low-cost sensor suite, autonomous navigation, and app-based charging requests.">
+
+  <title>
+    WeZON: Autonomous On-Demand EV Charging
+  </title>
+
   <style>
-    body{
-      max-width:1200px;
-      margin:auto;
-      font-family:Arial, sans-serif;
-      line-height:1.6;
-      padding:20px;
+
+    /* =========================================================
+       Global
+       ========================================================= */
+
+    * {
+      box-sizing: border-box;
     }
 
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
+    :root {
+      --primary: #0d4c9a;
+      --secondary: #159dd8;
+      --text: #222222;
+      --muted: #666666;
+      --light: #f7f9fc;
+      --border: #e3e8ef;
     }
 
-    .hero img{
-      width:100%;
-      max-width:1000px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .video{
-      margin-top:20px;
-      text-align:center;
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: var(--text);
+      background: white;
     }
 
-    video{
-      width:100%;
-      max-width:900px;
+    h1,
+    h2,
+    h3 {
+      color: #17233c;
     }
+
+    h1 {
+      font-size: 2.45rem;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    strong {
+      color: #17233c;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 900px;
+      margin: 12px auto 18px auto;
+
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .authors {
+      margin: 16px auto 25px auto;
+      font-size: 1.02rem;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: 30px auto 0 auto;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================================
+       Tags
+       ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 20px;
+
+      background: #eef6fc;
+      color: var(--primary);
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Figures
+       ========================================================= */
+
+    .figure {
+      margin: 28px auto 45px auto;
+      text-align: center;
+    }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      max-width: 970px;
+
+      margin: 10px auto 0 auto;
+
+      color: #6b6b6b;
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Contribution Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      color: var(--primary);
+    }
+
+
+    /* =========================================================
+       Workflow
+       ========================================================= */
+
+    .workflow {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+
+      gap: 14px;
+
+      margin-top: 24px;
+    }
+
+    .workflow-step {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: white;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
+
+      border-radius: 50%;
+
+      color: white;
+      background: var(--primary);
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Highlight Box
+       ========================================================= */
+
+    .highlight {
+      margin: 28px 0;
+
+      padding: 22px 25px;
+
+      border-left: 5px solid var(--primary);
+      border-radius: 5px;
+
+      background: #f4f8fc;
+    }
+
+
+    /* =========================================================
+       Video
+       ========================================================= */
+
+    .video {
+      text-align: center;
+
+      margin: 28px auto 45px auto;
+    }
+
+    .video video {
+      width: 100%;
+      max-width: 980px;
+      height: auto;
+
+      border-radius: 9px;
+
+      background: black;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 60px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      .hero {
+        margin-bottom: 30px;
+      }
+
+    }
+
   </style>
 </head>
 
+
 <body>
 
-<div class="hero">
-  <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
 
-  <p>
-    Rushikesh Zende,
-    Vivek Kumar,
-    Lalitaditya Divakarla,
-    Kalyan Sai,
-    <strong>Ajay Kumar</strong>,
-    Zhi-Li Zhang
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    WeZON: Autonomous On-Demand EV Charging as a Service
+  </h1>
+
+  <p class="subtitle">
+    A compact autonomous mobile robot that brings EV charging
+    directly to parked vehicles using a low-cost sensor suite,
+    autonomous navigation, mobile energy storage, and an
+    app-driven charging workflow.
   </p>
 
-  <img src="../../images/9.png">
-</div>
+  <div class="tags">
 
-<h2>Abstract</h2>
+    <span class="tag">Autonomous Mobile Robot</span>
 
-<p>
-Autonomous robots increasingly rely on teleoperation...
-</p>
+    <span class="tag">
+      On-Demand EV Charging
+    </span>
 
-<h2>Framework Overview</h2>
+    <span class="tag">
+      Camera + 2D LiDAR
+    </span>
 
-<img src="../../images/react2_framework.png"
-     style="width:100%;">
+    <span class="tag">
+      Autonomous Navigation
+    </span>
 
-<h2>Video Demo</h2>
+    <span class="tag">
+      Mobile Energy Delivery
+    </span>
 
-<div class="video">
-  <video controls>
-    <source src="../../videos/react2_demo.mp4"
-            type="video/mp4">
-  </video>
-</div>
+    <span class="tag">
+      Campus Demonstration
+    </span>
 
-<h2>Results</h2>
+  </div>
 
-<img src="../../images/react2_results.png"
-     style="width:100%;">
+  <p class="authors">
+    <strong>Ajay Kumar</strong> and collaborators
+  </p>
 
-<h2>Resources</h2>
+  <img
+    src="/images/ev_proposed.png"
+    alt="WeZON envisioned autonomous EV charging solution">
 
-<p>
-<a href="#">Paper</a> |
-<a href="#">Code</a> |
-<a href="#">Dataset</a>
-</p>
+</section>
+
+
+
+<!-- =========================================================
+     PROJECT OVERVIEW
+     ========================================================= -->
+
+<section>
+
+  <h2>Project Overview</h2>
+
+  <p>
+    WeZON explores a new model for
+    <strong>on-demand EV charging as a service</strong>
+    using an Autonomous Mobile Robot (AMR).
+    Instead of requiring every electric vehicle to move to a
+    dedicated charging stall, the charging resource itself can
+    autonomously travel to the parked vehicle.
+  </p>
+
+  <p>
+    The project integrates a compact mobile robotic platform,
+    onboard energy storage, a low-cost LiDAR and camera sensing
+    suite, localization, obstacle-aware navigation, path planning,
+    and an application interface for requesting and monitoring
+    charging services.
+  </p>
+
+  <p>
+    A primary objective of the project is to develop a
+    <strong>deploy-ready autonomous navigation module</strong>
+    that can operate in parking environments while maintaining
+    reasonable system cost and hardware complexity. The complete
+    use case was demonstrated in a campus parking environment
+    in coordination with the University of Minnesota Parking and
+    Transportation Services.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOTIVATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Why Mobile EV Charging?</h2>
+
+  <p>
+    Conventional EV charging infrastructure is largely based on
+    fixed charging locations. This model can introduce challenges
+    related to installation cost, dedicated parking-space
+    requirements, charging availability, equipment utilization,
+    waiting time, and deployment in locations where permanent
+    charging infrastructure is difficult to install.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/ev_background.png"
+      alt="EV market and charging infrastructure challenges">
+
+    <p class="caption">
+      Growing EV adoption increases demand for flexible charging
+      infrastructure while conventional fixed chargers remain
+      constrained by installation, availability, space, and
+      operational requirements.
+    </p>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/ev_challenges.png"
+      alt="EV charging infrastructure deployment challenges">
+
+    <p class="caption">
+      Representative charging challenges across rural,
+      urban, harsh-weather, campus, and fixed-parking
+      environments.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     KEY CONTRIBUTIONS
+     ========================================================= -->
+
+<section>
+
+  <h2>Key Contributions</h2>
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>On-Demand Charging</h3>
+
+      <p>
+        Charging is delivered directly to the parked vehicle,
+        reducing dependence on dedicated EV charging stalls.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Low-Cost Sensor Suite</h3>
+
+      <p>
+        The platform integrates RGB vision, 2D LiDAR, onboard
+        computing, and wheel-based mobility while targeting a
+        practical prototype cost.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Autonomous Navigation</h3>
+
+      <p>
+        Localization, camera–LiDAR perception, obstacle
+        detection, and path planning allow the robot to navigate
+        autonomously through parking environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Integrated User Service</h3>
+
+      <p>
+        A mobile application connects user requests,
+        parking-location selection, payment, robot dispatch,
+        charging monitoring, and service completion.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Real-World Demonstration</h3>
+
+      <p>
+        The complete concept was demonstrated using a physical
+        AMR platform in a University of Minnesota campus
+        parking environment.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYSTEM WORKFLOW
+     ========================================================= -->
+
+<section>
+
+  <h2>End-to-End System Workflow</h2>
+
+  <p>
+    WeZON connects the user application, backend service,
+    autonomous robot, navigation system, and mobile charging
+    hardware into a unified service workflow.
+  </p>
+
+
+  <div class="workflow">
+
+    <div class="workflow-step">
+
+      <div class="step-number">1</div>
+
+      <h3>User Request</h3>
+
+      <p>
+        The user selects a parking location and requests
+        EV charging through the mobile application.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Backend Matching</h3>
+
+      <p>
+        The system receives the request and assigns an available
+        mobile charging robot.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">3</div>
+
+      <h3>Robot Dispatch</h3>
+
+      <p>
+        The AMR receives the target parking location and
+        autonomously navigates toward the requested vehicle.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Charging Service</h3>
+
+      <p>
+        The onboard energy-storage system provides charging
+        power while the session is monitored.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">5</div>
+
+      <h3>Completion</h3>
+
+      <p>
+        Charging and payment are completed and the robot
+        becomes available for another service request.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/ev_system.png"
+      alt="WeZON complete operational flow">
+
+    <p class="caption">
+      Complete WeZON service pipeline from user request and
+      backend matching to robot navigation, EV charging,
+      completion, and payment.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HARDWARE
+     ========================================================= -->
+
+<section>
+
+  <h2>Low-Cost Hardware Platform</h2>
+
+  <p>
+    The prototype was designed around commercially available
+    components to support rapid deployment and reduce system
+    cost. The platform combines sensing, onboard computation,
+    mobile energy storage, and a robotic chassis within a
+    compact AMR configuration.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Prototype hardware target:</strong>
+    less than approximately $10K, combining the mobile chassis,
+    LiDAR, RGB camera, onboard computing, power station,
+    brackets, and charging cabling.
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/ev_hardware.png"
+      alt="WeZON hardware components">
+
+    <p class="caption">
+      Core prototype hardware including SICK picoScan150 LiDAR,
+      RGB camera, NVIDIA Jetson Orin AGX, Anker SOLIX F3800
+      power station, Agile-X chassis, and associated charging
+      hardware.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     AUTONOMY
+     ========================================================= -->
+
+<section>
+
+  <h2>Autonomous Navigation and Functional Modules</h2>
+
+  <p>
+    A key focus of WeZON is developing an autonomous navigation
+    stack that can operate reliably in parking facilities using
+    a relatively compact sensing configuration.
+  </p>
+
+  <p>
+    The system combines
+    <strong>camera and 2D LiDAR fusion</strong>
+    for detecting vehicles and surrounding obstacles,
+    localization for maintaining accurate robot position,
+    and map-based path planning for reaching the requested
+    charging location.
+  </p>
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>Camera + LiDAR Fusion</h3>
+
+      <p>
+        Visual object detection is associated with 2D LiDAR
+        measurements to provide semantic and geometric
+        information about surrounding vehicles and obstacles.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Accurate Localization</h3>
+
+      <p>
+        LiDAR-based localization improves robot positioning and
+        helps reduce lateral drift during parking-lot navigation.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Precise Path Planning</h3>
+
+      <p>
+        Occupancy information is used to generate safe,
+        obstacle-aware paths toward the requested charging
+        location.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/ev_functionalmodule.png"
+      alt="WeZON autonomous navigation functional modules">
+
+    <p class="caption">
+      Key autonomous-navigation functions supported by the
+      SICK picoScan LiDAR: camera–LiDAR fusion, localization,
+      and precise path planning.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     USER APP
+     ========================================================= -->
+
+<section>
+
+  <h2>User App and Charging-Service Interaction</h2>
+
+  <p>
+    The mobile application provides the user-facing interface
+    for requesting WeZON charging service. The workflow supports
+    parking-lot selection, charger availability, reservation,
+    authentication, payment, arrival confirmation, robot
+    dispatch, charging-status monitoring, and service
+    completion.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/ev_userapp.png"
+      alt="WeZON user application workflow">
+
+    <p class="caption">
+      App-based charging workflow from parking-lot selection
+      and reservation through payment, robot dispatch,
+      charging progress, and completion.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     USE CASES
+     ========================================================= -->
+
+<section>
+
+  <h2>Potential Deployment Scenarios</h2>
+
+  <p>
+    The same mobile charging concept can support environments
+    where vehicles remain parked for extended periods or where
+    deployment of large numbers of fixed chargers may be
+    difficult or inefficient.
+  </p>
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>University Campuses</h3>
+
+      <p>
+        Mobile charging can serve faculty, staff, students,
+        campus fleets, and shared vehicles without reserving
+        every parking space for fixed chargers.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Airports</h3>
+
+      <p>
+        Long-term parking environments provide an opportunity
+        for charging robots to service parked vehicles during
+        extended dwell times.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Retail and Shopping Centers</h3>
+
+      <p>
+        Mobile charging can expand EV charging availability
+        without requiring extensive conversion of general
+        parking spaces.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Carshare and Fleet Services</h3>
+
+      <p>
+        On-demand mobile energy delivery can support
+        high-utilization shared and fleet vehicles.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/ev_usecases.png"
+      alt="Potential WeZON deployment use cases">
+
+    <p class="caption">
+      Potential deployment scenarios include university campuses,
+      airports, shopping centers, and carshare or fleet services.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DEMONSTRATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Prototype Demonstration</h2>
+
+  <p>
+    The WeZON prototype demonstrates the integration of a
+    deployable autonomous-navigation system with an
+    energy-delivery platform for on-demand EV charging.
+    Testing focuses on robot navigation through parking
+    environments, vehicle perception, localization, path
+    planning, and delivery of the charging service at the
+    requested vehicle location.
+  </p>
+
+  <div class="video">
+
+    <video
+      controls
+      preload="metadata"
+      playsinline>
+
+      <source
+        src="/videos/wezzon.mp4"
+        type="video/mp4">
+
+      Your browser does not support HTML5 video.
+
+    </video>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCES
+     ========================================================= -->
+
+<section>
+
+  <h2>Resources</h2>
+
+  <p>
+    Additional technical documentation, code, and project
+    materials will be added as they become available.
+  </p>
+
+  <!--
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Code</a> |
+    <a href="#">Presentation</a>
+  </p>
+  -->
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    WeZON: Autonomous On-Demand EV Charging as a Service
+  </strong>
+
+  <br>
+
+  University of Minnesota
+
+</footer>
+
 
 </body>
 </html>
