@@ -1,87 +1,1054 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Cartron</title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="CarTron: Autonomous mobile manipulation for task-oriented outdoor robotics, demonstrated through autonomous shopping-cart pushing and pulling in parking environments.">
+
+  <title>
+    CarTron | Autonomous Mobile Manipulation for Cart Management
+  </title>
+
   <style>
-    body{
-      max-width:1200px;
-      margin:auto;
-      font-family:Arial, sans-serif;
-      line-height:1.6;
-      padding:20px;
+
+    /* =========================================================
+       Global
+       ========================================================= */
+
+    * {
+      box-sizing: border-box;
     }
 
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
+    :root {
+      --primary: #9f1111;
+      --secondary: #d8aa22;
+      --dark: #17233c;
+      --text: #222222;
+      --muted: #666666;
+      --light: #f8f9fb;
+      --border: #e3e6eb;
     }
 
-    .hero img{
-      width:100%;
-      max-width:1000px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .video{
-      margin-top:20px;
-      text-align:center;
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: var(--text);
+      background: white;
     }
 
-    video{
-      width:100%;
-      max-width:900px;
+    h1,
+    h2,
+    h3 {
+      color: var(--dark);
     }
+
+    h1 {
+      margin-bottom: 12px;
+
+      font-size: 2.4rem;
+      line-height: 1.22;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #eeeeee;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+
+      margin-top: 15px;
+      margin-bottom: 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 900px;
+
+      margin: 12px auto 18px auto;
+
+      color: var(--muted);
+
+      font-size: 1.08rem;
+    }
+
+    .authors {
+      margin: 16px auto 25px auto;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+
+      margin: 30px auto 0 auto;
+
+      border-radius: 8px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================================
+       Tags
+       ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      color: #7d0e0e;
+      background: #faeeee;
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Figures
+       ========================================================= */
+
+    .figure {
+      margin: 28px auto 45px auto;
+      text-align: center;
+    }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 8px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      max-width: 970px;
+
+      margin: 10px auto 0 auto;
+
+      color: #6b6b6b;
+
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      color: var(--primary);
+    }
+
+
+    /* =========================================================
+       Workflow
+       ========================================================= */
+
+    .workflow {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+
+      gap: 14px;
+
+      margin: 24px 0;
+    }
+
+    .workflow-step {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: white;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
+
+      border-radius: 50%;
+
+      background: var(--primary);
+      color: white;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Highlight
+       ========================================================= */
+
+    .highlight {
+      margin: 28px 0;
+
+      padding: 22px 25px;
+
+      border-left: 5px solid var(--primary);
+      border-radius: 5px;
+
+      background: #fcf5f5;
+    }
+
+
+    /* =========================================================
+       Video
+       ========================================================= */
+
+    .video {
+      margin: 28px auto 45px auto;
+
+      text-align: center;
+    }
+
+    .video video {
+      width: 100%;
+      max-width: 980px;
+      height: auto;
+
+      border-radius: 8px;
+
+      background: black;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 60px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777;
+
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+    }
+
   </style>
 </head>
 
+
 <body>
 
-<div class="hero">
-  <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
 
-  <p>
-    Rushikesh Zende,
-    Vivek Kumar,
-    Lalitaditya Divakarla,
-    Kalyan Sai,
-    <strong>Ajay Kumar</strong>,
-    Zhi-Li Zhang
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    CarTron: Autonomous Mobile Manipulation
+    for Shopping-Cart Management
+  </h1>
+
+  <p class="subtitle">
+    A task-oriented autonomous robotic platform that combines
+    mobile navigation, environmental perception, and robotic-arm
+    manipulation to perform physical tasks in large parking
+    environments, demonstrated through autonomous shopping-cart
+    pushing and pulling.
   </p>
 
-  <img src="../../images/9.png">
-</div>
+  <div class="tags">
 
-<h2>Abstract</h2>
+    <span class="tag">
+      Autonomous Mobile Robot
+    </span>
 
-<p>
-Autonomous robots increasingly rely on teleoperation...
-</p>
+    <span class="tag">
+      Robotic Manipulation
+    </span>
 
-<h2>Framework Overview</h2>
+    <span class="tag">
+      LiDAR + Camera + IMU
+    </span>
 
-<img src="../../images/cartron.png"
-     style="width:100%;">
+    <span class="tag">
+      Outdoor Navigation
+    </span>
 
-<h2>Video Demo</h2>
+    <span class="tag">
+      Task-Oriented Robotics
+    </span>
 
-<div class="video">
-  <video controls>
-    <source src="../../videos/Catron_Project.mp4"
-            type="video/mp4">
-  </video>
-</div>
+    <span class="tag">
+      Cart Push / Pull
+    </span>
 
-<h2>Results</h2>
+  </div>
 
-<img src="../../images/react2_results.png"
-     style="width:100%;">
+  <p class="authors">
+    <strong>Ajay Kumar</strong> and collaborators
+  </p>
 
-<h2>Resources</h2>
+  <img
+    src="/images/cartron_our_approach.png"
+    alt="CarTron autonomous shopping cart management workflow">
 
-<p>
-<a href="#">Paper</a> |
-<a href="#">Code</a> |
-<a href="#">Dataset</a>
-</p>
+</section>
+
+
+
+<!-- =========================================================
+     PROJECT OVERVIEW
+     ========================================================= -->
+
+<section>
+
+  <h2>Project Overview</h2>
+
+  <p>
+    CarTron investigates how an
+    <strong>autonomous mobile robot equipped with a robotic
+    manipulator</strong> can move beyond navigation-only
+    capabilities and perform useful physical tasks in complex
+    outdoor environments.
+  </p>
+
+  <p>
+    The platform integrates autonomous navigation, environmental
+    perception, localization, mapping, obstacle avoidance, and
+    robotic-arm manipulation into a unified mobile-manipulation
+    system. Shopping-cart management was selected as a
+    representative use case because it requires the robot not
+    only to identify and navigate toward a target, but also to
+    physically interact with and transport objects.
+  </p>
+
+  <p>
+    In our demonstration, the robot autonomously navigates through
+    a parking environment, approaches shopping carts, positions
+    itself for manipulation, and uses the onboard robotic arm to
+    <strong>push and pull carts</strong>. The project serves as a
+    practical demonstration of combining autonomous mobility and
+    manipulation for repetitive outdoor service tasks.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOTIVATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Motivation: Automating Repetitive Outdoor Tasks</h2>
+
+  <p>
+    Large retail stores and parking facilities depend on
+    repetitive manual operations such as locating, collecting,
+    and returning shopping carts. These tasks require continuous
+    human labor across large outdoor areas and may become more
+    difficult during periods of high demand or challenging
+    weather conditions.
+  </p>
+
+  <p>
+    CarTron explores whether autonomous robotic systems can
+    complement these operations by combining mobility,
+    environmental awareness, and physical manipulation within
+    the same robotic platform.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/cartron_current_challenges.png"
+      alt="Current retail automation challenges">
+
+    <p class="caption">
+      Large parking facilities and changing workforce demands
+      motivate automation of repetitive outdoor retail operations.
+    </p>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/cartron_current_challenges2.png"
+      alt="Current shopping cart management challenges">
+
+    <p class="caption">
+      Shopping-cart collection remains a labor-intensive activity
+      involving scattered carts, large parking areas, traffic
+      interaction, and changing environmental conditions.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     KEY CONTRIBUTIONS
+     ========================================================= -->
+
+<section>
+
+  <h2>Key Contributions</h2>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Mobile Manipulation</h3>
+
+      <p>
+        Integration of an autonomous mobile base and robotic
+        manipulator enables the platform to navigate to a target
+        and physically interact with it.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Autonomous Navigation</h3>
+
+      <p>
+        LiDAR, camera, and IMU sensing support localization,
+        mapping, obstacle avoidance, and navigation through
+        parking environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Object Localization</h3>
+
+      <p>
+        Environmental perception is used to identify and
+        spatially localize shopping carts before navigation
+        and manipulation.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Cart Push and Pull</h3>
+
+      <p>
+        The robotic arm is used to establish physical interaction
+        with carts and demonstrate both pushing and pulling
+        operations.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Task-Level Autonomy</h3>
+
+      <p>
+        Navigation and manipulation are coordinated as part of
+        an end-to-end workflow rather than treated as independent
+        robotic functions.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     WORKFLOW
+     ========================================================= -->
+
+<section>
+
+  <h2>Autonomous Cart-Management Workflow</h2>
+
+  <p>
+    The CarTron concept connects store-level monitoring with
+    autonomous navigation and physical manipulation through a
+    multi-stage operational workflow.
+  </p>
+
+
+  <div class="workflow">
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">1</div>
+
+      <h3>Monitor</h3>
+
+      <p>
+        Detect a cart shortage or identify the need for cart
+        collection within the parking environment.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Trigger</h3>
+
+      <p>
+        Generate a deployment request and activate the robotic
+        collection task.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">3</div>
+
+      <h3>Locate</h3>
+
+      <p>
+        Perception sensors identify and spatially localize
+        shopping carts distributed across the parking area.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Navigate</h3>
+
+      <p>
+        The AMR autonomously travels toward the selected cart
+        while avoiding cars, pedestrians, and static obstacles.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">5</div>
+
+      <h3>Manipulate</h3>
+
+      <p>
+        The robot positions its manipulator and interacts with
+        the cart for pushing, pulling, or collection.
+      </p>
+
+    </div>
+
+
+    <div class="workflow-step">
+
+      <div class="step-number">6</div>
+
+      <h3>Return</h3>
+
+      <p>
+        The cart is transported toward a designated collection
+        or store-entry location.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/cartron_our_approach.png"
+      alt="CarTron proposed shopping cart automation workflow">
+
+    <p class="caption">
+      Proposed workflow from monitoring and cart localization
+      to robot deployment, autonomous navigation, cart
+      manipulation, and return.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYSTEM ARCHITECTURE
+     ========================================================= -->
+
+<section>
+
+  <h2>System Architecture</h2>
+
+  <p>
+    CarTron is organized as a modular robotic system combining
+    perception, navigation, manipulation, and task-level
+    decision making.
+  </p>
+
+  <p>
+    The onboard sensing configuration includes
+    <strong>LiDAR, cameras, and IMU measurements</strong>.
+    These sensors provide environmental information for
+    cart detection, localization, mapping, and obstacle-aware
+    navigation. A robotic manipulator mounted on the mobile
+    platform provides the physical interaction capability
+    required for cart handling.
+  </p>
+
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>Detection & Trigger</h3>
+
+      <p>
+        External monitoring or store-level sensing can identify
+        cart demand and trigger the robotic task.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Environment Perception</h3>
+
+      <p>
+        LiDAR and camera sensing are used to perceive the
+        parking environment and identify target carts.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Mapping & Planning</h3>
+
+      <p>
+        Environmental maps and obstacle information are used
+        to plan paths toward target carts while avoiding
+        dynamic and static obstacles.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Autonomous Navigation</h3>
+
+      <p>
+        The mobile robot executes the planned trajectory and
+        continuously reacts to vehicles, pedestrians, and other
+        environmental changes.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Cart Manipulation</h3>
+
+      <p>
+        The robotic arm aligns with and physically engages the
+        shopping cart for pushing and pulling operations.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Return & Redeployment</h3>
+
+      <p>
+        After task completion, the system can return the cart
+        to a designated location and prepare for the next task.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/cartron_system.png"
+      alt="CarTron overall autonomous mobile manipulation system architecture">
+
+    <p class="caption">
+      Overall system architecture integrating task triggering,
+      environment perception, mapping and planning, autonomous
+      navigation, cart manipulation, and return/deployment.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOBILE MANIPULATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Autonomous Navigation + Robotic Manipulation</h2>
+
+  <p>
+    The primary research emphasis of CarTron is the integration
+    of <strong>autonomous mobility with physical manipulation</strong>.
+    Navigation alone allows a robot to reach a target location;
+    however, many useful service tasks require the robot to
+    interact with objects after arriving.
+  </p>
+
+  <p>
+    For the shopping-cart demonstration, the mobile platform
+    first approaches the target cart and establishes a suitable
+    relative position. The manipulator is then used to interact
+    with the cart, enabling the robot to demonstrate both
+    <strong>cart pushing and cart pulling</strong>.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Demonstrated capability:</strong>
+    autonomous navigation to a target cart followed by
+    manipulator-based physical interaction for pushing and
+    pulling the cart within a parking environment.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HUMAN SUPERVISION / CONNECTIVITY
+     ========================================================= -->
+
+<section>
+
+  <h2>Connected and Human-Supervised Operation</h2>
+
+  <p>
+    The overall architecture can also support networked
+    operation through Wi-Fi or cellular connectivity.
+    For situations where fully autonomous execution may be
+    difficult, a teleoperation or human-supervision capability
+    can provide an additional fallback mechanism.
+  </p>
+
+  <p>
+    This combination of autonomous execution and human support
+    is particularly useful for edge cases such as blocked
+    pathways, unusual cart configurations, unexpected traffic,
+    or manipulation conditions outside the robot's normal
+    operating envelope.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     BROADER RESEARCH
+     ========================================================= -->
+
+<section>
+
+  <h2>Beyond Shopping-Cart Collection</h2>
+
+  <p>
+    Shopping-cart management serves as a representative
+    demonstration of a broader research direction:
+    <strong>task-oriented autonomous mobile manipulation</strong>.
+    The same underlying architecture can be adapted to other
+    applications where robots must autonomously navigate to a
+    location and physically interact with objects.
+  </p>
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>Retail Automation</h3>
+
+      <p>
+        Outdoor material movement, inventory-support operations,
+        and repetitive service tasks.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Industrial Logistics</h3>
+
+      <p>
+        Movement and manipulation of carts, bins, containers,
+        and other mobile assets.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Campus & Facility Robotics</h3>
+
+      <p>
+        Autonomous robots that combine navigation with object
+        transport and physical assistance.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Human-Supervised Robotics</h3>
+
+      <p>
+        Autonomous task execution with remote human assistance
+        for challenging or previously unseen situations.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     VIDEO
+     ========================================================= -->
+
+<section>
+
+  <h2>Robot Demonstration</h2>
+
+  <p>
+    The demonstration shows the integrated mobile-manipulation
+    platform navigating in a parking environment and using the
+    robotic arm to interact with shopping carts.
+  </p>
+
+  <div class="video">
+
+    <video
+      controls
+      preload="metadata"
+      playsinline>
+
+      <source
+        src="/videos/cartron.mp4"
+        type="video/mp4">
+
+      Your browser does not support HTML5 video.
+
+    </video>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCES
+     ========================================================= -->
+
+<section>
+
+  <h2>Resources</h2>
+
+  <p>
+    Additional technical documentation, code, and demonstration
+    materials will be added as they become available.
+  </p>
+
+  <!--
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Code</a> |
+    <a href="#">Dataset</a>
+  </p>
+  -->
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    CarTron: Autonomous Mobile Manipulation
+    for Shopping-Cart Management
+  </strong>
+
+  <br>
+
+  University of Minnesota
+
+</footer>
+
 
 </body>
 </html>
