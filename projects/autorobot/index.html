@@ -3,107 +3,831 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>AMR: Behaviour model for Indoor Navigation</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="Behavior-Driven Motion Modeling for Intelligent Autonomous Navigation using LiDAR, camera perception, semantic reasoning, occupancy mapping, and risk-aware path planning.">
+
+  <title>
+    Behavior-Driven Motion Modeling for Intelligent Autonomous Navigation
+  </title>
 
   <style>
+
+    /* =========================================================
+       General Page
+       ========================================================= */
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       max-width: 1200px;
       margin: auto;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      padding: 20px;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: #222;
+      background: #ffffff;
     }
+
+    h1,
+    h2,
+    h3 {
+      color: #17233c;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      margin-top: 50px;
+      margin-bottom: 18px;
+
+      padding-bottom: 7px;
+      border-bottom: 2px solid #eeeeee;
+    }
+
+    h3 {
+      margin-top: 22px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: #1769aa;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
 
     .hero {
       text-align: center;
+      margin-top: 15px;
       margin-bottom: 40px;
+    }
+
+    .hero .subtitle {
+      max-width: 850px;
+      margin: 12px auto 18px auto;
+      color: #555;
+      font-size: 1.05rem;
+    }
+
+    .authors {
+      margin: 18px auto 28px auto;
+      font-size: 1.02rem;
     }
 
     .hero img {
       width: 100%;
-      max-width: 1000px;
+      max-width: 1100px;
       height: auto;
+
+      display: block;
+      margin: 30px auto 0 auto;
+
+      border-radius: 8px;
     }
 
-    .framework-image,
-    .results-image {
-      width: 100%;
-      height: auto;
+
+    /* =========================================================
+       Figure
+       ========================================================= */
+
+    .figure {
+      margin: 30px auto 42px auto;
+      text-align: center;
     }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 8px;
+
+      box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .figure-caption {
+      max-width: 980px;
+      margin: 10px auto 0 auto;
+
+      color: #666;
+      font-size: 0.93rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Highlights
+       ========================================================= */
+
+    .highlights {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(230px, 1fr));
+
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .highlight-card {
+      padding: 18px 20px;
+
+      border: 1px solid #e4e8ee;
+      border-radius: 9px;
+
+      background: #fafbfc;
+    }
+
+    .highlight-card h3 {
+      margin-top: 0;
+      font-size: 1.05rem;
+    }
+
+
+    /* =========================================================
+       Technical pipeline
+       ========================================================= */
+
+    .pipeline {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .pipeline-card {
+      padding: 18px;
+
+      border-radius: 8px;
+      border: 1px solid #e1e5ea;
+
+      background: #ffffff;
+    }
+
+    .pipeline-card h3 {
+      margin-top: 0;
+    }
+
+
+    /* =========================================================
+       Video
+       ========================================================= */
 
     .video {
-      margin-top: 20px;
       text-align: center;
+      margin: 25px auto 45px auto;
     }
 
     .video video {
       width: 100%;
-      max-width: 900px;
+      max-width: 950px;
       height: auto;
+
+      border-radius: 8px;
+
+      background: #000;
+      box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.12);
     }
+
+
+    /* =========================================================
+       Resources
+       ========================================================= */
+
+    .resources {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      margin-top: 18px;
+      margin-bottom: 45px;
+    }
+
+    .resource-button {
+      display: inline-block;
+
+      padding: 9px 17px;
+
+      border: 1px solid #1769aa;
+      border-radius: 6px;
+
+      color: #1769aa;
+      background: white;
+
+      font-weight: 500;
+    }
+
+    .resource-button:hover {
+      color: white;
+      background: #1769aa;
+
+      text-decoration: none;
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      border-top: 1px solid #e7e7e7;
+
+      margin-top: 55px;
+      padding-top: 20px;
+      padding-bottom: 25px;
+
+      text-align: center;
+
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      .hero {
+        margin-bottom: 25px;
+      }
+
+      .figure {
+        margin-bottom: 30px;
+      }
+    }
+
   </style>
 </head>
 
+
 <body>
 
-  <div class="hero">
-    <h1>AMR: Behaviour model for Indoor Navigation</h1>
 
-    <p>
-      <strong>Ajay Kumar</strong>,
-      Tejas Chavan,
-      Rushikesh Zende,
-      Kalyan Sai,
-      Zhi-Li Zhang
-    </p>
+<!-- =========================================================
+     Hero
+     ========================================================= -->
 
-    <img src="/images/7.png"
-         alt="Behavioural Motion Modelling">
-  </div>
+<section class="hero">
 
+  <h1>
+    Behavior-Driven Motion Modeling for
+    Intelligent Autonomous Navigation
+  </h1>
+
+  <p class="subtitle">
+    Semantic-aware perception and risk-aware motion planning
+    for autonomous mobile robots operating in human-shared
+    indoor environments.
+  </p>
+
+  <p class="authors">
+    <strong>Ajay Kumar</strong>,
+    Tejas Chavan,
+    Rushikesh Zende,
+    Kalyan Sai,
+    Zhi-Li Zhang
+  </p>
+
+  <img
+    src="/images/amr_system_overview.png"
+    alt="System overview of behavior-driven autonomous robot navigation">
+</section>
+
+
+
+<!-- =========================================================
+     Abstract
+     ========================================================= -->
+
+<section>
 
   <h2>Abstract</h2>
 
   <p>
-    This work presents a behavior-driven motion modeling framework for autonomous indoor robot navigation in environments shared with pedestrians and static obstacles. Using onboard camera and LiDAR sensing, the robot distinguishes between human and non-human obstacles and adapts its motion profile accordingly to support safer and more context-aware navigation. The proposed system combines visual scene understanding with occupancy-map-based path planning to generate precise local trajectories while accounting for obstacle type and spatial constraints. Experiments were conducted on a fully autonomous mobile robot equipped with LiDAR and camera sensors across a range of challenging indoor scenarios, including narrow passages, static obstructions, and pedestrian-shared spaces. The results demonstrate the feasibility of integrating behavior-aware perception with geometric planning to enable smoother and more adaptive robot motion in dynamic indoor environments.
+    This work presents a behavior-driven motion modeling framework
+    for autonomous indoor robot navigation in environments shared
+    with pedestrians and static obstacles. Using onboard LiDAR and
+    camera sensing, the robot distinguishes between human and
+    non-human obstacles and adapts its motion profile accordingly
+    to support safer and more context-aware navigation.
   </p>
 
+  <p>
+    The system integrates LiDAR map-matching and wheel odometry
+    for localization, camera-based perception and LiDAR-camera
+    fusion for environmental understanding, and semantic grounding
+    to associate detected objects with navigation risk. An
+    occupancy-map-based DSP planner then generates collision-free
+    trajectories and adjusts the robot's speed according to object
+    type and environmental constraints.
+  </p>
 
-  <h2>Framework Overview</h2>
+  <p>
+    Experiments were conducted using a fully autonomous mobile robot
+    equipped with LiDAR, RGB cameras, IMU sensors, and onboard
+    NVIDIA Jetson Orin computing. The system was evaluated across
+    pedestrian-shared corridors, narrow passages, static obstacles,
+    and dynamic interaction scenarios, demonstrating adaptive and
+    smooth autonomous navigation in challenging indoor environments.
+  </p>
 
-  <img
-    class="framework-image"
-    src="/images/7.png"
-    alt="ReACT2 framework">
+</section>
 
 
-  <h2>Video Demo</h2>
 
-  <div class="video">
-    <video controls preload="metadata" playsinline>
-      <source src="/videos/Auto_robot.mp4"
-              type="video/mp4">
-    </video>
+<!-- =========================================================
+     Contributions
+     ========================================================= -->
+
+<section>
+
+  <h2>Key Contributions</h2>
+
+  <div class="highlights">
+
+    <div class="highlight-card">
+
+      <h3>Multimodal Localization</h3>
+
+      <p>
+        LiDAR map matching combined with wheel odometry enables
+        robust indoor localization in GPS-denied environments.
+      </p>
+
+    </div>
+
+
+    <div class="highlight-card">
+
+      <h3>Semantic Perception</h3>
+
+      <p>
+        Camera perception and LiDAR-camera association distinguish
+        pedestrians, static obstacles, furniture, and other objects.
+      </p>
+
+    </div>
+
+
+    <div class="highlight-card">
+
+      <h3>Risk-Aware Planning</h3>
+
+      <p>
+        Semantic object information is converted into occupancy
+        weights and navigation risk scores for trajectory planning.
+      </p>
+
+    </div>
+
+
+    <div class="highlight-card">
+
+      <h3>Adaptive Robot Motion</h3>
+
+      <p>
+        The robot adapts trajectory, linear velocity, and angular
+        velocity according to pedestrians and environmental
+        constraints.
+      </p>
+
+    </div>
+
   </div>
 
+</section>
 
-  <h2>Results</h2>
 
-  <img
-    class="results-image"
-    src="/images/7.png"
-    alt="Experimental results">
 
+<!-- =========================================================
+     Hardware
+     ========================================================= -->
+
+<section>
+
+  <h2>Autonomous Mobile Robot Platform</h2>
+
+  <p>
+    The experimental platform is equipped with a 16-channel LiDAR,
+    multiple RGB cameras, an IMU, wheel encoders, and an NVIDIA
+    Jetson Orin for onboard perception, planning, and control.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/amr_hardware.png"
+      alt="Autonomous mobile robot hardware platform">
+
+    <p class="figure-caption">
+      AMR experimental platform integrating LiDAR, RGB cameras,
+      IMU, wheel odometry, onboard display, and NVIDIA Jetson Orin
+      computing.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Architecture
+     ========================================================= -->
+
+<section>
+
+  <h2>System Architecture</h2>
+
+  <div class="pipeline">
+
+    <div class="pipeline-card">
+
+      <h3>1. Localization</h3>
+
+      <p>
+        LiDAR map matching is combined with wheel odometry to
+        estimate the robot pose and motion continuously.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-card">
+
+      <h3>2. Perception</h3>
+
+      <p>
+        RGB cameras support real-time object detection and semantic
+        scene understanding.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-card">
+
+      <h3>3. Sensor Fusion</h3>
+
+      <p>
+        Camera detections are associated with LiDAR measurements to
+        obtain spatially grounded object information.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-card">
+
+      <h3>4. Planning</h3>
+
+      <p>
+        Semantic information and occupancy risk are incorporated
+        into the DSP planner to generate safe robot trajectories.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Autonomous navigation
+     ========================================================= -->
+
+<section>
+
+  <h2>Autonomous Navigation in Shared Indoor Environments</h2>
+
+  <p>
+    The robot was evaluated in representative indoor navigation
+    scenarios involving pedestrians, narrow passages, and static
+    obstacles. The navigation system dynamically modifies the
+    trajectory and motion profile according to the surrounding
+    environment.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/amr_autonomous_navigation.png"
+      alt="Autonomous robot navigation scenarios">
+
+    <p class="figure-caption">
+      Representative navigation scenarios including pedestrian
+      following, pedestrian passing, narrow passages, and static
+      obstacle avoidance.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Perception
+     ========================================================= -->
+
+<section>
+
+  <h2>Perception Pipeline</h2>
+
+  <p>
+    The perception module combines RGB imagery and LiDAR point
+    clouds to detect objects, assign semantic information, and
+    associate visual observations with 3D spatial measurements.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/amr_perception_pipeline.png"
+      alt="AMR perception pipeline">
+
+    <p class="figure-caption">
+      Multimodal perception pipeline combining RGB imagery,
+      real-time object detection, semantic grounding, LiDAR
+      measurements, and fused spatial perception.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Sensor fusion
+     ========================================================= -->
+
+<section>
+
+  <h2>LiDAR-Camera Sensor Fusion</h2>
+
+  <p>
+    Camera-based detections provide semantic object information,
+    while the LiDAR point cloud provides accurate spatial
+    measurements. Their association allows the navigation system
+    to determine both what an obstacle is and where it is located.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/amr_sensor_fusion.png"
+      alt="LiDAR camera sensor fusion">
+
+    <p class="figure-caption">
+      Association of 2D camera detections with 3D LiDAR observations
+      for spatially grounded obstacle perception.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Semantic awareness
+     ========================================================= -->
+
+<section>
+
+  <h2>Semantic Awareness</h2>
+
+  <p>
+    Real-time object detection identifies navigation-relevant
+    entities, while semantic grounding provides additional
+    contextual understanding of the surrounding indoor scene.
+    This allows pedestrians and environmental obstacles to be
+    treated differently during planning.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/amr_semantic_awareness.png"
+      alt="Semantic awareness for autonomous navigation">
+
+    <p class="figure-caption">
+      Semantic perception pipeline using object detection and
+      scene-level semantic understanding to differentiate humans,
+      furniture, structural elements, and other objects.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Risk-aware planning
+     ========================================================= -->
+
+<section>
+
+  <h2>Risk-Aware Occupancy Planning</h2>
+
+  <p>
+    The 3D occupancy representation is augmented with semantic risk
+    information. Higher navigation penalties are assigned to
+    safety-critical regions, particularly those associated with
+    pedestrians and dynamic obstacles.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/amr_risk_aware_planning.png"
+      alt="Risk-aware occupancy map and DSP planner">
+
+    <p class="figure-caption">
+      Occupancy-map generation, semantic risk-score assignment,
+      and DSP-based trajectory generation.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Occupancy weight / motion profile
+     ========================================================= -->
+
+<section>
+
+  <h2>Behavior-Driven Motion Profile</h2>
+
+  <p>
+    Object-dependent occupancy weights influence both path
+    selection and robot motion. Pedestrians receive higher
+    navigation risk than static environmental structures,
+    encouraging greater clearance and reduced speed during
+    human-robot interaction.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/amr_occupancy_risk_model.png"
+      alt="Occupancy risk model and robot speed profile">
+
+    <p class="figure-caption">
+      Example semantic risk weighting and resulting changes to
+      planned trajectory, linear velocity, and angular velocity.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Video
+     ========================================================= -->
+
+<section>
+
+  <h2>Video Demonstration</h2>
+
+  <p>
+    The following demonstration shows autonomous navigation and
+    interaction with pedestrians and obstacles in indoor shared
+    environments.
+  </p>
+
+  <div class="video">
+
+    <video
+      controls
+      preload="metadata"
+      playsinline>
+
+      <source
+        src="/videos/Auto_robot.mp4"
+        type="video/mp4">
+
+      Your browser does not support HTML5 video.
+
+    </video>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Resources
+     ========================================================= -->
+
+<section>
 
   <h2>Resources</h2>
 
-  <p>
-    <!-- <a href="#">Paper</a> | -->
-    <!-- <a href="#">Code</a> | -->
-    <!-- <a href="#">Dataset</a> -->
-  </p>
+  <div class="resources">
+
+    <!-- Enable when links become available -->
+
+    <!--
+    <a class="resource-button"
+       href="#"
+       target="_blank">
+       Paper
+    </a>
+
+    <a class="resource-button"
+       href="#"
+       target="_blank">
+       Code
+    </a>
+
+    <a class="resource-button"
+       href="#"
+       target="_blank">
+       Dataset
+    </a>
+    -->
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     Footer
+     ========================================================= -->
+
+<footer>
+
+  Behavior-Driven Motion Modeling for Intelligent Autonomous Navigation
+  <br>
+
+  University of Minnesota
+
+</footer>
+
 
 </body>
 </html>
