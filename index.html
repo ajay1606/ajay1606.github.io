@@ -181,17 +181,19 @@
         </p>
 
         <p id="about">
-          I am currently a Research Associate in the Department of Computer Science &amp; Engineering at the University of Minnesota, working on autonomous systems, teleoperation, and network-aware intelligent robotics. Previously, I served as a Postdoctoral Research Fellow at DGIST (South Korea), where I worked on Level-4 autonomous driving, including localization, 3D mapping, sensor calibration, and perception systems.
+          I am currently a Research scientist at Department of Computer Science &amp; Engineering at the University of Minnesota, working on autonomous systems, teleoperation, and network-aware intelligent robotics. Previously, I served as a Postdoctoral Research Fellow at Missouri S&T, DGIST (South Korea), where I worked on Level-4 autonomous driving, including localization, 3D mapping, sensor calibration, and perception systems.
         </p>
         <p>
-          My research lies at the intersection of robotics, mobility, and artificial intelligence, with a strong focus on real-world deployment challenges. I develop algorithms and system-level solutions that enable intelligent agents to perceive complex environments, collaborate with humans, and operate reliably under communication and sensing constraints. My research interests include multimodal perception, remote driving, AV-edge collaborative intelligence, vision-language reasoning, and communication-aware autonomy. I have contributed to multiple research projects spanning autonomous driving, V2X-enabled safety, and human-in-the-loop systems, with applications in transportation, robotics, and intelligent infrastructure.
-        </p>
+          My research focuses on \textbf{Physical AI for autonomous and robotic systems}, with an emphasis on enabling intelligent agents to perceive, reason, communicate, and act reliably in complex real-world environments. I develop algorithms and system-level solutions spanning \textbf{multimodal perception and reasoning, Vision-Language-Action models, cross-embodiment learning, human--AI collaborative autonomy, remote driving, and edge-connected robotic intelligence}. My work also explores C-V2X/5G-enabled autonomy, communication-aware decision making, and long-tail scenarios, with applications across autonomous vehicles, mobile robots, human-supervised systems, and intelligent cyber-physical infrastructure.
+       </p>
       </div>
     </section>
 
     <section id="news">
       <h2>News</h2>
       <ul>
+        <li><strong>2026.07:</strong> NSF Breaking Low: Remote Driving Demonstration at Utah</li>
+        <li><strong>2026.06:</strong> CVPR Best Runner UP Award for Workshop Paper(MEIS), Denver, Colorado</li>
         <li><strong>2026.05:</strong> MVP Challenge 2026 People Choice Award for Project CARTRON, Univeristy of Minnesota.</li>
         <li><strong>2026.05:</strong> 3rd Place Winner of SICK10K US-Wide Robotic Competetion.</li>
         <li><strong>2026.04:</strong> Ongoing work on teleoperation, adaptive streaming, and VLM-driven reasoning for human intervention in autonomous systems.</li>
@@ -212,8 +214,8 @@
         <img class="highlight-thumb" src="images/9.png" alt="reactive" />
         <div>
           <div class="pub-title">VLM Reasoning for Remote Driving Escalation</div>
-          <div class="pub-authors">Rushikesh Zende, Vivek Kumar and Lalitaditya Divakarla, Kalyan Sai, <strong>Ajay Kumar</strong> and Zhi-Li Zhang</div>
-          <div class="pub-venue">(Under review)</div>
+          <!-- <div class="pub-authors">Rushikesh Zende, <strong>Ajay Kumar</strong> and Zhi-Li Zhang</div> -->
+          <!-- <div class="pub-venue">(Under review)</div> -->
           <div class="pub-summary">Autonomous robots increasingly rely on teleoperation for safe intervention in complex environments, but existing systems depend on heuristic triggers and lack semantic awareness especially in multi-robot settings. We propose a vision-language reasoning–driven framework that enables context-aware assistance requests using a VLM aligned with Direct Preference Optimization (DPO). Experiments across diverse scenarios show improved intervention efficiency, reduced operator workload, and enhanced safety, offering a scalable solution for human-in-the-loop autonomy.</div>
           <div class="pub-links">
           <!--  <a href="#">Paper</a>
@@ -227,7 +229,7 @@
         <img class="highlight-thumb" src="images/6.png" alt="remote" />
         <div>
           <div class="pub-title">Remote Driving as a Transitional Path to Autonomous Mobility Deployments</div>
-          <div class="pub-authors"><strong>Ajay Kumar</strong> and and Rushikesh Zende, Vivek Kumar and Lalitaditya Divakarla, Kalyan Sai, Dipan Kumar</div>
+          <!-- <div class="pub-authors"><strong>Ajay Kumar</strong> and Rushikesh Zende, and Zhi-Li Zhang</div> -->
           <div class="pub-venue">Add journal / conference, year</div>
           <div class="pub-summary"> This project explores remote driving and human-in-the-loop CAV technologies as a scalable solution to improve mobility, safety, and accessibility in rural areas. It proposes a hybrid autonomy framework combining onboard automation with low-latency remote supervision using adaptive streaming over heterogeneous networks. Through system design, network evaluation, and human-centered studies, the work demonstrates how remote driving can enhance accessibility especially for elderly and mobility-impaired populations and enable practical deployment of autonomous mobility services in underserved rural regions.</div>
           <div class="pub-links">
@@ -411,7 +413,7 @@ With EV adoption rising and charging infrastructure lagging especially in cold r
           <div class="pub-summary">In this paper, we propose SHARDED, a collaborative camera–LiDAR perception framework that deploys a feature-level fusion pipeline across the vehicle and edge to reduce uplink traffic while preserving 3D detection and depth estimation accuracy. 
             We further design two complementary mechanisms for SHARDED: (i) A network-aware adaptive feature transmission mechanism that reduces data traffic by 50% on average (peaking at over 95%) compared to raw sensor data, and (ii) a latency-aware positional drift compensation mechanism to mitigate cross-modal misalignment induced by unstable network conditions. Evaluations on the nuScenes dataset and real-world 5G measurement traces show that SHARDED achieves competitive perception quality while reducing uplink bandwidth consumption and end-to-end latency.</div>
           <div class="pub-links">
-            <a href="#">Paper</a>
+            <a href="https://arxiv.org/abs/2609.25304">Paper</a>
           </div>
         </div>
       </div>
@@ -425,7 +427,7 @@ With EV adoption rising and charging infrastructure lagging especially in cold r
           <div class="pub-summary"> In this paper, we conduct a measurement-driven feasibility study of using Vehicle-to-Network (V2N) connectivity to support rural situational-awareness alerts. Using field traces across diverse rural intersection geometries, we quantify end-to-end latency distributions and show that rural connectivity is strongly shaped by local topology and environment, producing repeatable pockets of long-tailed delay that erode safety margin at rural speeds. We translate these latency distributions into safety-relevant metrics, showing that a latency-ignorant warning can be delivered tens of meters away from the intended conflict point, whereas a simple latency-aware compensation policy
 that predicts motion-to-alert-arrival time keeps warning error tightly bounded and restores much of the intended safety envelope. </div>
           <div class="pub-links">
-            <a href="#">Paper</a>
+            <a href="#">Preprint</a>
           </div>
         </div>
       </div>
@@ -439,8 +441,8 @@ that predicts motion-to-alert-arrival time keeps warning error tightly bounded a
           <div class="pub-summary">We present a vision-language reasoning framework for proactive teleoperation escalation that enables autonomous vehicles to request assistance based on semantic scene understanding rather than numerical confidence alone. Our approach formulates escalation as a three-level triage task AUTONOMY, SUPERVISION, and TELEOPERATION and trains a vision-language model using Safety-Aware Direct Preference Optimization (SA-DPO), an asymmetric preference-alignment objective designed to penalize safety-
 critical under-escalation errors under severe class imbalance. To support this task, we construct a preference dataset from nuScenes using teacher-generated reasoning traces and human-verified triage annotations.</div>
           <div class="pub-links">
-            <a href="#">Project</a>
-             <a href="#">Paper</a>
+            <a href="https://www.youtube.com/watch?v=jFFOqV0wqrQ">Project</a>
+            <a href="https://openreview.net/forum?id=Vg04Vi6MzW">Paper</a>
           </div>
         </div>
       </div>
@@ -454,8 +456,8 @@ critical under-escalation errors under severe class imbalance. To support this t
           <div class="pub-summary"> In this work we propose a multi-agent video prediction framework that combines continuous edge-side video prediction with lightweight mask-guided conditional frame reconditioning. The framework consists of three role-specialized agents: a continuous prediction agent for low-
 latency visual continuity, a vehicle-side trigger agent for detecting newly appeared objects, and a conditional reconditioning agent that repairs the predictor conditioning state using sparse mask guidance. This design enables semantic recovery of exogenous scene changes without requiring full frame retransmission. </div>
           <div class="pub-links">
-            <a href="#">Project</a>
-             <a href="#">Paper</a>
+            <!-- <a href="#">Project</a> -->
+             <a href="https://arxiv.org/html/2609.25302v1">Paper</a>
           </div>
         </div>
       </div>
