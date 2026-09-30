@@ -1,87 +1,1219 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>ReACT2</title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="SICK-MINE-GUARD: Autonomous mobile robotic platform for mining inspection, 3D mapping, safety monitoring, mesh-networked sensing, and data-driven underground mine operations.">
+
+  <title>
+    SICK-MINE-GUARD | Autonomous Robotics for Smart Mining
+  </title>
+
   <style>
-    body{
-      max-width:1200px;
-      margin:auto;
-      font-family:Arial, sans-serif;
-      line-height:1.6;
-      padding:20px;
+
+    /* =========================================================
+       Global
+       ========================================================= */
+
+    * {
+      box-sizing: border-box;
     }
 
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
+    :root {
+      --primary: #0d5f82;
+      --secondary: #ef7622;
+      --green: #217a2d;
+      --dark: #17233c;
+      --text: #242424;
+      --muted: #666666;
+      --light: #f7f9fb;
+      --border: #e1e6eb;
     }
 
-    .hero img{
-      width:100%;
-      max-width:1000px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .video{
-      margin-top:20px;
-      text-align:center;
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: var(--text);
+      background: #ffffff;
     }
 
-    video{
-      width:100%;
-      max-width:900px;
+    h1,
+    h2,
+    h3 {
+      color: var(--dark);
     }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 2.45rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+
+      margin-top: 15px;
+      margin-bottom: 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 900px;
+
+      margin: 12px auto 18px;
+
+      color: var(--muted);
+
+      font-size: 1.08rem;
+    }
+
+    .authors {
+      margin: 16px auto 25px;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+
+      margin: 30px auto 0;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================================
+       Tags
+       ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      background: #edf6f9;
+      color: var(--primary);
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Figures
+       ========================================================= */
+
+    .figure {
+      margin: 28px auto 45px;
+      text-align: center;
+    }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      max-width: 970px;
+
+      margin: 10px auto 0;
+
+      color: #6b6b6b;
+
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      color: var(--primary);
+    }
+
+
+    /* =========================================================
+       Pipeline
+       ========================================================= */
+
+    .pipeline {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .pipeline-step {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: white;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
+
+      border-radius: 50%;
+
+      background: var(--primary);
+      color: white;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Highlight
+       ========================================================= */
+
+    .highlight {
+      margin: 28px 0;
+
+      padding: 22px 25px;
+
+      border-left: 5px solid var(--secondary);
+      border-radius: 5px;
+
+      background: #fff7f0;
+    }
+
+
+    /* =========================================================
+       Value cards
+       ========================================================= */
+
+    .value-card {
+      padding: 20px;
+
+      border-radius: 9px;
+
+      border: 1px solid var(--border);
+
+      background: #ffffff;
+    }
+
+    .value-card h3 {
+      color: var(--green);
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 60px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777;
+
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      .hero {
+        margin-bottom: 30px;
+      }
+
+    }
+
   </style>
 </head>
 
+
 <body>
 
-<div class="hero">
-  <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
 
-  <p>
-    Rushikesh Zende,
-    Vivek Kumar,
-    Lalitaditya Divakarla,
-    Kalyan Sai,
-    <strong>Ajay Kumar</strong>,
-    Zhi-Li Zhang
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    SICK-MINE-GUARD:
+    Autonomous Robotics for Smart Mining
+  </h1>
+
+  <p class="subtitle">
+    A field-deployable autonomous robotic platform for
+    3D mine mapping, safety monitoring, environmental
+    data collection, and intelligent decision support
+    in challenging mining environments.
   </p>
 
-  <img src="../../images/9.png">
-</div>
+  <div class="tags">
 
-<h2>Abstract</h2>
+    <span class="tag">
+      Autonomous Mobile Robot
+    </span>
 
-<p>
-Autonomous robots increasingly rely on teleoperation...
-</p>
+    <span class="tag">
+      3D LiDAR Mapping
+    </span>
 
-<h2>Framework Overview</h2>
+    <span class="tag">
+      Mining Safety
+    </span>
 
-<img src="../../images/react2_framework.png"
-     style="width:100%;">
+    <span class="tag">
+      Mesh Networking
+    </span>
 
-<h2>Video Demo</h2>
+    <span class="tag">
+      SICK AppSpace
+    </span>
 
-<div class="video">
-  <video controls>
-    <source src="../../videos/react2_demo.mp4"
-            type="video/mp4">
-  </video>
-</div>
+    <span class="tag">
+      Field Robotics
+    </span>
 
-<h2>Results</h2>
+    <span class="tag">
+      Smart Mining
+    </span>
 
-<img src="../../images/react2_results.png"
-     style="width:100%;">
+  </div>
 
-<h2>Resources</h2>
+  <p class="authors">
+    <strong>Ajay Kumar</strong> and collaborators
+  </p>
 
-<p>
-<a href="#">Paper</a> |
-<a href="#">Code</a> |
-<a href="#">Dataset</a>
-</p>
+  <img
+    src="/images/sick_mine_robot.png"
+    alt="SICK-MINE-GUARD autonomous mining robot deployed in a quarry">
+
+</section>
+
+
+
+<!-- =========================================================
+     PROJECT OVERVIEW
+     ========================================================= -->
+
+<section>
+
+  <h2>Project Overview</h2>
+
+  <p>
+    <strong>SICK-MINE-GUARD</strong> is an autonomous robotic
+    platform designed to support safer and more intelligent mining
+    operations through autonomous navigation, 3D environmental
+    mapping, distributed sensing, and real-time data collection.
+  </p>
+
+  <p>
+    The project focuses on deploying robotic systems in
+    challenging mining environments where conventional inspection,
+    mapping, and monitoring activities can be labor-intensive,
+    time-consuming, and potentially hazardous for human workers.
+  </p>
+
+  <p>
+    The robotic platform integrates LiDAR-based perception,
+    autonomous navigation, communication infrastructure, and
+    intelligent data analysis to create a continuously updated
+    representation of the mining environment. These capabilities
+    can support mine inspection, safety monitoring, evacuation
+    planning, production assessment, and other data-intensive
+    operations.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOTIVATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Why Autonomous Robotics for Mining?</h2>
+
+  <p>
+    Mining operations involve large, dynamic, and often
+    unstructured environments where workers may be exposed to
+    uneven terrain, unstable geological structures, heavy
+    machinery, limited visibility, and other operational hazards.
+  </p>
+
+  <p>
+    Many inspection and monitoring activities still require
+    personnel to physically enter or repeatedly traverse these
+    environments. SICK-MINE-GUARD investigates how autonomous
+    robotic systems can complement human workers by performing
+    repetitive and high-risk data-collection tasks while
+    maintaining detailed digital representations of the mine.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/sick_mine_need.png"
+      alt="Motivation for autonomous robotic systems in underground mining">
+
+    <p class="caption">
+      Mining operations require continuous environmental
+      understanding, inspection, localization, safety monitoring,
+      and reliable access to data in difficult and potentially
+      hazardous environments.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PROPOSED APPROACH
+     ========================================================= -->
+
+<section>
+
+  <h2>Proposed Autonomous Mining Platform</h2>
+
+  <p>
+    The proposed system combines a rugged mobile robotic platform
+    with LiDAR-based mapping, autonomous navigation, connected
+    sensing, and data-driven intelligence. The objective is to
+    transform the robot from a simple inspection platform into
+    an intelligent mobile sensing system capable of supporting
+    mine operations and safety.
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>3D Mapping</h3>
+
+      <p>
+        LiDAR sensing generates detailed three-dimensional
+        representations of mine tunnels, quarry environments,
+        geological structures, and operational areas.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Safety Metrics</h3>
+
+      <p>
+        Environmental measurements and spatial information can
+        support hazard assessment, inspection, evacuation
+        planning, and safety-related decision making.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>User Interaction</h3>
+
+      <p>
+        Mine operators can access robot-generated information
+        through an end-user interface designed to support
+        visualization, monitoring, and operational decisions.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Autonomous Navigation</h3>
+
+      <p>
+        The robot autonomously traverses difficult mining
+        environments while collecting spatial and operational
+        information.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/sick_mine_proposed.png"
+      alt="SICK-MINE-GUARD proposed smart mining solution">
+
+    <p class="caption">
+      Proposed SICK-MINE-GUARD platform integrating autonomous
+      field robotics, 3D mapping, safety monitoring, and
+      intelligent data-driven mine operations.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     OPERATIONAL PIPELINE
+     ========================================================= -->
+
+<section>
+
+  <h2>System Workflow</h2>
+
+  <p>
+    SICK-MINE-GUARD follows a connected sensing and autonomous
+    data-collection workflow in which the robot continuously
+    observes the mine environment, builds spatial maps, and
+    communicates operational information to mine personnel.
+  </p>
+
+
+  <div class="pipeline">
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">1</div>
+
+      <h3>Environment Sensing</h3>
+
+      <p>
+        LiDAR and onboard sensing continuously capture the
+        geometry and surrounding conditions of the mine.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Localization &amp; Navigation</h3>
+
+      <p>
+        The robot estimates its position and autonomously
+        navigates through unstructured mining environments.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">3</div>
+
+      <h3>3D Mapping</h3>
+
+      <p>
+        Sensor observations are transformed into detailed
+        three-dimensional maps of operational areas.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Mesh Communication</h3>
+
+      <p>
+        A mesh-network architecture supports exchange of
+        robot-generated information across difficult mining
+        environments.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">5</div>
+
+      <h3>Data Analytics</h3>
+
+      <p>
+        Mapping, environmental, and operational information
+        can be analyzed to support safety and mine-management
+        decisions.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">6</div>
+
+      <h3>Operator Interface</h3>
+
+      <p>
+        The SICK AppSpace-based application presents processed
+        information to mine personnel for monitoring and
+        decision support.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FIELD TEST
+     ========================================================= -->
+
+<section>
+
+  <h2>Real-World Field Deployment</h2>
+
+  <p>
+    A key objective of the project was to move beyond simulation
+    and laboratory testing by evaluating the robotic system in
+    representative mining and quarry environments.
+  </p>
+
+  <p>
+    Field experiments examined autonomous mobility and
+    LiDAR-based mapping in uneven terrain containing standing
+    water, large stone structures, heavy equipment, and other
+    environmental features representative of active mining
+    operations.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/sick_mine_fieldtest.png"
+      alt="SICK-MINE-GUARD field testing in a quarry environment">
+
+    <p class="caption">
+      Field deployment of the robotic platform in a quarry
+      environment, demonstrating real-world sensing and
+      LiDAR-based spatial data collection under challenging
+      terrain conditions.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     3D MAPPING
+     ========================================================= -->
+
+<section>
+
+  <h2>3D Mapping and Digital Mine Representation</h2>
+
+  <p>
+    High-resolution spatial mapping is one of the core capabilities
+    of SICK-MINE-GUARD. LiDAR measurements collected during robot
+    navigation can be combined into a 3D representation of the
+    surrounding environment.
+  </p>
+
+  <p>
+    These maps can support structural inspection, localization,
+    volume estimation, route planning, environmental monitoring,
+    and identification of changes in mine geometry over time.
+    Repeated autonomous surveys can therefore provide a continuously
+    updated digital representation of operational areas.
+  </p>
+
+
+  <div class="highlight">
+
+    <strong>Key concept:</strong>
+    transform autonomous mine inspection from a one-time robotic
+    mission into a continuously updated source of spatial,
+    operational, and safety information.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CONNECTED INTELLIGENCE
+     ========================================================= -->
+
+<section>
+
+  <h2>Mesh-Connected Mine Intelligence</h2>
+
+  <p>
+    Reliable communication is particularly challenging in
+    underground and large-scale mining environments. The project
+    therefore considers a <strong>mesh-networked architecture</strong>
+    that allows robotic platforms and infrastructure nodes to
+    collaboratively relay information across the mine.
+  </p>
+
+  <p>
+    This connectivity enables sensor data, maps, robot status,
+    and safety information to be transferred to an operator
+    interface without requiring a direct communication link
+    between every robot and a central station.
+  </p>
+
+  <p>
+    The end-user application developed using
+    <strong>SICK AppSpace</strong> provides an interface through
+    which operators can access processed information and support
+    operational decision making.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     SAFETY APPLICATIONS
+     ========================================================= -->
+
+<section>
+
+  <h2>Safety and Operational Applications</h2>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Hazardous-Area Inspection</h3>
+
+      <p>
+        Robots can enter difficult or potentially unsafe
+        environments before personnel are required to inspect
+        the same area.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Evacuation Planning</h3>
+
+      <p>
+        Updated spatial maps can support route assessment and
+        planning during emergency or rescue scenarios.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Mine Mapping</h3>
+
+      <p>
+        Automated 3D surveys provide detailed spatial information
+        for operational planning and infrastructure assessment.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Volume Measurement</h3>
+
+      <p>
+        Three-dimensional measurements can support estimation of
+        material volumes and changes within operational areas.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Operational Monitoring</h3>
+
+      <p>
+        Repeated missions provide updated information about mine
+        conditions without requiring continuous manual inspection.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Remote Decision Support</h3>
+
+      <p>
+        Mine personnel can use robot-generated data to make
+        decisions without physically entering every monitored
+        location.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     BUSINESS VALUE
+     ========================================================= -->
+
+<section>
+
+  <h2>Operational and Business Value</h2>
+
+  <p>
+    SICK-MINE-GUARD has the potential to create value not only
+    through robotic automation but also through the continuous
+    generation of operational data.
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="value-card">
+
+      <h3>Improved Operational Efficiency</h3>
+
+      <p>
+        Automating repetitive inspection, mapping, and
+        monitoring activities can reduce the time required to
+        collect information across large mining environments.
+      </p>
+
+    </div>
+
+
+    <div class="value-card">
+
+      <h3>Reduced Human Exposure</h3>
+
+      <p>
+        Robotic sensing can reduce the frequency with which
+        personnel must enter difficult or high-risk areas,
+        supporting safer mine operations.
+      </p>
+
+    </div>
+
+
+    <div class="value-card">
+
+      <h3>Reduced Downtime</h3>
+
+      <p>
+        Faster access to environmental and operational data can
+        help identify issues earlier and support more timely
+        operational decisions.
+      </p>
+
+    </div>
+
+
+    <div class="value-card">
+
+      <h3>Data-Driven Mine Operations</h3>
+
+      <p>
+        Real-time mapping, localization, safety measurements,
+        and environmental information can support improved
+        resource planning and operational management.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DATA-AS-A-SERVICE
+     ========================================================= -->
+
+<section>
+
+  <h2>Data as a Mining Service</h2>
+
+  <p>
+    A particularly important aspect of the platform is that the
+    robot generates a continuously growing collection of
+    high-value mining data. This creates opportunities beyond
+    the physical robotic system itself.
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>3D Mapping Services</h3>
+
+      <p>
+        Updated digital maps can be provided for mine planning,
+        inspection, infrastructure management, and operational
+        analysis.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Volume Measurement Services</h3>
+
+      <p>
+        LiDAR-derived 3D measurements can support material
+        volume estimation and change detection.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Safety Data Services</h3>
+
+      <p>
+        Robot-generated spatial and environmental information
+        can support safety assessment and risk monitoring.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Data Licensing</h3>
+
+      <p>
+        Mapping and operational datasets could support analytics,
+        digital twins, AI model development, and other mining
+        applications through future licensing or data-service
+        models.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="highlight">
+
+    <strong>Long-term vision:</strong>
+    SICK-MINE-GUARD can evolve from an autonomous inspection
+    robot into a data-driven mining platform that combines
+    robotics, sensing, connectivity, analytics, and digital
+    services.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     BROADER RESEARCH
+     ========================================================= -->
+
+<section>
+
+  <h2>Broader Research Directions</h2>
+
+  <p>
+    The SICK-MINE-GUARD platform provides a foundation for
+    additional research in autonomous mining and intelligent
+    field robotics.
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Autonomous Exploration</h3>
+
+      <p>
+        Planning and navigation in previously unknown and
+        unstructured environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Multi-Robot Mapping</h3>
+
+      <p>
+        Coordinated exploration and distributed mapping using
+        multiple autonomous platforms.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Mine Digital Twins</h3>
+
+      <p>
+        Combining continuously updated robotic observations
+        with digital representations of mining operations.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>AI-Based Mine Intelligence</h3>
+
+      <p>
+        Using robot-collected data to train models for anomaly
+        detection, risk assessment, and operational reasoning.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Human-Robot Collaboration</h3>
+
+      <p>
+        Combining autonomous robots with remote operators and
+        mine personnel for safety-critical tasks.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Emergency &amp; Rescue Robotics</h3>
+
+      <p>
+        Extending autonomous mapping and navigation capabilities
+        toward emergency response and mine-rescue applications.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCES
+     ========================================================= -->
+
+<section>
+
+  <h2>Resources</h2>
+
+  <p>
+    Additional publications, field demonstrations, datasets,
+    mapping results, and technical documentation will be added
+    as they become available.
+  </p>
+
+  <!--
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Demo Video</a> |
+    <a href="#">Dataset</a> |
+    <a href="#">Code</a>
+  </p>
+  -->
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    SICK-MINE-GUARD:
+    Autonomous Robotics for Smart Mining
+  </strong>
+
+  <br>
+
+  University of Minnesota / Mining Robotics Research
+
+</footer>
+
 
 </body>
 </html>
