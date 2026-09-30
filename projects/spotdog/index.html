@@ -1,87 +1,1320 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>ReACT2</title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="Autonomous Mine Rescue Robot using Boston Dynamics Spot with LiDAR-camera perception, 3D mapping, localization, occupancy-aware path planning, thermal perception, and field evaluation at the Missouri S&T Experimental Mine.">
+
+  <title>
+    Autonomous Mine Rescue Robot | SPOT
+  </title>
+
   <style>
-    body{
-      max-width:1200px;
-      margin:auto;
-      font-family:Arial, sans-serif;
-      line-height:1.6;
-      padding:20px;
+
+    /* =========================================================
+       Global
+       ========================================================= */
+
+    * {
+      box-sizing: border-box;
     }
 
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
+    :root {
+      --primary: #155b86;
+      --secondary: #ef7622;
+      --dark: #17233c;
+      --text: #242424;
+      --muted: #666666;
+      --light: #f7f9fb;
+      --border: #e2e7ed;
+      --green: #2d7a46;
     }
 
-    .hero img{
-      width:100%;
-      max-width:1000px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .video{
-      margin-top:20px;
-      text-align:center;
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: var(--text);
+      background: #ffffff;
     }
 
-    video{
-      width:100%;
-      max-width:900px;
+    h1,
+    h2,
+    h3 {
+      color: var(--dark);
     }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 2.45rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 930px;
+      margin: 12px auto 18px;
+
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .authors {
+      margin: 16px auto 25px;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: 30px auto 0;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================================
+       Tags
+       ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      background: #edf6fb;
+      color: var(--primary);
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Figures
+       ========================================================= */
+
+    .figure {
+      margin: 28px auto 45px;
+      text-align: center;
+    }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      max-width: 970px;
+      margin: 10px auto 0;
+
+      color: #6b6b6b;
+
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Two-column figures
+       ========================================================= */
+
+    .figure-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(420px, 1fr));
+
+      gap: 22px;
+
+      margin-top: 25px;
+    }
+
+    .figure-card {
+      padding: 16px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .figure-card img {
+      width: 100%;
+      height: auto;
+
+      display: block;
+
+      border-radius: 7px;
+    }
+
+    .figure-card p {
+      margin-bottom: 0;
+
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+
+    /* =========================================================
+       Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      color: var(--primary);
+    }
+
+
+    /* =========================================================
+       Pipeline
+       ========================================================= */
+
+    .pipeline {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(185px, 1fr));
+
+      gap: 14px;
+
+      margin: 24px 0;
+    }
+
+    .pipeline-step {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #ffffff;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
+
+      border-radius: 50%;
+
+      color: white;
+      background: var(--primary);
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Highlight
+       ========================================================= */
+
+    .highlight {
+      margin: 28px 0;
+
+      padding: 22px 25px;
+
+      border-left: 5px solid var(--secondary);
+      border-radius: 5px;
+
+      background: #fff7ef;
+    }
+
+
+    /* =========================================================
+       Video
+       ========================================================= */
+
+    .video {
+      margin: 28px auto 45px;
+      text-align: center;
+    }
+
+    .video video {
+      width: 100%;
+      max-width: 980px;
+      height: auto;
+
+      background: #000000;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 60px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      .figure-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
   </style>
 </head>
 
+
 <body>
 
-<div class="hero">
-  <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
 
-  <p>
-    Rushikesh Zende,
-    Vivek Kumar,
-    Lalitaditya Divakarla,
-    Kalyan Sai,
-    <strong>Ajay Kumar</strong>,
-    Zhi-Li Zhang
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    Autonomous Mine Rescue Robot Using SPOT
+  </h1>
+
+  <p class="subtitle">
+    Autonomous quadruped navigation, LiDAR-based mapping,
+    occupancy-aware planning, and thermal perception for
+    search, inspection, and rescue support in challenging
+    underground mining environments.
   </p>
 
-  <img src="../../images/9.png">
-</div>
+  <div class="tags">
 
-<h2>Abstract</h2>
+    <span class="tag">
+      Boston Dynamics SPOT
+    </span>
 
-<p>
-Autonomous robots increasingly rely on teleoperation...
-</p>
+    <span class="tag">
+      Autonomous Navigation
+    </span>
 
-<h2>Framework Overview</h2>
+    <span class="tag">
+      LiDAR Mapping
+    </span>
 
-<img src="../../images/react2_framework.png"
-     style="width:100%;">
+    <span class="tag">
+      Thermal Perception
+    </span>
 
-<h2>Video Demo</h2>
+    <span class="tag">
+      YOLOv11
+    </span>
 
-<div class="video">
-  <video controls>
-    <source src="../../videos/react2_demo.mp4"
-            type="video/mp4">
-  </video>
-</div>
+    <span class="tag">
+      Mine Rescue
+    </span>
 
-<h2>Results</h2>
+    <span class="tag">
+      Field Robotics
+    </span>
 
-<img src="../../images/react2_results.png"
-     style="width:100%;">
+  </div>
 
-<h2>Resources</h2>
+  <p class="authors">
+    <strong>Ajay Kumar</strong> and collaborators
+  </p>
 
-<p>
-<a href="#">Paper</a> |
-<a href="#">Code</a> |
-<a href="#">Dataset</a>
-</p>
+  <img
+    src="/images/spot_architecture.png"
+    alt="Autonomous SPOT mine rescue robot system architecture">
+
+</section>
+
+
+
+<!-- =========================================================
+     PROJECT OVERVIEW
+     ========================================================= -->
+
+<section>
+
+  <h2>Project Overview</h2>
+
+  <p>
+    This project develops an
+    <strong>autonomous mine-rescue and inspection robot</strong>
+    using the Boston Dynamics SPOT quadruped platform.
+    The objective is to enable a robotic system to independently
+    navigate underground environments, build maps, avoid obstacles,
+    detect people, and provide situational information that can
+    assist rescue and mine-safety operations.
+  </p>
+
+  <p>
+    SPOT is augmented with mounted
+    <strong>LiDAR and camera sensors</strong> and an autonomous
+    navigation software stack integrating sensing, localization,
+    perception, map-based planning, motion planning, and robot
+    control. The system is designed to operate in complex
+    underground spaces where GPS is unavailable and where
+    irregular geometry, narrow passages, poor visibility, and
+    environmental hazards make conventional robotic navigation
+    difficult.
+  </p>
+
+  <p>
+    A complementary thermal-perception module uses
+    <strong>YOLOv11 trained on thermal imagery</strong> to detect
+    people and support situational awareness when conventional
+    visible-light sensing may be limited. The complete system was
+    evaluated in the <strong>Missouri University of Science and
+    Technology Experimental Mine</strong>.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOTIVATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Motivation: Robotics for Mine Rescue</h2>
+
+  <p>
+    Underground rescue operations can expose personnel to
+    unstable structures, smoke, darkness, restricted passages,
+    hazardous gases, and uncertain environmental conditions.
+    Quickly understanding the state of the mine is critical,
+    yet sending human responders into an unknown area can
+    introduce substantial risk.
+  </p>
+
+  <p>
+    A mobile robotic platform can act as an initial autonomous
+    scout by entering the environment, generating maps,
+    identifying traversable routes, detecting people, and
+    returning environmental information to rescue personnel
+    before human entry.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Research objective:</strong>
+    develop an autonomous robotic system capable of navigating
+    GPS-denied underground environments while providing
+    spatial mapping and perception information for safer and
+    more informed rescue operations.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYSTEM ARCHITECTURE
+     ========================================================= -->
+
+<section>
+
+  <h2>Autonomous Navigation Architecture</h2>
+
+  <p>
+    The SPOT autonomy stack is organized around sensing,
+    localization, perception, planning, and robot control.
+    LiDAR and camera measurements provide environmental
+    observations, while previously generated map information
+    supports localization and route planning.
+  </p>
+
+  <div class="pipeline">
+
+    <div class="pipeline-step">
+
+      <div class="step-number">1</div>
+
+      <h3>Sensing</h3>
+
+      <p>
+        LiDAR and camera sensors continuously observe the
+        surrounding underground environment.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Localization</h3>
+
+      <p>
+        Sensor observations are aligned with map information
+        to estimate the robot's current position and motion.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">3</div>
+
+      <h3>Perception</h3>
+
+      <p>
+        Camera and LiDAR information are used to understand
+        nearby obstacles, people, and environmental geometry.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Planning</h3>
+
+      <p>
+        Mission and motion planners identify a traversable
+        path toward the selected target location.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">5</div>
+
+      <h3>Decision &amp; Control</h3>
+
+      <p>
+        Planned motion commands are converted into velocity
+        and heading commands for the quadruped robot.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/spot_architecture.png"
+      alt="SPOT autonomous navigation system architecture">
+
+    <p class="caption">
+      Autonomous navigation architecture integrating sensing,
+      localization, perception, mission and motion planning,
+      decision making, and the SPOT robot interface.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ROBOT CONTROL
+     ========================================================= -->
+
+<section>
+
+  <h2>SPOT Robot Integration and Control</h2>
+
+  <p>
+    The navigation framework interfaces directly with the SPOT
+    platform to execute autonomous velocity and heading commands.
+    The development environment provides access to robot state,
+    coordinate frames, motion limits, obstacle parameters, and
+    emergency-stop functionality.
+  </p>
+
+  <p>
+    This integration allows higher-level autonomous navigation
+    algorithms to operate while retaining the underlying mobility
+    and safety mechanisms available on the quadruped platform.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/spot_GUI.png"
+      alt="Boston Dynamics SPOT robot control interface">
+
+    <p class="caption">
+      SPOT robot control and development interface used for
+      configuring motion, monitoring robot state, and integrating
+      autonomous navigation commands.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     LOCALIZATION AND MAPPING
+     ========================================================= -->
+
+<section>
+
+  <h2>Localization and 3D Mine Mapping</h2>
+
+  <p>
+    Reliable localization is essential because underground mines
+    are typically <strong>GPS-denied environments</strong>.
+    The robot therefore relies primarily on onboard sensing and
+    previously generated spatial information to estimate its pose.
+  </p>
+
+  <p>
+    LiDAR observations are accumulated while the robot moves
+    through the mine to construct a detailed representation of
+    tunnels, intersections, chambers, and surrounding structures.
+    The resulting map supports both robot localization and
+    autonomous route planning.
+  </p>
+
+
+  <div class="figure-grid">
+
+
+    <div class="figure-card">
+
+      <img
+        src="/images/spot_localize.png"
+        alt="SPOT localization in underground mine">
+
+      <p>
+        Localization and trajectory estimation within the
+        underground environment.
+      </p>
+
+    </div>
+
+
+    <div class="figure-card">
+
+      <img
+        src="/images/spot_map.png"
+        alt="3D LiDAR point cloud map of underground mine">
+
+      <p>
+        Three-dimensional LiDAR reconstruction of the
+        experimental mine environment.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     OCCUPANCY MAPPING
+     ========================================================= -->
+
+<section>
+
+  <h2>Occupancy Representation</h2>
+
+  <p>
+    Raw point-cloud measurements are converted into a structured
+    occupancy representation suitable for autonomous navigation.
+    The occupancy map identifies free space, occupied regions,
+    walls, and potential obstacles around the robot.
+  </p>
+
+  <p>
+    This representation reduces the complexity of the raw
+    three-dimensional point cloud and allows the path planner
+    to reason directly about traversable and non-traversable
+    regions.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/spot_occupancy.png"
+      alt="Occupancy representation for underground robot navigation">
+
+    <p class="caption">
+      Occupancy-map representation generated from LiDAR data
+      for obstacle-aware navigation through underground
+      corridors and mine structures.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PATH PLANNING
+     ========================================================= -->
+
+<section>
+
+  <h2>Autonomous Path Planning</h2>
+
+  <p>
+    The planner uses localization and occupancy information to
+    compute safe trajectories through the mine while maintaining
+    clearance from walls and obstacles. The planned route is
+    continually updated as new sensor observations become
+    available.
+  </p>
+
+  <p>
+    Both local navigation and longer-distance mission planning
+    are required. Local planning handles immediate geometry and
+    obstacle avoidance, while the global route guides the robot
+    through extended tunnel networks toward the mission target.
+  </p>
+
+
+  <div class="figure-grid">
+
+
+    <div class="figure-card">
+
+      <img
+        src="/images/spot_planner.png"
+        alt="Local path planning for SPOT">
+
+      <p>
+        Local trajectory generation through constrained
+        underground passages using the occupancy representation.
+      </p>
+
+    </div>
+
+
+    <div class="figure-card">
+
+      <img
+        src="/images/spot_planner_long.png"
+        alt="Long-distance path planning through underground mine">
+
+      <p>
+        Longer-horizon navigation route through the mapped
+        experimental mine environment.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     THERMAL PERCEPTION
+     ========================================================= -->
+
+<section>
+
+  <h2>Thermal Perception for Rescue Operations</h2>
+
+  <p>
+    Visual perception in underground mines can be degraded by
+    darkness, dust, smoke, and other environmental conditions.
+    Thermal imagery therefore provides an additional sensing
+    modality for identifying people when conventional RGB imagery
+    may be unreliable.
+  </p>
+
+  <p>
+    The project evaluates deep-learning-based detection using
+    <strong>YOLOv11 on a thermal-image dataset</strong>.
+    The detector identifies people in different poses and
+    activities, including standing, bending, squatting, and
+    resting positions.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/spot_detection.png"
+      alt="Thermal images of workers under different conditions">
+
+    <p class="caption">
+      Representative thermal imagery showing people in different
+      postures and environmental conditions relevant to mine
+      safety and rescue scenarios.
+    </p>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/spot_yolo.png"
+      alt="YOLOv11 thermal human detection for mine rescue">
+
+    <p class="caption">
+      Thermal perception results illustrating detection and
+      localization of people in multiple poses using the
+      trained object-detection model.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MODEL EVALUATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Thermal Detection Model Evaluation</h2>
+
+  <p>
+    Multiple object-detection architectures were evaluated on
+    the thermal dataset to assess detection performance and
+    convergence behavior. The comparison includes YOLO-family
+    models and transformer-based detection approaches.
+  </p>
+
+  <p>
+    These experiments help identify a suitable perception model
+    for integration with the onboard robotic system, balancing
+    detection accuracy with the computational requirements of
+    field deployment.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/spot_yolo.png"
+      alt="Comparison of thermal object detection models">
+
+    <p class="caption">
+      Evaluation of thermal-image object detection for
+      mine-rescue perception and onboard deployment.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     EXPERIMENTAL MINE
+     ========================================================= -->
+
+<section>
+
+  <h2>Evaluation in the Missouri S&amp;T Experimental Mine</h2>
+
+  <p>
+    The complete robotic system was evaluated in the
+    <strong>Missouri University of Science and Technology
+    Experimental Mine</strong>, providing a realistic underground
+    environment for testing localization, mapping, navigation,
+    path planning, and perception.
+  </p>
+
+  <p>
+    Testing in a real mine environment is important because
+    underground robotics introduces conditions that are difficult
+    to reproduce accurately in laboratory settings. The robot
+    must operate around irregular rock surfaces, narrow tunnels,
+    intersections, uneven ground, changing illumination, and
+    complex three-dimensional structures.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Field validation:</strong>
+    the project evaluates the autonomy stack as an integrated
+    physical robotic system rather than only through simulation,
+    combining autonomous navigation, LiDAR-based mapping, obstacle
+    avoidance, and thermal perception in a representative
+    underground mining environment.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     KEY CAPABILITIES
+     ========================================================= -->
+
+<section>
+
+  <h2>Key Capabilities</h2>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Autonomous Exploration</h3>
+
+      <p>
+        The quadruped can autonomously navigate through
+        underground passages and mine structures.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>GPS-Denied Localization</h3>
+
+      <p>
+        LiDAR and onboard sensing support localization where
+        GNSS signals are unavailable.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>3D Mapping</h3>
+
+      <p>
+        Detailed spatial representations provide rescue teams
+        with information about the geometry of the mine.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Obstacle-Aware Planning</h3>
+
+      <p>
+        Occupancy mapping and path planning enable navigation
+        through constrained and cluttered environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Thermal Human Detection</h3>
+
+      <p>
+        Thermal imagery and YOLOv11 support detection of people
+        under poor-visibility conditions.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Field-Deployable Robotics</h3>
+
+      <p>
+        The complete autonomy stack was integrated with a
+        physical SPOT platform and evaluated in an experimental
+        mine.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESCUE WORKFLOW
+     ========================================================= -->
+
+<section>
+
+  <h2>Potential Mine-Rescue Workflow</h2>
+
+  <div class="pipeline">
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">1</div>
+
+      <h3>Deploy Robot</h3>
+
+      <p>
+        SPOT enters an underground region before human rescue
+        personnel are exposed to the area.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Explore</h3>
+
+      <p>
+        Autonomous navigation allows the robot to traverse
+        tunnels and intersections.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">3</div>
+
+      <h3>Map</h3>
+
+      <p>
+        LiDAR generates an updated spatial representation
+        of the underground environment.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Detect</h3>
+
+      <p>
+        Thermal perception searches for people and other
+        navigation-relevant objects.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">5</div>
+
+      <h3>Report</h3>
+
+      <p>
+        Mapping, localization, and perception information
+        can support rescue-team planning and decision making.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     VIDEO
+     ========================================================= -->
+
+<section>
+
+  <h2>Autonomous Navigation Demonstration</h2>
+
+  <p>
+    The following demonstration shows the integrated SPOT
+    platform operating with the developed autonomous-navigation
+    stack, including sensing, localization, planning, and robot
+    motion in the mine environment.
+  </p>
+
+
+  <div class="video">
+
+    <video
+      controls
+      preload="metadata"
+      playsinline>
+
+      <source
+        src="/videos/spot_demo_final.mp4"
+        type="video/mp4">
+
+      Your browser does not support HTML5 video.
+
+    </video>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     BROADER IMPACT
+     ========================================================= -->
+
+<section>
+
+  <h2>Broader Research Impact</h2>
+
+  <p>
+    Although mine rescue provides the primary motivating
+    application, the underlying autonomy framework is applicable
+    to a broader range of challenging field-robotics scenarios
+    that require reliable navigation without GPS.
+  </p>
+
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>Mine Inspection</h3>
+
+      <p>
+        Routine autonomous inspection of tunnels,
+        infrastructure, and difficult-to-access areas.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Emergency Response</h3>
+
+      <p>
+        Rapid robotic exploration before deploying human
+        responders into uncertain environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Infrastructure Inspection</h3>
+
+      <p>
+        Navigation and mapping of tunnels, industrial facilities,
+        and other GPS-denied environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Physical AI</h3>
+
+      <p>
+        Integration of multimodal perception, environment
+        understanding, planning, and physical robot execution.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCES
+     ========================================================= -->
+
+<section>
+
+  <h2>Resources</h2>
+
+  <p>
+    Additional publications, datasets, source code, and field
+    experiments will be added as they become available.
+  </p>
+
+  <!--
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Code</a> |
+    <a href="#">Dataset</a>
+  </p>
+  -->
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    Autonomous Mine Rescue Robot Using SPOT
+  </strong>
+
+  <br>
+
+  Missouri University of Science and Technology
+
+</footer>
+
 
 </body>
 </html>
