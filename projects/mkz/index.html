@@ -1,87 +1,981 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>MKZ</title>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="Autonomous driving and mobility systems developed and demonstrated at DGIST, including Level 3 autonomous driving, autonomous trailer control, and Autonomous Mobility on Demand.">
+
+  <title>
+    Autonomous Driving and Mobility Systems
+  </title>
+
   <style>
-    body{
-      max-width:1200px;
-      margin:auto;
-      font-family:Arial, sans-serif;
-      line-height:1.6;
-      padding:20px;
+
+    * {
+      box-sizing: border-box;
     }
 
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
+    :root {
+      --primary: #155fa0;
+      --secondary: #0d7f7a;
+      --accent: #e77827;
+      --dark: #17233c;
+      --text: #242424;
+      --muted: #666666;
+      --light: #f7f9fc;
+      --border: #e2e7ed;
     }
 
-    .hero img{
-      width:100%;
-      max-width:1000px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .video{
-      margin-top:20px;
-      text-align:center;
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: var(--text);
+      background: #ffffff;
     }
 
-    video{
-      width:100%;
-      max-width:900px;
+    h1,
+    h2,
+    h3 {
+      color: var(--dark);
     }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 2.4rem;
+      line-height: 1.22;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    strong {
+      color: var(--dark);
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+      margin: 15px 0 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 930px;
+      margin: 12px auto 18px;
+
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      background: #edf5fc;
+      color: var(--primary);
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Project Section
+       ========================================================= */
+
+    .project {
+      margin-top: 60px;
+    }
+
+    .project-intro {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1.1fr)
+        minmax(320px, 0.9fr);
+
+      gap: 30px;
+      align-items: center;
+
+      margin-top: 24px;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: auto;
+
+      display: block;
+
+      border-radius: 10px;
+
+      box-shadow:
+        0 3px 16px rgba(0, 0, 0, 0.10);
+    }
+
+    .project-text {
+      padding: 5px;
+    }
+
+    .project-label {
+      display: inline-block;
+
+      margin-bottom: 10px;
+      padding: 5px 11px;
+
+      border-radius: 999px;
+
+      background: #eef5fb;
+      color: var(--primary);
+
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Capability Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+      margin-top: 25px;
+    }
+
+    .card {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+
+      color: var(--primary);
+
+      font-size: 1.04rem;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: #555555;
+    }
+
+
+    /* =========================================================
+       Highlight
+       ========================================================= */
+
+    .highlight {
+      margin: 25px 0;
+
+      padding: 20px 24px;
+
+      border-left: 5px solid var(--accent);
+      border-radius: 5px;
+
+      background: #fff8f1;
+    }
+
+
+    /* =========================================================
+       Video
+       ========================================================= */
+
+    .video-card {
+      margin-top: 30px;
+
+      padding: 20px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--light);
+    }
+
+    .video-card h3 {
+      margin-top: 0;
+
+      color: var(--primary);
+    }
+
+    .video-card p {
+      color: var(--muted);
+    }
+
+    .video-card video {
+      width: 100%;
+      max-width: 1000px;
+      height: auto;
+
+      display: block;
+      margin: 18px auto 0;
+
+      border-radius: 9px;
+
+      background: #000000;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* =========================================================
+       Separator
+       ========================================================= */
+
+    .separator {
+      margin: 65px 0 20px;
+
+      border: 0;
+      border-top: 1px solid #e9edf2;
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 70px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777777;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Responsive
+       ========================================================= */
+
+    @media (max-width: 850px) {
+
+      .project-intro {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
-<div class="hero">
-  <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
 
-  <p>
-    Rushikesh Zende,
-    Vivek Kumar,
-    Lalitaditya Divakarla,
-    Kalyan Sai,
-    <strong>Ajay Kumar</strong>,
-    Zhi-Li Zhang
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    Autonomous Driving and Mobility Systems
+  </h1>
+
+  <p class="subtitle">
+    Development and real-world deployment of autonomous driving,
+    vehicle-control, and mobility-service technologies spanning
+    full-stack autonomous vehicles, trailer-aware control,
+    and campus-scale autonomous mobility.
   </p>
 
-  <img src="../../images/9.png">
-</div>
+  <div class="tags">
 
-<h2>Abstract</h2>
+    <span class="tag">
+      Autonomous Driving
+    </span>
 
-<p>
-Autonomous robots increasingly rely on teleoperation...
-</p>
+    <span class="tag">
+      Lincoln MKZ
+    </span>
 
-<h2>Framework Overview</h2>
+    <span class="tag">
+      Perception
+    </span>
 
-<img src="../../images/react2_framework.png"
-     style="width:100%;">
+    <span class="tag">
+      Localization
+    </span>
 
-<h2>Video Demo</h2>
+    <span class="tag">
+      Planning &amp; Control
+    </span>
 
-<div class="video">
-  <video controls>
-    <source src="../../videos/Autonomous_driving.mp4"
-            type="video/mp4">
-  </video>
-</div>
+    <span class="tag">
+      Trailer Control
+    </span>
 
-<h2>Results</h2>
+    <span class="tag">
+      Mobility on Demand
+    </span>
 
-<img src="../../images/react2_results.png"
-     style="width:100%;">
+  </div>
 
-<h2>Resources</h2>
+</section>
 
-<p>
-<a href="#">Paper</a> |
-<a href="#">Code</a> |
-<a href="#">Dataset</a>
-</p>
+
+
+<!-- =========================================================
+     PROJECT 1
+     LEVEL 3 AUTONOMOUS DRIVING
+     ========================================================= -->
+
+<section class="project">
+
+  <h2>
+    Level 3 Autonomous Driving
+  </h2>
+
+
+  <div class="project-intro">
+
+
+    <div class="project-image">
+
+      <img
+        src="/images/1.png"
+        alt="Lincoln MKZ Level 3 autonomous driving vehicle">
+
+    </div>
+
+
+    <div class="project-text">
+
+      <span class="project-label">
+        Full-Stack Autonomous Driving
+      </span>
+
+      <p>
+        The <strong>Autonomous Driving Module for the Lincoln MKZ</strong>
+        is a full-stack Level 3 autonomous driving platform developed
+        to support reliable vehicle operation under real-world road
+        conditions.
+      </p>
+
+      <p>
+        The system integrates the primary components required for
+        autonomous vehicle operation, including
+        <strong>multimodal perception, vehicle localization,
+        behavior and motion planning, and low-level vehicle control</strong>.
+        These modules operate together to perceive the surrounding
+        environment, estimate the vehicle pose, determine safe driving
+        behavior, generate feasible trajectories, and execute steering,
+        acceleration, and braking commands.
+      </p>
+
+      <p>
+        The complete system was extensively tested through
+        real-vehicle road demonstrations across diverse driving
+        scenarios. The platform successfully satisfied the required
+        regulatory evaluation process and contributed to obtaining
+        an <strong>official autonomous-driving license from the
+        Korean government</strong>.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Perception</h3>
+
+      <p>
+        Multi-sensor perception provides information about
+        surrounding vehicles, road structure, obstacles,
+        and other traffic participants.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Localization</h3>
+
+      <p>
+        LiDAR, camera, GNSS, and inertial sensing support
+        accurate ego-vehicle localization across changing
+        road environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Planning</h3>
+
+      <p>
+        Behavior and trajectory planning determine safe,
+        feasible vehicle motion according to the surrounding
+        traffic environment.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Vehicle Control</h3>
+
+      <p>
+        Steering, acceleration, and braking controllers execute
+        the generated trajectory on the physical vehicle.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="highlight">
+
+    <strong>Deployment milestone:</strong>
+    the integrated autonomous-driving platform was validated
+    through extensive real-road testing and successfully met
+    regulatory requirements for autonomous-vehicle operation
+    in South Korea.
+
+  </div>
+
+
+  <div class="video-card">
+
+    <h3>
+      Level 3 Autonomous Driving Demonstration
+    </h3>
+
+    <p>
+      Real-vehicle demonstration of the Lincoln MKZ autonomous
+      driving platform showing the integrated operation of
+      perception, localization, planning, and vehicle control.
+    </p>
+
+    <video
+      controls
+      preload="metadata"
+      playsinline>
+
+      <source
+        src="/videos/Autonomous_driving.mp4"
+        type="video/mp4">
+
+      Your browser does not support HTML5 video.
+
+    </video>
+
+  </div>
+
+</section>
+
+
+
+<hr class="separator">
+
+
+
+<!-- =========================================================
+     PROJECT 2
+     AUTONOMOUS VEHICLE WITH TRAILER
+     ========================================================= -->
+
+<section class="project">
+
+  <h2>
+    Autonomous Vehicle with Trailer Attached
+  </h2>
+
+
+  <div class="project-intro">
+
+
+    <div class="project-image">
+
+      <img
+        src="/images/3.png"
+        alt="Lincoln MKZ autonomous vehicle with attached trailer">
+
+    </div>
+
+
+    <div class="project-text">
+
+      <span class="project-label">
+        Autonomous Trailer Control
+      </span>
+
+      <p>
+        The <strong>MKZ Trailer Control System</strong> extends
+        autonomous-driving capability to a vehicle operating with
+        an attached trailer. Trailer operation introduces additional
+        control complexity because the trailer follows its own
+        articulation dynamics rather than directly following the
+        steering trajectory of the towing vehicle.
+      </p>
+
+      <p>
+        The system integrates
+        <strong>environment perception, vehicle localization,
+        trajectory generation, and trailer-aware control</strong>
+        to support precise maneuvering while accounting for the
+        coupled motion of the vehicle and trailer.
+      </p>
+
+      <p>
+        The platform was designed to handle challenging maneuvers
+        including turning, trajectory tracking, and reverse
+        operation. These capabilities are relevant to autonomous
+        logistics, towing, freight transport, and intelligent
+        assistance systems where accurate control of articulated
+        vehicles is required.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Trailer-Aware Modeling</h3>
+
+      <p>
+        Vehicle and trailer geometry are incorporated into the
+        motion-control framework to account for articulation
+        behavior.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Trajectory Tracking</h3>
+
+      <p>
+        Control algorithms maintain accurate tracking of the
+        desired path while considering trailer motion.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Reverse Maneuvering</h3>
+
+      <p>
+        Reverse motion requires coordinated steering control
+        to prevent unstable articulation and excessive trailer
+        angle.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Constrained Maneuvers</h3>
+
+      <p>
+        The system supports trailer operation in limited-space
+        environments requiring precise positioning and turning.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="highlight">
+
+    <strong>Research focus:</strong>
+    extending autonomous driving from a single rigid vehicle
+    to an articulated vehicle system in which planning and
+    control must explicitly reason about trailer dynamics.
+
+  </div>
+
+
+  <div class="video-card">
+
+    <h3>
+      Autonomous Trailer Control Demonstration
+    </h3>
+
+    <p>
+      Demonstration of the Lincoln MKZ operating with an attached
+      trailer, including autonomous trajectory tracking, turning,
+      and trailer-aware vehicle-control behavior.
+    </p>
+
+    <!-- <video
+      controls
+      preload="metadata"
+      playsinline>
+
+      <source
+        src="/videos/mkz_trailer.mp4"
+        type="video/mp4">
+
+      Your browser does not support HTML5 video.
+
+    </video> -->
+
+  </div>
+
+</section>
+
+
+
+<hr class="separator">
+
+
+
+<!-- =========================================================
+     PROJECT 3
+     AUTONOMOUS MOBILITY ON DEMAND
+     ========================================================= -->
+
+<section class="project">
+
+  <h2>
+    Autonomous Mobility on Demand (AMoD)
+  </h2>
+
+
+  <div class="project-intro">
+
+
+    <div class="project-image">
+
+      <img
+        src="/images/2.png"
+        alt="Autonomous Mobility on Demand vehicle at DGIST campus">
+
+    </div>
+
+
+    <div class="project-text">
+
+      <span class="project-label">
+        Campus Autonomous Mobility
+      </span>
+
+      <p>
+        The <strong>Mobility-on-Demand pilot at DGIST Campus</strong>
+        explores the use of compact electric vehicles for
+        autonomous and remotely supported delivery services within
+        a controlled campus environment.
+      </p>
+
+      <p>
+        Users can request vehicle service through a mobile
+        interface, allowing vehicles to be dispatched to different
+        campus locations for transportation of goods, parcels,
+        laboratory materials, and other supplies.
+      </p>
+
+      <p>
+        The system combines
+        <strong>lightweight autonomous navigation, task dispatch,
+        communication, and teleoperation support</strong>
+        to provide reliable mobility while retaining remote human
+        assistance for situations that require intervention.
+      </p>
+
+      <p>
+        The pilot demonstrates how autonomous mobility technologies
+        can move beyond passenger driving and support practical
+        campus logistics, facility services, and last-mile delivery.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>On-Demand Dispatch</h3>
+
+      <p>
+        Users request transportation through a mobile interface
+        and the system dispatches an available vehicle.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Autonomous Navigation</h3>
+
+      <p>
+        The electric vehicle autonomously travels between
+        designated campus locations.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Teleoperation Support</h3>
+
+      <p>
+        Remote human assistance provides a fallback when the
+        autonomous system encounters difficult or uncertain
+        situations.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Campus Logistics</h3>
+
+      <p>
+        The platform supports transport of parcels, supplies,
+        goods, and equipment between facilities.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="highlight">
+
+    <strong>Deployment concept:</strong>
+    combining compact electric vehicles, autonomous navigation,
+    mobile service requests, and remote supervision provides a
+    practical model for intelligent campus logistics and
+    last-mile mobility.
+
+  </div>
+
+
+  <div class="video-card">
+
+    <h3>
+      DGIST Autonomous Mobility-on-Demand Demonstration
+    </h3>
+
+    <p>
+      Campus demonstration of the Mobility-on-Demand system
+      showing vehicle dispatch, autonomous operation, and
+      delivery-oriented mobility within the DGIST environment.
+    </p>
+
+    <video
+      controls
+      preload="metadata"
+      playsinline>
+
+      <source
+        src="/videos/u4c.mp4"
+        type="video/mp4">
+
+      Your browser does not support HTML5 video.
+
+    </video>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     OVERALL EXPERIENCE
+     ========================================================= -->
+
+<section>
+
+  <h2>
+    From Autonomous Driving to Autonomous Mobility
+  </h2>
+
+  <p>
+    Together, these projects span multiple levels of autonomous
+    vehicle research: full-stack autonomous driving on public
+    roads, control of articulated vehicle systems, and
+    service-oriented autonomous mobility in a campus environment.
+  </p>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Full-Stack Autonomy</h3>
+
+      <p>
+        Integration of perception, localization, planning,
+        and control into a deployable autonomous vehicle.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Complex Vehicle Dynamics</h3>
+
+      <p>
+        Extension of autonomous control to articulated
+        vehicle-and-trailer systems.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Mobility Services</h3>
+
+      <p>
+        Translation of autonomous-driving technology into
+        practical logistics and Mobility-on-Demand applications.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Real-World Validation</h3>
+
+      <p>
+        Extensive testing on physical vehicles under real
+        operating conditions rather than simulation alone.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    Autonomous Driving and Mobility Systems
+  </strong>
+
+  <br>
+
+  DGIST — Future Automotive Research
+
+</footer>
+
 
 </body>
+
 </html>
