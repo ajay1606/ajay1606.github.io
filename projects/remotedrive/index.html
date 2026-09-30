@@ -8,7 +8,7 @@
         content="width=device-width, initial-scale=1.0">
 
   <meta name="description"
-        content="Remote Driving as a Transitional Path to Autonomous Mobility Deployments: human-in-the-loop connected and automated mobility using low-latency communication, adaptive multimodal streaming, and remote supervision.">
+        content="Remote Driving as a Transitional Path to Autonomous Mobility Deployments: human-in-the-loop connected and automated mobility using low-latency communication, adaptive multimodal streaming, remote supervision, and driver assistance.">
 
   <title>
     Remote Driving as a Transitional Path to Autonomous Mobility Deployments
@@ -30,7 +30,7 @@
       --accent: #b30f2f;
       --dark: #17233c;
       --text: #242424;
-      --muted: #666;
+      --muted: #666666;
       --light: #f7f9fc;
       --border: #e2e7ed;
     }
@@ -71,7 +71,6 @@
     h2 {
       margin-top: 55px;
       margin-bottom: 18px;
-
       padding-bottom: 8px;
 
       font-size: 1.65rem;
@@ -302,6 +301,58 @@
 
 
     /* =========================================================
+       Video Demonstrations
+       ========================================================= */
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+
+      gap: 32px;
+      margin-top: 25px;
+    }
+
+    .video-card {
+      padding: 20px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--light);
+    }
+
+    .video-card h3 {
+      margin-top: 0;
+      margin-bottom: 6px;
+
+      color: var(--primary);
+    }
+
+    .video-card p {
+      margin-top: 0;
+      margin-bottom: 16px;
+
+      color: var(--muted);
+    }
+
+    .video-card video {
+      width: 100%;
+      max-width: 980px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 8px;
+
+      background: black;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* =========================================================
        Footer
        ========================================================= */
 
@@ -373,17 +424,29 @@
 
     <span class="tag">Remote Driving</span>
 
-    <span class="tag">Human-in-the-Loop Autonomy</span>
+    <span class="tag">
+      Human-in-the-Loop Autonomy
+    </span>
 
-    <span class="tag">Connected &amp; Automated Vehicles</span>
+    <span class="tag">
+      Connected &amp; Automated Vehicles
+    </span>
 
-    <span class="tag">5G / Wi-Fi</span>
+    <span class="tag">
+      5G / Wi-Fi
+    </span>
 
-    <span class="tag">Adaptive Streaming</span>
+    <span class="tag">
+      Adaptive Streaming
+    </span>
 
-    <span class="tag">Multimodal Perception</span>
+    <span class="tag">
+      Multimodal Perception
+    </span>
 
-    <span class="tag">Rural Mobility</span>
+    <span class="tag">
+      Rural Mobility
+    </span>
 
   </div>
 
@@ -410,31 +473,26 @@
   <p>
     This project explores remote driving and
     <strong>human-in-the-loop Connected and Automated Vehicle
-    (CAV) technologies</strong> as a scalable approach to improve
-    mobility, safety, and accessibility in rural areas.
-    It develops a hybrid autonomy framework that combines onboard
-    automated driving capabilities with low-latency remote
-    supervision over heterogeneous communication networks.
+    (CAV) technologies</strong> as a scalable solution to improve
+    mobility, safety, and accessibility in rural areas. It proposes
+    a hybrid autonomy framework combining onboard automation with
+    low-latency remote supervision using adaptive streaming over
+    heterogeneous communication networks.
   </p>
 
   <p>
-    The system investigates adaptive transmission of visual,
-    vehicle-state, and multimodal sensor information between the
-    vehicle and a remote operator while maintaining responsive
-    control under changing network conditions. Through system
-    development, network evaluation, multimodal perception, and
-    human-centered studies, the project examines how remote driving
-    can complement onboard autonomy when vehicles encounter
-    situations that require human assistance.
+    Through system design, network evaluation, adaptive multimodal
+    streaming, and human-centered studies, the work investigates
+    how remote driving can complement autonomous vehicle
+    capabilities when vehicles encounter challenging or uncertain
+    situations.
   </p>
 
   <p>
     The broader objective is to enable practical deployment of
-    autonomous mobility services in underserved regions, where
-    full autonomy may not yet be available across all operating
-    conditions. Remote assistance can provide an intermediate
-    pathway toward deployment while improving access to mobility
-    for populations such as elderly and mobility-impaired users.
+    autonomous mobility services in underserved regions while
+    improving transportation accessibility, particularly for
+    elderly and mobility-impaired populations.
   </p>
 
 </section>
@@ -450,10 +508,10 @@
   <h2>Why Remote Driving?</h2>
 
   <p>
-    Fully autonomous vehicles must handle a wide range of
-    long-tail situations, environmental uncertainty, communication
-    limitations, and previously unseen events. Achieving reliable
-    autonomy across every operating condition remains challenging,
+    Fully autonomous vehicles must operate across diverse road,
+    weather, traffic, and communication conditions while handling
+    rare and previously unseen situations. Achieving reliable
+    autonomy across every possible condition remains challenging,
     particularly when autonomous mobility services are deployed
     outside highly structured environments.
   </p>
@@ -462,18 +520,19 @@
     Remote driving introduces a
     <strong>human-supervised autonomy layer</strong> that allows
     autonomous vehicles to request assistance when onboard
-    intelligence is insufficient. Instead of requiring continuous
-    teleoperation, the remote operator can provide supervision,
-    high-level assistance, or direct control only when needed.
+    intelligence is insufficient. Rather than continuously
+    teleoperating the vehicle, a remote operator can provide
+    supervision, high-level assistance, or direct control only
+    when needed.
   </p>
 
   <div class="highlight">
 
     <strong>Core idea:</strong>
     combine autonomous vehicle intelligence with remote human
-    supervision so that the vehicle can operate autonomously
-    under normal conditions while retaining access to human
-    assistance for difficult or uncertain scenarios.
+    supervision so that the vehicle operates autonomously under
+    normal conditions while retaining access to human assistance
+    for difficult, uncertain, or long-tail scenarios.
 
   </div>
 
@@ -482,7 +541,7 @@
 
 
 <!-- =========================================================
-     SYSTEM CONCEPT
+     BIDIRECTIONAL ARCHITECTURE
      ========================================================= -->
 
 <section>
@@ -491,11 +550,11 @@
 
   <p>
     Remote driving relies on a bidirectional communication loop
-    between the vehicle and the remote operator.
+    between the connected vehicle and the remote operator.
     Sensor information generated onboard the vehicle is transmitted
     over the <strong>uplink</strong>, while operator control
-    commands and assistance information are delivered to the vehicle
-    through the <strong>downlink</strong>.
+    commands and assistance information are delivered to the
+    vehicle through the <strong>downlink</strong>.
   </p>
 
   <div class="cards">
@@ -505,9 +564,9 @@
       <h3>Vehicle-to-Operator Uplink</h3>
 
       <p>
-        Cameras, vehicle state, and other onboard sensing
-        information provide the remote operator with situational
-        awareness of the driving environment.
+        Cameras, vehicle state, and multimodal onboard sensing
+        provide the remote operator with real-time situational
+        awareness.
       </p>
 
     </div>
@@ -518,8 +577,8 @@
       <h3>Operator-to-Vehicle Downlink</h3>
 
       <p>
-        Steering, acceleration, braking, trajectories, or
-        higher-level assistance commands are transmitted back
+        Steering, acceleration, braking, trajectory information,
+        or higher-level assistance commands are transmitted back
         to the vehicle.
       </p>
 
@@ -531,8 +590,9 @@
       <h3>Onboard Autonomy</h3>
 
       <p>
-        Local perception and vehicle control continue to provide
-        real-time capabilities close to the physical system.
+        Local perception, planning, and control continue to
+        provide time-critical capabilities close to the physical
+        vehicle.
       </p>
 
     </div>
@@ -544,7 +604,7 @@
 
       <p>
         Human operators provide additional reasoning and control
-        for situations that exceed the autonomous system's
+        when the autonomous system reaches the limits of its
         operating capability.
       </p>
 
@@ -568,15 +628,17 @@
     The experimental platform separates high-bandwidth visual
     streaming from time-critical vehicle-control communication.
     Camera streams are delivered to the operator using
-    <strong>WebRTC</strong>, while vehicle state and control
-    messages are exchanged using <strong>Zenoh over QUIC</strong>.
+    <strong>WebRTC</strong>, while vehicle-state information and
+    control messages are communicated through
+    <strong>Zenoh over QUIC</strong>.
   </p>
 
   <p>
     The system continuously observes communication quality,
-    including latency, jitter, and frame loss, allowing the
-    remote-driving stack to reason about changing network
-    conditions and adapt data transmission accordingly.
+    including latency, jitter, frame loss, and available network
+    capacity. This enables the remote-driving stack to adapt
+    streaming and control behavior as communication conditions
+    change.
   </p>
 
 
@@ -590,7 +652,7 @@
 
       <p>
         Cameras and vehicle-state interfaces capture the
-        environment and vehicle operating condition.
+        surrounding environment and vehicle operating state.
       </p>
 
     </div>
@@ -603,7 +665,7 @@
       <h3>Video Streaming</h3>
 
       <p>
-        WebRTC provides real-time visual information for
+        WebRTC delivers multiple real-time camera streams for
         remote situational awareness.
       </p>
 
@@ -617,8 +679,8 @@
       <h3>Vehicle State</h3>
 
       <p>
-        Vehicle status information is communicated independently
-        from the video stream.
+        Vehicle status and telemetry are transmitted independently
+        from the video streams.
       </p>
 
     </div>
@@ -631,7 +693,7 @@
       <h3>Remote Operator</h3>
 
       <p>
-        The operator interprets the scene and provides
+        The operator interprets the environment and provides
         assistance or direct driving commands.
       </p>
 
@@ -645,8 +707,8 @@
       <h3>Control Downlink</h3>
 
       <p>
-        Commands are transmitted back to the vehicle using
-        a low-latency control channel.
+        Remote driving commands are delivered to the vehicle
+        through a low-latency communication channel.
       </p>
 
     </div>
@@ -658,14 +720,144 @@
 
     <img
       src="/images/Teleop_system.png"
-      alt="Remote driving communication system using WebRTC and Zenoh QUIC">
+      alt="Remote driving communication system using WebRTC and Zenoh over QUIC">
 
     <p class="caption">
-      Experimental remote-driving communication architecture
-      separating WebRTC video streaming from Zenoh-over-QUIC
-      vehicle-state and control communication, with network
-      quality feedback including latency, jitter, and frame loss.
+      Remote-driving communication architecture separating
+      WebRTC video streaming from Zenoh-over-QUIC vehicle-state
+      and control communication, with feedback on latency,
+      jitter, and frame loss.
     </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYSTEM DEMONSTRATIONS
+     ========================================================= -->
+
+<section>
+
+  <h2>System Demonstrations</h2>
+
+  <p>
+    The remote-driving platform was evaluated through multiple
+    demonstrations covering multi-camera video streaming,
+    real-time teleoperation across different driving conditions,
+    and driver-assistance capabilities designed specifically for
+    the remote operator.
+  </p>
+
+
+  <div class="video-grid">
+
+
+    <!-- -----------------------------------------------------
+         Video 1
+         ----------------------------------------------------- -->
+
+    <div class="video-card">
+
+      <h3>
+        Multi-Camera Remote Driving Streaming
+      </h3>
+
+      <p>
+        Demonstration of the three-camera streaming pipeline
+        showing both the vehicle-side sender and remote-station
+        receiver views. The experiment illustrates simultaneous
+        transmission of multiple visual perspectives required for
+        remote driving situational awareness.
+      </p>
+
+      <video
+        controls
+        preload="metadata"
+        playsinline>
+
+        <source
+          src="/videos/Tod_streaming.mp4"
+          type="video/mp4">
+
+        Your browser does not support HTML5 video.
+
+      </video>
+
+    </div>
+
+
+
+    <!-- -----------------------------------------------------
+         Video 2
+         ----------------------------------------------------- -->
+
+    <div class="video-card">
+
+      <h3>
+        Vehicle Teleoperation Across Driving Scenarios
+      </h3>
+
+      <p>
+        Demonstration of real-time teleoperation of the research
+        vehicle across different driving scenarios. The experiment
+        illustrates the complete remote-driving loop, including
+        video feedback, vehicle-state communication, operator
+        control, and execution of remote commands.
+      </p>
+
+      <video
+        controls
+        preload="metadata"
+        playsinline>
+
+        <source
+          src="/videos/Tod_scnarios.mp4"
+          type="video/mp4">
+
+        Your browser does not support HTML5 video.
+
+      </video>
+
+    </div>
+
+
+
+    <!-- -----------------------------------------------------
+         Video 3
+         ----------------------------------------------------- -->
+
+    <div class="video-card">
+
+      <h3>
+        ADAS-Assisted Remote Driving
+      </h3>
+
+      <p>
+        Demonstration of Advanced Driver Assistance System
+        (ADAS) functions integrated into the teleoperation
+        interface. The system provides additional perception
+        and driving-context information to improve remote-driver
+        situational awareness and support safer decision making.
+      </p>
+
+      <video
+        controls
+        preload="metadata"
+        playsinline>
+
+        <source
+          src="/videos/Tod_adas.mp4"
+          type="video/mp4">
+
+        Your browser does not support HTML5 video.
+
+      </video>
+
+    </div>
+
 
   </div>
 
@@ -682,27 +874,28 @@
   <h2>Adaptive Multimodal Sensor Streaming</h2>
 
   <p>
-    Continuously transmitting all raw sensor information is
-    expensive and may increase communication latency during
-    periods of limited bandwidth. The project therefore explores
+    Continuously transmitting all raw sensor information can
+    consume substantial communication bandwidth and increase
+    latency during periods of limited network capacity.
+    The project therefore explores
     <strong>adaptive multimodal communication</strong> that
     prioritizes information according to driving relevance,
-    network conditions, and remote-operator needs.
+    network conditions, and remote-operator requirements.
   </p>
 
   <p>
-    Camera images and LiDAR point clouds are processed onboard
+    Camera images and LiDAR point clouds can be processed onboard
     into compact visual and geometric representations.
     Network-aware adaptation can then modify detection range,
     regions of interest, transmitted information, or representation
-    fidelity according to latency and available bandwidth.
+    fidelity according to available bandwidth and latency.
   </p>
 
   <p>
-    At the remote side, multimodal features are fused and decoded
-    to reconstruct task-relevant information for the operator,
-    reducing the need to transmit every sensor stream at its
-    maximum fidelity continuously.
+    At the remote side, multimodal representations can be fused
+    and decoded to provide task-relevant information to the
+    operator without continuously transmitting every sensor
+    stream at maximum fidelity.
   </p>
 
 
@@ -713,8 +906,8 @@
       alt="Adaptive multimodal sensor streaming for remote driving">
 
     <p class="caption">
-      Network-aware multimodal communication using onboard
-      image and point-cloud representations, adaptive transmission,
+      Network-aware multimodal communication using onboard image
+      and point-cloud representations, adaptive transmission,
       feature fusion, and edge-side decoding for remote operator
       perception.
     </p>
@@ -735,10 +928,10 @@
 
   <p>
     Practical remote-driving systems must address challenges that
-    extend beyond autonomous vehicle perception and control.
-    Communication reliability, security, and representative data
-    are all critical to deploying human-supervised mobility
-    systems at scale.
+    extend beyond vehicle perception and control. Communication
+    reliability, cybersecurity, and representative datasets are
+    critical for deploying human-supervised mobility systems at
+    scale.
   </p>
 
 
@@ -749,10 +942,10 @@
       <h3>Low-Latency Communication</h3>
 
       <p>
-        Cellular networks can experience congestion, variable
-        bandwidth, jitter, and latency. Remote driving therefore
-        requires communication strategies that adapt sensor
-        streaming and control transmission to network conditions.
+        Cellular and wireless networks can experience congestion,
+        bandwidth variation, jitter, and latency. Remote driving
+        therefore requires communication-aware adaptation of
+        sensor streaming and control transmission.
       </p>
 
     </div>
@@ -764,8 +957,8 @@
 
       <p>
         Network-connected vehicles introduce security concerns
-        involving communication interfaces, vehicle software,
-        sensor integrity, and remote-control channels.
+        involving communication interfaces, software systems,
+        remote-control channels, and sensor integrity.
       </p>
 
     </div>
@@ -776,9 +969,9 @@
       <h3>Benchmark Data</h3>
 
       <p>
-        Large-scale multimodal datasets are needed to study
+        Large-scale multimodal datasets are required to study
         perception, communication, geolocation, network behavior,
-        and human intervention across diverse operating scenarios.
+        and human intervention across diverse driving conditions.
       </p>
 
     </div>
@@ -816,18 +1009,18 @@
   <p>
     Human-supervised autonomy also requires understanding how
     experienced drivers perceive and respond to challenging
-    situations. As part of this direction, the project explores
-    collection of <strong>human driver behavior data</strong>
-    across varied driving scenarios.
+    situations. The project therefore investigates collection of
+    <strong>human driver behavior data</strong> across diverse
+    driving scenarios.
   </p>
 
   <p>
-    Driving scenarios include intersections, pedestrian crossings,
-    turns, overtaking, lane changes, changing traffic conditions,
-    and different environmental conditions. In addition to
-    multimodal vehicle and sensor information, driver-perspective
-    measurements can capture visual attention and decision-making
-    behavior.
+    Representative scenarios include intersections, pedestrian
+    crossings, turns, overtaking, lane changes, different traffic
+    conditions, and changing environmental conditions.
+    In addition to multimodal vehicle and sensor information,
+    driver-perspective measurements can capture attention and
+    decision-making behavior.
   </p>
 
 
@@ -838,7 +1031,7 @@
       <h3>Driving Environment</h3>
 
       <p>
-        The dataset can include varied road geometries, traffic
+        Data can include varied road geometries, traffic
         situations, weather conditions, multimodal sensor streams,
         and vehicle-state measurements.
       </p>
@@ -851,10 +1044,9 @@
       <h3>Driver Perspective</h3>
 
       <p>
-        Human-centered measurements such as eye-gaze behavior,
-        head movement, and focused field of view provide additional
-        insight into how drivers identify and react to critical
-        situations.
+        Eye-gaze behavior, head movement, and focused field of
+        view provide insight into how experienced drivers observe,
+        interpret, and respond to critical situations.
       </p>
 
     </div>
@@ -870,8 +1062,8 @@
 
     <p class="caption">
       Human-driver behavior data collection across varied
-      scenarios, combining multimodal simulator or vehicle data
-      with driver-perspective measurements such as eye gaze,
+      scenarios, combining multimodal driving data with
+      driver-perspective measurements such as eye gaze,
       head movement, and focused field of view.
     </p>
 
@@ -890,26 +1082,29 @@
   <h2>Remote Driving for Rural Mobility</h2>
 
   <p>
-    Rural mobility presents a particularly important application
-    for human-supervised autonomous transportation. Low population
-    density, long travel distances, limited public transit, and
-    uneven transportation-service availability can make
-    conventional mobility solutions difficult to scale.
+    Rural mobility provides an important application for
+    human-supervised autonomous transportation. Long travel
+    distances, lower population density, limited public
+    transportation, and uneven availability of mobility services
+    can make conventional transportation solutions difficult to
+    scale.
   </p>
 
   <p>
     A hybrid autonomous and remote-driving architecture allows a
     vehicle to complete routine portions of a trip autonomously
-    while requesting remote human assistance for difficult or
-    uncertain situations. This can reduce the need for continuous
+    while requesting human assistance for difficult or uncertain
+    situations. This reduces the requirement for continuous
     onboard human operation without requiring the autonomous
-    system to solve every possible driving scenario independently.
+    vehicle to independently solve every possible driving
+    scenario.
   </p>
+
 
   <div class="highlight">
 
     <strong>Deployment vision:</strong>
-    remote driving serves as a transitional layer between
+    remote driving can serve as a transitional layer between
     conventional human-driven transportation and fully autonomous
     mobility, enabling autonomous services to be introduced while
     retaining human support for long-tail and safety-critical
@@ -931,10 +1126,11 @@
 
   <p>
     The long-term objective is not to replace onboard autonomy
-    with continuous teleoperation. Instead, the project studies
-    how human intelligence and automated driving can complement
-    one another.
+    with continuous teleoperation. Instead, the system explores
+    how autonomous intelligence and remote human expertise can
+    complement one another.
   </p>
+
 
   <div class="cards">
 
@@ -944,8 +1140,8 @@
       <h3>Autonomous Operation</h3>
 
       <p>
-        Vehicles independently handle routine driving situations
-        within their operational capabilities.
+        The vehicle independently handles routine driving
+        situations within its operating capability.
       </p>
 
     </div>
@@ -968,7 +1164,7 @@
       <h3>Remote Driving</h3>
 
       <p>
-        Direct human control remains available when the situation
+        Direct human control is available when a situation
         requires more substantial intervention.
       </p>
 
@@ -980,7 +1176,7 @@
       <h3>Return to Autonomy</h3>
 
       <p>
-        After the difficult situation is resolved, vehicle
+        Once the challenging situation is resolved, vehicle
         operation can transition back to onboard autonomy.
       </p>
 
@@ -1002,9 +1198,9 @@
   <h2>Research Directions</h2>
 
   <p>
-    The platform provides an experimental foundation for
-    investigating several interconnected problems in connected
-    and autonomous mobility.
+    The platform provides an experimental foundation for studying
+    several interconnected problems in connected, autonomous, and
+    human-supervised mobility.
   </p>
 
 
@@ -1015,8 +1211,9 @@
       <h3>Communication-Aware Autonomy</h3>
 
       <p>
-        Jointly adapting perception, streaming, and control
-        according to wireless-network conditions.
+        Joint adaptation of sensing, communication, perception,
+        and vehicle control according to wireless-network
+        conditions.
       </p>
 
     </div>
@@ -1027,8 +1224,8 @@
       <h3>Adaptive Video Streaming</h3>
 
       <p>
-        Prioritizing the most useful views, regions, frame rates,
-        and visual quality for remote driving.
+        Selecting the most useful camera views, regions,
+        frame rates, and visual quality for remote operation.
       </p>
 
     </div>
@@ -1036,11 +1233,12 @@
 
     <div class="card">
 
-      <h3>Human–AI Collaboration</h3>
+      <h3>Human-AI Collaboration</h3>
 
       <p>
         Determining when autonomous vehicles should continue
-        independently and when human assistance is necessary.
+        independently and when remote human assistance is
+        necessary.
       </p>
 
     </div>
@@ -1051,8 +1249,9 @@
       <h3>Long-Tail Driving Scenarios</h3>
 
       <p>
-        Studying rare and difficult situations that remain
-        challenging for fully autonomous systems.
+        Investigating rare, difficult, and previously unseen
+        situations that remain challenging for autonomous
+        vehicles.
       </p>
 
     </div>
@@ -1063,8 +1262,8 @@
       <h3>Driver Behavior Modeling</h3>
 
       <p>
-        Learning how human drivers perceive, interpret, and
-        respond to complex driving environments.
+        Learning how human drivers perceive, reason about,
+        and respond to complex driving situations.
       </p>
 
     </div>
@@ -1076,7 +1275,8 @@
 
       <p>
         Applying connected and human-supervised autonomy to
-        improve transportation access in underserved communities.
+        improve transportation access in underserved
+        communities.
       </p>
 
     </div>
@@ -1096,8 +1296,8 @@
   <h2>Resources</h2>
 
   <p>
-    Additional publications, datasets, demonstration videos,
-    and experimental results will be added as they become
+    Additional publications, datasets, experimental results,
+    and technical documentation will be added as they become
     available.
   </p>
 
@@ -1105,8 +1305,7 @@
   <p>
     <a href="#">Paper</a> |
     <a href="#">Code</a> |
-    <a href="#">Dataset</a> |
-    <a href="#">Demo Video</a>
+    <a href="#">Dataset</a>
   </p>
   -->
 
