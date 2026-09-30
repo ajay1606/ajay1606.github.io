@@ -1,1 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="Precise LiDAR-camera calibration and time synchronization for multimodal perception and sensor fusion in autonomous driving.">
+
+  <title>
+    Precise LiDAR-Camera Calibration and Time Synchronization
+  </title>
+
+  <style>
+
+    /* =========================================================
+       Global
+       ========================================================= */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #175ea8;
+      --secondary: #0f7b78;
+      --accent: #d95c28;
+      --dark: #17233c;
+      --text: #242424;
+      --muted: #666666;
+      --light: #f7f9fc;
+      --border: #e2e7ed;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: var(--text);
+      background: #ffffff;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--dark);
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      line-height: 1.22;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+      margin: 15px 0 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 940px;
+      margin: 12px auto 18px;
+
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .authors {
+      margin: 16px auto 25px;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: 30px auto 0;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================================
+       Tags
+       ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      background: #edf5fc;
+      color: var(--primary);
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      color: var(--primary);
+    }
+
+
+    /* =========================================================
+       Pipeline
+       ========================================================= */
+
+    .pipeline {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+
+      gap: 14px;
+
+      margin: 24px 0;
+    }
+
+    .pipeline-step {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #ffffff;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
+
+      border-radius: 50%;
+
+      color: #ffffff;
+      background: var(--primary);
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Figures
+       ========================================================= */
+
+    .figure {
+      margin: 28px auto 45px;
+      text-align: center;
+    }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      max-width: 970px;
+
+      margin: 10px auto 0;
+
+      color: #6b6b6b;
+
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Figure Grid
+       ========================================================= */
+
+    .figure-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(420px, 1fr));
+
+      gap: 22px;
+
+      margin-top: 25px;
+    }
+
+    .figure-card {
+      padding: 16px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .figure-card img {
+      width: 100%;
+      height: auto;
+
+      display: block;
+
+      border-radius: 7px;
+    }
+
+    .figure-card p {
+      margin-bottom: 0;
+
+      color: var(--muted);
+
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Highlight
+       ========================================================= */
+
+    .highlight {
+      margin: 28px 0;
+
+      padding: 22px 25px;
+
+      border-left: 5px solid var(--accent);
+      border-radius: 5px;
+
+      background: #fff7f1;
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 60px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777777;
+
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      .figure-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    Precise LiDAR-Camera Calibration and
+    Time Synchronization for Autonomous Driving
+  </h1>
+
+  <p class="subtitle">
+    Hardware-level synchronization, automatic trigger-delay
+    compensation, geometric calibration, and multimodal data fusion
+    for accurate LiDAR-camera perception under real-world vehicle motion.
+  </p>
+
+  <div class="tags">
+
+    <span class="tag">LiDAR-Camera Fusion</span>
+
+    <span class="tag">Sensor Synchronization</span>
+
+    <span class="tag">Sensor Calibration</span>
+
+    <span class="tag">Hardware Triggering</span>
+
+    <span class="tag">Delay Compensation</span>
+
+    <span class="tag">Object Detection</span>
+
+    <span class="tag">Autonomous Driving</span>
+
+  </div>
+
+  <p class="authors">
+    <strong>Ajay Kumar</strong> and collaborators
+  </p>
+
+  <img
+    src="/images/calibration_overview.png"
+    alt="Overview of LiDAR and camera data fusion for autonomous driving">
+
+</section>
+
+
+
+<!-- =========================================================
+     ABSTRACT
+     ========================================================= -->
+
+<section>
+
+  <h2>Abstract</h2>
+
+  <p>
+    LiDAR and cameras are complementary perception sensors for
+    autonomous vehicles. Cameras provide rich visual and semantic
+    information, while LiDAR provides accurate three-dimensional
+    geometric measurements. Effective fusion of these sensing
+    modalities, however, depends on both
+    <strong>accurate geometric calibration</strong> and
+    <strong>precise temporal synchronization</strong>.
+  </p>
+
+  <p>
+    Calibration determines the spatial transformation between the
+    LiDAR and camera coordinate systems, while synchronization
+    ensures that observations from both sensors correspond to the
+    same physical instant. Even with accurate calibration,
+    differences in sensor acquisition time can introduce
+    substantial projection errors when either the ego vehicle or
+    surrounding objects are moving.
+  </p>
+
+  <p>
+    This work develops a hardware-level LiDAR-camera synchronization
+    framework with automatic trigger-delay estimation and correction.
+    The approach precisely aligns LiDAR acquisition with multiple
+    camera exposures before multimodal fusion. Extensive vehicle
+    experiments were conducted across different speeds, distances,
+    and traffic scenarios to evaluate synchronization accuracy,
+    projection consistency, and data-fusion quality.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOTIVATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Why Precise Sensor Synchronization?</h2>
+
+  <p>
+    Multimodal perception frequently assumes that LiDAR points and
+    camera pixels represent the environment at the same instant.
+    In practice, each sensor has its own acquisition process,
+    timestamping mechanism, communication delay, and internal
+    processing pipeline.
+  </p>
+
+  <p>
+    When a vehicle or an observed object moves between the LiDAR
+    scan and camera exposure, spatially calibrated measurements can
+    still appear misaligned. This temporal mismatch directly
+    affects point projection, object association, depth estimation,
+    and downstream perception.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Core principle:</strong>
+    spatial calibration answers
+    <em>“where is one sensor relative to another?”</em>,
+    while time synchronization answers
+    <em>“were both measurements captured at the same moment?”</em>.
+    Accurate multimodal fusion requires both.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     VEHICLE PLATFORM
+     ========================================================= -->
+
+<section>
+
+  <h2>Multi-Sensor Autonomous Vehicle Platform</h2>
+
+  <p>
+    The experimental vehicle was equipped with a roof-mounted
+    multi-sensor perception platform containing a high-resolution
+    LiDAR and multiple cameras. The sensors were rigidly mounted
+    to provide complementary coverage of the surrounding road
+    environment.
+  </p>
+
+  <p>
+    Precise physical measurements of the sensor mounting geometry
+    were used as part of the sensor-registration process. The
+    coordinate frames of the LiDAR and cameras were defined
+    relative to the vehicle platform so that observations could
+    be transformed into a common reference frame.
+  </p>
+
+
+  <div class="figure-grid">
+
+    <div class="figure-card">
+
+      <img
+        src="/images/calibration_vehicle.png"
+        alt="Autonomous vehicle with LiDAR and multiple cameras">
+
+      <p>
+        Autonomous-driving research vehicle equipped with a
+        roof-mounted LiDAR and multi-camera sensor platform.
+      </p>
+
+    </div>
+
+
+    <div class="figure-card">
+
+      <img
+        src="/images/calibration_vehicle_setup.png"
+        alt="Measured LiDAR and camera mounting geometry">
+
+      <p>
+        Physical sensor mounting geometry and measurement
+        configuration used to establish the relative sensor
+        positions.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MULTI CAMERA
+     ========================================================= -->
+
+<section>
+
+  <h2>LiDAR and Multi-Camera Configuration</h2>
+
+  <p>
+    The sensor configuration includes a roof-mounted LiDAR and
+    multiple cameras with overlapping and complementary fields
+    of view. Each camera has its own coordinate system, while the
+    LiDAR provides a common three-dimensional reference for
+    multimodal perception.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_synchronization_vehicle.png"
+      alt="LiDAR and multiple camera coordinate frames">
+
+    <p class="caption">
+      Multi-camera and LiDAR configuration showing the individual
+      coordinate frames required for geometric calibration and
+      multimodal data transformation.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CALIBRATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Geometric Sensor Calibration</h2>
+
+  <p>
+    Geometric calibration estimates the rigid transformation
+    between the LiDAR coordinate system and each camera frame.
+    Accurate extrinsic calibration is necessary to project
+    three-dimensional LiDAR measurements into the corresponding
+    camera image.
+  </p>
+
+  <p>
+    The calibration procedure uses known geometric structures
+    observed simultaneously by the camera and LiDAR. Corresponding
+    features provide the spatial constraints required to estimate
+    rotation and translation between the sensor coordinate systems.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_synchronization_setup.png"
+      alt="LiDAR-camera geometric calibration setup">
+
+    <p class="caption">
+      Calibration setup using a known reference structure observed
+      in both the camera image and LiDAR point cloud.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYNCHRONIZATION PROBLEM
+     ========================================================= -->
+
+<section>
+
+  <h2>The Sensor Synchronization Problem</h2>
+
+  <p>
+    Accurate geometric calibration alone does not guarantee
+    correct LiDAR-camera fusion. If the camera exposure and LiDAR
+    scan occur at different times, moving objects will occupy
+    different physical positions in the two sensor measurements.
+  </p>
+
+  <p>
+    Conventional timestamp-based synchronization can be affected
+    by operating-system scheduling, network communication,
+    device-specific latency, and timestamp-generation differences.
+    The resulting temporal offset can become particularly visible
+    during high-speed vehicle operation.
+  </p>
+
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>Software Synchronization</h3>
+
+      <p>
+        Aligns sensor measurements using software-generated
+        timestamps but can be affected by acquisition and
+        processing latency.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Network Synchronization</h3>
+
+      <p>
+        Approaches such as network-based clock synchronization
+        improve sensor-clock consistency but do not necessarily
+        remove sensor-trigger latency.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Hardware Triggering</h3>
+
+      <p>
+        Physical trigger signals provide deterministic sensor
+        activation but can still contain fixed device-dependent
+        trigger offsets.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Delay Compensation</h3>
+
+      <p>
+        Estimating and correcting the residual trigger offset
+        enables substantially tighter temporal alignment.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     METHOD
+     ========================================================= -->
+
+<section>
+
+  <h2>Proposed Hardware-Level Synchronization</h2>
+
+  <p>
+    The proposed approach uses the LiDAR acquisition timing as a
+    reference and generates hardware trigger signals for the
+    camera system. Instead of assuming that the trigger signal
+    immediately corresponds to camera exposure, the system
+    explicitly estimates the remaining temporal offset.
+  </p>
+
+  <p>
+    The estimated delay is then compensated before triggering the
+    cameras, allowing the image exposure to more closely coincide
+    with the corresponding LiDAR acquisition time.
+  </p>
+
+
+  <div class="pipeline">
+
+    <div class="pipeline-step">
+
+      <div class="step-number">1</div>
+
+      <h3>LiDAR Acquisition</h3>
+
+      <p>
+        The LiDAR continuously acquires point-cloud measurements
+        and provides the timing reference.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Trigger Generation</h3>
+
+      <p>
+        A hardware trigger signal is generated for the connected
+        camera sensors.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">3</div>
+
+      <h3>Delay Estimation</h3>
+
+      <p>
+        The temporal offset between LiDAR acquisition and camera
+        exposure is automatically estimated.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Delay Correction</h3>
+
+      <p>
+        The trigger timing is adjusted to compensate for the
+        measured camera-response delay.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">5</div>
+
+      <h3>Synchronized Capture</h3>
+
+      <p>
+        LiDAR and camera observations are acquired with closely
+        aligned timestamps for subsequent fusion.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_synchronization_method.png"
+      alt="Automatic hardware trigger delay estimation and correction">
+
+    <p class="caption">
+      Proposed hardware-level synchronization architecture using
+      automatic trigger-delay estimation and compensation between
+      the LiDAR and multiple cameras.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYNCHRONIZATION APPROACH
+     ========================================================= -->
+
+<section>
+
+  <h2>Precise Timing Alignment</h2>
+
+  <p>
+    The synchronization system is designed to address temporal
+    misalignment at the acquisition level rather than correcting
+    sensor data only after collection. This is particularly
+    important when multiple cameras must remain synchronized with
+    the same LiDAR reference.
+  </p>
+
+  <p>
+    By compensating for the estimated hardware delay before image
+    acquisition, the system reduces the temporal discrepancy
+    between the projected LiDAR points and the visual appearance
+    of moving objects.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_synchronization_approach.png"
+      alt="LiDAR camera synchronization approach">
+
+    <p class="caption">
+      LiDAR-camera temporal alignment and trigger control for
+      synchronized multi-sensor acquisition.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     LIDAR PROJECTION
+     ========================================================= -->
+
+<section>
+
+  <h2>LiDAR-to-Camera Projection</h2>
+
+  <p>
+    Once the spatial transformation and temporal correspondence
+    are known, LiDAR points can be projected accurately into the
+    camera image.
+  </p>
+
+  <p>
+    Each LiDAR return represents a three-dimensional measurement.
+    After transformation into the camera coordinate frame and
+    projection through the camera model, the measurement can be
+    associated with the corresponding image location.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_synchronization.png"
+      alt="LiDAR point projection into camera field of view">
+
+    <p class="caption">
+      Geometric relationship between LiDAR scan channels,
+      three-dimensional reference points, and camera-image
+      projection.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DATA FUSION
+     ========================================================= -->
+
+<section>
+
+  <h2>LiDAR-Camera Data Fusion</h2>
+
+  <p>
+    After synchronization and calibration, the LiDAR point cloud
+    can be accurately overlaid on the camera image. The fused
+    representation combines the semantic richness of visual
+    perception with the metric depth information provided by
+    LiDAR.
+  </p>
+
+  <p>
+    Object detections obtained from the image can therefore be
+    associated with corresponding three-dimensional LiDAR
+    measurements, enabling accurate object localization and
+    distance estimation.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_fusion.png"
+      alt="Camera LiDAR fusion and depth estimation">
+
+    <p class="caption">
+      Camera and LiDAR observations combined through calibrated
+      projection to provide spatially aligned point-cloud data
+      and object-level depth information.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     OBJECT ASSOCIATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Object-Level Depth Association</h2>
+
+  <p>
+    Precise temporal and spatial alignment makes it possible to
+    associate LiDAR returns with individual detected objects.
+    Vehicles, pedestrians, motorcycles, and roadside objects can
+    therefore be assigned metric depth estimates directly from
+    the LiDAR measurements.
+  </p>
+
+  <p>
+    This is particularly important for autonomous-driving
+    perception because even a relatively small projection offset
+    can associate points with the wrong object when vehicles are
+    close together or moving at different speeds.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_results_detection.png"
+      alt="LiDAR point association with detected vehicles">
+
+    <p class="caption">
+      Object-level LiDAR association following synchronized and
+      calibrated projection into the camera image.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DIVERSE OBJECTS
+     ========================================================= -->
+
+<section>
+
+  <h2>Perception Across Diverse Road Objects</h2>
+
+  <p>
+    The fusion framework was evaluated across different
+    autonomous-driving scenarios containing vehicles,
+    pedestrians, motorcycles, and traffic infrastructure.
+  </p>
+
+  <p>
+    The experiments assess whether LiDAR measurements remain
+    consistently associated with the correct visual object
+    when scene dynamics, object distance, and vehicle motion vary.
+  </p>
+
+
+  <div class="figure-grid">
+
+
+    <div class="figure-card">
+
+      <img
+        src="/images/calibration_results_vehicles_road.png"
+        alt="LiDAR-camera fusion for vehicles pedestrians and road signs">
+
+      <p>
+        Representative real-road LiDAR-camera fusion across
+        vehicle, pedestrian, motorcycle, and traffic-sign
+        scenarios.
+      </p>
+
+    </div>
+
+
+    <div class="figure-card">
+
+      <img
+        src="/images/calibration_results_vehicles.png"
+        alt="Object association results across diverse traffic scenes">
+
+      <p>
+        Object-level association of LiDAR measurements with
+        multiple vehicles and road users under diverse traffic
+        conditions.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SIMULATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Controlled Perception Evaluation</h2>
+
+  <p>
+    Controlled scenarios were also used to analyze object
+    association when multiple vehicles and pedestrians appear
+    simultaneously within the sensing field.
+  </p>
+
+  <p>
+    These experiments provide an additional environment for
+    studying how synchronization errors influence point-to-object
+    correspondence before deployment in complex road scenes.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_results_simulation.png"
+      alt="LiDAR camera fusion evaluation in controlled scenarios">
+
+    <p class="caption">
+      Controlled evaluation of LiDAR point association with
+      vehicles and pedestrians under multiple scene configurations.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYNC COMPARISON
+     ========================================================= -->
+
+<section>
+
+  <h2>Synchronization Method Comparison</h2>
+
+  <p>
+    The proposed synchronization system was compared with
+    conventional software synchronization, network-based
+    synchronization, and hardware-trigger synchronization.
+  </p>
+
+  <p>
+    The visual comparisons demonstrate how temporal misalignment
+    causes projected LiDAR measurements to shift relative to
+    moving objects. Incorporating trigger-delay compensation
+    produces more consistent alignment between the image and
+    point-cloud observations.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_synchronization_results.png"
+      alt="Comparison of LiDAR camera synchronization methods">
+
+    <p class="caption">
+      Comparison of software, network, hardware-trigger, and
+      delay-compensated hardware synchronization during dynamic
+      vehicle observations.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     QUANTITATIVE ANALYSIS
+     ========================================================= -->
+
+<section>
+
+  <h2>Quantitative Evaluation</h2>
+
+  <p>
+    Experimental evaluation was conducted under different vehicle
+    speeds and object-distance ranges. Synchronization accuracy
+    was assessed through spatial projection error, pixel error,
+    timing discrepancy, and frame-loss behavior.
+  </p>
+
+  <p>
+    These measurements quantify how temporal alignment affects
+    multimodal fusion and provide a direct comparison between
+    software, network, conventional hardware-trigger, and the
+    proposed delay-compensated synchronization approach.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_synchronization_analysis.png"
+      alt="Quantitative evaluation of sensor synchronization">
+
+    <p class="caption">
+      Experimental comparison across vehicle speeds, object
+      distances, synchronization error, timing gap, and
+      frame-loss behavior.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESULTS
+     ========================================================= -->
+
+<section>
+
+  <h2>Real-World Fusion Results</h2>
+
+  <p>
+    Validation experiments were conducted in real driving
+    environments containing moving vehicles, vulnerable road
+    users, and roadside infrastructure.
+  </p>
+
+  <p>
+    Accurate synchronization allows projected LiDAR returns to
+    remain consistent with visual object locations even during
+    dynamic motion. This improves the quality of downstream
+    object association and depth estimation.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/calibration_results.png"
+      alt="Real-world LiDAR camera synchronization and fusion results">
+
+    <p class="caption">
+      Representative real-world synchronized LiDAR-camera
+      perception results across diverse autonomous-driving
+      scenarios.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     KEY CONTRIBUTIONS
+     ========================================================= -->
+
+<section>
+
+  <h2>Key Contributions</h2>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Multi-Sensor Calibration</h3>
+
+      <p>
+        Accurate spatial registration between a vehicle-mounted
+        LiDAR and multiple cameras for consistent multimodal
+        projection.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Hardware-Level Synchronization</h3>
+
+      <p>
+        Direct trigger-based synchronization reduces dependency
+        on operating-system and network timestamp behavior.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Automatic Delay Estimation</h3>
+
+      <p>
+        The framework explicitly estimates residual hardware
+        trigger latency rather than assuming zero-delay capture.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Trigger-Delay Compensation</h3>
+
+      <p>
+        Estimated delay is incorporated into the acquisition
+        process to improve temporal correspondence between
+        LiDAR scans and camera exposures.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Object-Level Sensor Fusion</h3>
+
+      <p>
+        Synchronized LiDAR measurements provide metric depth
+        information for visually detected vehicles, pedestrians,
+        motorcycles, and infrastructure.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Real-Vehicle Validation</h3>
+
+      <p>
+        The complete approach was evaluated under different
+        driving speeds, object distances, and dynamic road
+        scenarios.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     IMPORTANCE
+     ========================================================= -->
+
+<section>
+
+  <h2>Impact on Autonomous Driving Perception</h2>
+
+  <p>
+    Precise synchronization becomes increasingly important as
+    perception systems combine a larger number of heterogeneous
+    sensors. A system may have highly accurate calibration and
+    powerful object-detection algorithms, yet still produce
+    incorrect fusion results when the underlying measurements
+    represent different moments in time.
+  </p>
+
+  <p>
+    By treating synchronization as a fundamental component of
+    multimodal perception rather than only a timestamp-management
+    problem, this work provides a practical approach for improving
+    LiDAR-camera association in real autonomous-driving platforms.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Overall contribution:</strong>
+    precise multimodal perception requires three tightly coupled
+    components — accurate geometric calibration, deterministic
+    temporal synchronization, and correct sensor-data association.
+    The proposed framework addresses these components as an
+    integrated LiDAR-camera perception pipeline.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCES
+     ========================================================= -->
+
+<section>
+
+  <h2>Resources</h2>
+
+  <p>
+    Additional publications, calibration procedures,
+    synchronization experiments, and implementation details
+    will be added as they become available.
+  </p>
+
+  <!--
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Code</a> |
+    <a href="#">Dataset</a>
+  </p>
+  -->
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    Precise LiDAR-Camera Calibration and
+    Time Synchronization for Autonomous Driving
+  </strong>
+
+  <br>
+
+  Autonomous Vehicle Perception and Sensor Fusion Research
+
+</footer>
+
+
+</body>
+</html>
