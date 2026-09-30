@@ -1,87 +1,1136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>ReACT2</title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="Remote Driving as a Transitional Path to Autonomous Mobility Deployments: human-in-the-loop connected and automated mobility using low-latency communication, adaptive multimodal streaming, and remote supervision.">
+
+  <title>
+    Remote Driving as a Transitional Path to Autonomous Mobility Deployments
+  </title>
+
   <style>
-    body{
-      max-width:1200px;
-      margin:auto;
-      font-family:Arial, sans-serif;
-      line-height:1.6;
-      padding:20px;
+
+    /* =========================================================
+       Global
+       ========================================================= */
+
+    * {
+      box-sizing: border-box;
     }
 
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
+    :root {
+      --primary: #0b4f8a;
+      --secondary: #0e7490;
+      --accent: #b30f2f;
+      --dark: #17233c;
+      --text: #242424;
+      --muted: #666;
+      --light: #f7f9fc;
+      --border: #e2e7ed;
     }
 
-    .hero img{
-      width:100%;
-      max-width:1000px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .video{
-      margin-top:20px;
-      text-align:center;
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: var(--text);
+      background: #ffffff;
     }
 
-    video{
-      width:100%;
-      max-width:900px;
+    h1,
+    h2,
+    h3 {
+      color: var(--dark);
     }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 2.4rem;
+      line-height: 1.22;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+      margin: 15px 0 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 920px;
+      margin: 12px auto 18px;
+
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .authors {
+      margin: 16px auto 25px;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: 30px auto 0;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================================
+       Tags
+       ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      background: #edf6fb;
+      color: var(--primary);
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Figures
+       ========================================================= */
+
+    .figure {
+      margin: 28px auto 45px;
+      text-align: center;
+    }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 8px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      max-width: 970px;
+      margin: 10px auto 0;
+
+      color: #6b6b6b;
+
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      color: var(--primary);
+    }
+
+
+    /* =========================================================
+       Pipeline
+       ========================================================= */
+
+    .pipeline {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .pipeline-step {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: white;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
+
+      border-radius: 50%;
+
+      background: var(--primary);
+      color: white;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Highlight
+       ========================================================= */
+
+    .highlight {
+      margin: 28px 0;
+
+      padding: 22px 25px;
+
+      border-left: 5px solid var(--primary);
+      border-radius: 5px;
+
+      background: #f2f7fb;
+    }
+
+
+    /* =========================================================
+       Two-column blocks
+       ========================================================= */
+
+    .two-column {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(320px, 1fr));
+
+      gap: 20px;
+      margin-top: 22px;
+    }
+
+    .two-column .card {
+      height: 100%;
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 60px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      .hero {
+        margin-bottom: 30px;
+      }
+
+    }
+
   </style>
 </head>
 
+
 <body>
 
-<div class="hero">
-  <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
 
-  <p>
-    Rushikesh Zende,
-    Vivek Kumar,
-    Lalitaditya Divakarla,
-    Kalyan Sai,
-    <strong>Ajay Kumar</strong>,
-    Zhi-Li Zhang
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    Remote Driving as a Transitional Path to
+    Autonomous Mobility Deployments
+  </h1>
+
+  <p class="subtitle">
+    Human-in-the-loop connected and automated mobility combining
+    onboard autonomy, low-latency remote supervision, adaptive
+    multimodal streaming, and resilient vehicle-to-operator
+    communication.
   </p>
 
-  <img src="../../images/9.png">
-</div>
+  <div class="tags">
 
-<h2>Abstract</h2>
+    <span class="tag">Remote Driving</span>
 
-<p>
-Autonomous robots increasingly rely on teleoperation...
-</p>
+    <span class="tag">Human-in-the-Loop Autonomy</span>
 
-<h2>Framework Overview</h2>
+    <span class="tag">Connected &amp; Automated Vehicles</span>
 
-<img src="../../images/react2_framework.png"
-     style="width:100%;">
+    <span class="tag">5G / Wi-Fi</span>
 
-<h2>Video Demo</h2>
+    <span class="tag">Adaptive Streaming</span>
 
-<div class="video">
-  <video controls>
-    <source src="../../videos/react2_demo.mp4"
-            type="video/mp4">
-  </video>
-</div>
+    <span class="tag">Multimodal Perception</span>
 
-<h2>Results</h2>
+    <span class="tag">Rural Mobility</span>
 
-<img src="../../images/react2_results.png"
-     style="width:100%;">
+  </div>
 
-<h2>Resources</h2>
+  <p class="authors">
+    <strong>Ajay Kumar</strong> and collaborators
+  </p>
 
-<p>
-<a href="#">Paper</a> |
-<a href="#">Code</a> |
-<a href="#">Dataset</a>
-</p>
+  <img
+    src="/images/Teleop_overview.png"
+    alt="Remote driving system overview showing sensor uplink and control downlink">
+
+</section>
+
+
+
+<!-- =========================================================
+     ABSTRACT
+     ========================================================= -->
+
+<section>
+
+  <h2>Abstract</h2>
+
+  <p>
+    This project explores remote driving and
+    <strong>human-in-the-loop Connected and Automated Vehicle
+    (CAV) technologies</strong> as a scalable approach to improve
+    mobility, safety, and accessibility in rural areas.
+    It develops a hybrid autonomy framework that combines onboard
+    automated driving capabilities with low-latency remote
+    supervision over heterogeneous communication networks.
+  </p>
+
+  <p>
+    The system investigates adaptive transmission of visual,
+    vehicle-state, and multimodal sensor information between the
+    vehicle and a remote operator while maintaining responsive
+    control under changing network conditions. Through system
+    development, network evaluation, multimodal perception, and
+    human-centered studies, the project examines how remote driving
+    can complement onboard autonomy when vehicles encounter
+    situations that require human assistance.
+  </p>
+
+  <p>
+    The broader objective is to enable practical deployment of
+    autonomous mobility services in underserved regions, where
+    full autonomy may not yet be available across all operating
+    conditions. Remote assistance can provide an intermediate
+    pathway toward deployment while improving access to mobility
+    for populations such as elderly and mobility-impaired users.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOTIVATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Why Remote Driving?</h2>
+
+  <p>
+    Fully autonomous vehicles must handle a wide range of
+    long-tail situations, environmental uncertainty, communication
+    limitations, and previously unseen events. Achieving reliable
+    autonomy across every operating condition remains challenging,
+    particularly when autonomous mobility services are deployed
+    outside highly structured environments.
+  </p>
+
+  <p>
+    Remote driving introduces a
+    <strong>human-supervised autonomy layer</strong> that allows
+    autonomous vehicles to request assistance when onboard
+    intelligence is insufficient. Instead of requiring continuous
+    teleoperation, the remote operator can provide supervision,
+    high-level assistance, or direct control only when needed.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Core idea:</strong>
+    combine autonomous vehicle intelligence with remote human
+    supervision so that the vehicle can operate autonomously
+    under normal conditions while retaining access to human
+    assistance for difficult or uncertain scenarios.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYSTEM CONCEPT
+     ========================================================= -->
+
+<section>
+
+  <h2>Bidirectional Remote-Driving Architecture</h2>
+
+  <p>
+    Remote driving relies on a bidirectional communication loop
+    between the vehicle and the remote operator.
+    Sensor information generated onboard the vehicle is transmitted
+    over the <strong>uplink</strong>, while operator control
+    commands and assistance information are delivered to the vehicle
+    through the <strong>downlink</strong>.
+  </p>
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>Vehicle-to-Operator Uplink</h3>
+
+      <p>
+        Cameras, vehicle state, and other onboard sensing
+        information provide the remote operator with situational
+        awareness of the driving environment.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Operator-to-Vehicle Downlink</h3>
+
+      <p>
+        Steering, acceleration, braking, trajectories, or
+        higher-level assistance commands are transmitted back
+        to the vehicle.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Onboard Autonomy</h3>
+
+      <p>
+        Local perception and vehicle control continue to provide
+        real-time capabilities close to the physical system.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Remote Human Supervision</h3>
+
+      <p>
+        Human operators provide additional reasoning and control
+        for situations that exceed the autonomous system's
+        operating capability.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYSTEM IMPLEMENTATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Connected Remote-Driving System</h2>
+
+  <p>
+    The experimental platform separates high-bandwidth visual
+    streaming from time-critical vehicle-control communication.
+    Camera streams are delivered to the operator using
+    <strong>WebRTC</strong>, while vehicle state and control
+    messages are exchanged using <strong>Zenoh over QUIC</strong>.
+  </p>
+
+  <p>
+    The system continuously observes communication quality,
+    including latency, jitter, and frame loss, allowing the
+    remote-driving stack to reason about changing network
+    conditions and adapt data transmission accordingly.
+  </p>
+
+
+  <div class="pipeline">
+
+    <div class="pipeline-step">
+
+      <div class="step-number">1</div>
+
+      <h3>Vehicle Sensors</h3>
+
+      <p>
+        Cameras and vehicle-state interfaces capture the
+        environment and vehicle operating condition.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Video Streaming</h3>
+
+      <p>
+        WebRTC provides real-time visual information for
+        remote situational awareness.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">3</div>
+
+      <h3>Vehicle State</h3>
+
+      <p>
+        Vehicle status information is communicated independently
+        from the video stream.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Remote Operator</h3>
+
+      <p>
+        The operator interprets the scene and provides
+        assistance or direct driving commands.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">5</div>
+
+      <h3>Control Downlink</h3>
+
+      <p>
+        Commands are transmitted back to the vehicle using
+        a low-latency control channel.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Teleop_system.png"
+      alt="Remote driving communication system using WebRTC and Zenoh QUIC">
+
+    <p class="caption">
+      Experimental remote-driving communication architecture
+      separating WebRTC video streaming from Zenoh-over-QUIC
+      vehicle-state and control communication, with network
+      quality feedback including latency, jitter, and frame loss.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MULTIMODAL STREAMING
+     ========================================================= -->
+
+<section>
+
+  <h2>Adaptive Multimodal Sensor Streaming</h2>
+
+  <p>
+    Continuously transmitting all raw sensor information is
+    expensive and may increase communication latency during
+    periods of limited bandwidth. The project therefore explores
+    <strong>adaptive multimodal communication</strong> that
+    prioritizes information according to driving relevance,
+    network conditions, and remote-operator needs.
+  </p>
+
+  <p>
+    Camera images and LiDAR point clouds are processed onboard
+    into compact visual and geometric representations.
+    Network-aware adaptation can then modify detection range,
+    regions of interest, transmitted information, or representation
+    fidelity according to latency and available bandwidth.
+  </p>
+
+  <p>
+    At the remote side, multimodal features are fused and decoded
+    to reconstruct task-relevant information for the operator,
+    reducing the need to transmit every sensor stream at its
+    maximum fidelity continuously.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Teleop_multimodal_data.png"
+      alt="Adaptive multimodal sensor streaming for remote driving">
+
+    <p class="caption">
+      Network-aware multimodal communication using onboard
+      image and point-cloud representations, adaptive transmission,
+      feature fusion, and edge-side decoding for remote operator
+      perception.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CHALLENGES
+     ========================================================= -->
+
+<section>
+
+  <h2>Key Deployment Challenges</h2>
+
+  <p>
+    Practical remote-driving systems must address challenges that
+    extend beyond autonomous vehicle perception and control.
+    Communication reliability, security, and representative data
+    are all critical to deploying human-supervised mobility
+    systems at scale.
+  </p>
+
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>Low-Latency Communication</h3>
+
+      <p>
+        Cellular networks can experience congestion, variable
+        bandwidth, jitter, and latency. Remote driving therefore
+        requires communication strategies that adapt sensor
+        streaming and control transmission to network conditions.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Cybersecurity</h3>
+
+      <p>
+        Network-connected vehicles introduce security concerns
+        involving communication interfaces, vehicle software,
+        sensor integrity, and remote-control channels.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Benchmark Data</h3>
+
+      <p>
+        Large-scale multimodal datasets are needed to study
+        perception, communication, geolocation, network behavior,
+        and human intervention across diverse operating scenarios.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Teleop_challenges.png"
+      alt="Remote driving communication cybersecurity and dataset challenges">
+
+    <p class="caption">
+      Major challenges for scalable remote driving include
+      maintaining low-latency communication, securing connected
+      vehicle systems, and developing representative multimodal
+      benchmark datasets.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DRIVER DATASET
+     ========================================================= -->
+
+<section>
+
+  <h2>Human Driver Behavior Dataset</h2>
+
+  <p>
+    Human-supervised autonomy also requires understanding how
+    experienced drivers perceive and respond to challenging
+    situations. As part of this direction, the project explores
+    collection of <strong>human driver behavior data</strong>
+    across varied driving scenarios.
+  </p>
+
+  <p>
+    Driving scenarios include intersections, pedestrian crossings,
+    turns, overtaking, lane changes, changing traffic conditions,
+    and different environmental conditions. In addition to
+    multimodal vehicle and sensor information, driver-perspective
+    measurements can capture visual attention and decision-making
+    behavior.
+  </p>
+
+
+  <div class="two-column">
+
+    <div class="card">
+
+      <h3>Driving Environment</h3>
+
+      <p>
+        The dataset can include varied road geometries, traffic
+        situations, weather conditions, multimodal sensor streams,
+        and vehicle-state measurements.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Driver Perspective</h3>
+
+      <p>
+        Human-centered measurements such as eye-gaze behavior,
+        head movement, and focused field of view provide additional
+        insight into how drivers identify and react to critical
+        situations.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Teleop_dataset.png"
+      alt="Human driver behavior dataset for remote and autonomous driving">
+
+    <p class="caption">
+      Human-driver behavior data collection across varied
+      scenarios, combining multimodal simulator or vehicle data
+      with driver-perspective measurements such as eye gaze,
+      head movement, and focused field of view.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RURAL MOBILITY
+     ========================================================= -->
+
+<section>
+
+  <h2>Remote Driving for Rural Mobility</h2>
+
+  <p>
+    Rural mobility presents a particularly important application
+    for human-supervised autonomous transportation. Low population
+    density, long travel distances, limited public transit, and
+    uneven transportation-service availability can make
+    conventional mobility solutions difficult to scale.
+  </p>
+
+  <p>
+    A hybrid autonomous and remote-driving architecture allows a
+    vehicle to complete routine portions of a trip autonomously
+    while requesting remote human assistance for difficult or
+    uncertain situations. This can reduce the need for continuous
+    onboard human operation without requiring the autonomous
+    system to solve every possible driving scenario independently.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Deployment vision:</strong>
+    remote driving serves as a transitional layer between
+    conventional human-driven transportation and fully autonomous
+    mobility, enabling autonomous services to be introduced while
+    retaining human support for long-tail and safety-critical
+    situations.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HUMAN-CENTERED AUTONOMY
+     ========================================================= -->
+
+<section>
+
+  <h2>Human-in-the-Loop Autonomous Mobility</h2>
+
+  <p>
+    The long-term objective is not to replace onboard autonomy
+    with continuous teleoperation. Instead, the project studies
+    how human intelligence and automated driving can complement
+    one another.
+  </p>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Autonomous Operation</h3>
+
+      <p>
+        Vehicles independently handle routine driving situations
+        within their operational capabilities.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Remote Assistance</h3>
+
+      <p>
+        Human operators provide high-level guidance when the
+        vehicle encounters ambiguous or unfamiliar situations.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Remote Driving</h3>
+
+      <p>
+        Direct human control remains available when the situation
+        requires more substantial intervention.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Return to Autonomy</h3>
+
+      <p>
+        After the difficult situation is resolved, vehicle
+        operation can transition back to onboard autonomy.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESEARCH DIRECTIONS
+     ========================================================= -->
+
+<section>
+
+  <h2>Research Directions</h2>
+
+  <p>
+    The platform provides an experimental foundation for
+    investigating several interconnected problems in connected
+    and autonomous mobility.
+  </p>
+
+
+  <div class="cards">
+
+    <div class="card">
+
+      <h3>Communication-Aware Autonomy</h3>
+
+      <p>
+        Jointly adapting perception, streaming, and control
+        according to wireless-network conditions.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Adaptive Video Streaming</h3>
+
+      <p>
+        Prioritizing the most useful views, regions, frame rates,
+        and visual quality for remote driving.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Human–AI Collaboration</h3>
+
+      <p>
+        Determining when autonomous vehicles should continue
+        independently and when human assistance is necessary.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Long-Tail Driving Scenarios</h3>
+
+      <p>
+        Studying rare and difficult situations that remain
+        challenging for fully autonomous systems.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Driver Behavior Modeling</h3>
+
+      <p>
+        Learning how human drivers perceive, interpret, and
+        respond to complex driving environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Accessible Mobility</h3>
+
+      <p>
+        Applying connected and human-supervised autonomy to
+        improve transportation access in underserved communities.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCES
+     ========================================================= -->
+
+<section>
+
+  <h2>Resources</h2>
+
+  <p>
+    Additional publications, datasets, demonstration videos,
+    and experimental results will be added as they become
+    available.
+  </p>
+
+  <!--
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Code</a> |
+    <a href="#">Dataset</a> |
+    <a href="#">Demo Video</a>
+  </p>
+  -->
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    Remote Driving as a Transitional Path to
+    Autonomous Mobility Deployments
+  </strong>
+
+  <br>
+
+  University of Minnesota
+
+</footer>
+
 
 </body>
 </html>
