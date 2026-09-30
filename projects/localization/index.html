@@ -1,1 +1,1723 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="Robust LiDAR-based vehicle localization using Normal Distributions Transform (NDT) point-cloud map matching, GNSS initialization, dead reckoning, and Autoware integration for urban, highway, and tunnel environments.">
+
+  <title>
+    NDT Map-Matching Localization for Autonomous Driving
+  </title>
+
+  <style>
+
+    /* =========================================================
+       Global
+       ========================================================= */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #1765ad;
+      --secondary: #0f7a78;
+      --accent: #e37a2e;
+      --dark: #17233c;
+      --text: #242424;
+      --muted: #666666;
+      --light: #f7f9fc;
+      --border: #e2e7ed;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: var(--text);
+      background: #ffffff;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--dark);
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: 2.4rem;
+      line-height: 1.22;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    strong {
+      color: #17233c;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+      margin: 15px 0 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 930px;
+      margin: 12px auto 18px;
+
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .authors {
+      margin: 16px auto 25px;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: 30px auto 0;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================================
+       Tags
+       ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      background: #edf5fc;
+      color: var(--primary);
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      color: var(--primary);
+    }
+
+
+    /* =========================================================
+       Pipeline
+       ========================================================= */
+
+    .pipeline {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(185px, 1fr));
+
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .pipeline-step {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #ffffff;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
+
+      border-radius: 50%;
+
+      background: var(--primary);
+      color: #ffffff;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Figures
+       ========================================================= */
+
+    .figure {
+      margin: 28px auto 45px;
+      text-align: center;
+    }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      max-width: 970px;
+      margin: 10px auto 0;
+
+      color: #6b6b6b;
+
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Figure Grid
+       ========================================================= */
+
+    .figure-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(420px, 1fr));
+
+      gap: 22px;
+      margin-top: 25px;
+    }
+
+    .figure-card {
+      padding: 16px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .figure-card img {
+      width: 100%;
+      height: auto;
+
+      display: block;
+
+      border-radius: 7px;
+    }
+
+    .figure-card p {
+      margin-bottom: 0;
+
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+
+    /* =========================================================
+       Highlight
+       ========================================================= */
+
+    .highlight {
+      margin: 28px 0;
+
+      padding: 22px 25px;
+
+      border-left: 5px solid var(--accent);
+      border-radius: 5px;
+
+      background: #fff7ef;
+    }
+
+
+    /* =========================================================
+       Environment Cards
+       ========================================================= */
+
+    .environment {
+      padding: 20px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #ffffff;
+    }
+
+    .environment h3 {
+      color: var(--secondary);
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 60px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777777;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      .figure-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    Robust Vehicle Localization Using
+    NDT Point-Cloud Map Matching
+  </h1>
+
+  <p class="subtitle">
+    LiDAR-based ego-vehicle localization using
+    Normal Distributions Transform (NDT) scan-to-map matching,
+    GNSS initialization, dead reckoning, and multi-sensor
+    localization for autonomous driving across urban roads,
+    highways, and GNSS-degraded tunnel environments.
+  </p>
+
+  <div class="tags">
+
+    <span class="tag">
+      NDT Map Matching
+    </span>
+
+    <span class="tag">
+      LiDAR Localization
+    </span>
+
+    <span class="tag">
+      Point-Cloud Maps
+    </span>
+
+    <span class="tag">
+      GNSS / RTK
+    </span>
+
+    <span class="tag">
+      Dead Reckoning
+    </span>
+
+    <span class="tag">
+      Autoware
+    </span>
+
+    <span class="tag">
+      Autonomous Driving
+    </span>
+
+  </div>
+
+  <p class="authors">
+    <strong>Ajay Kumar</strong> and collaborators
+  </p>
+
+  <img
+    src="/images/localize_vehicle_setup.png"
+    alt="Autonomous vehicle and NDT localization setup">
+
+</section>
+
+
+
+<!-- =========================================================
+     PROJECT OVERVIEW
+     ========================================================= -->
+
+<section>
+
+  <h2>Project Overview</h2>
+
+  <p>
+    This work focuses on the development and extensive
+    evaluation of a
+    <strong>LiDAR-based vehicle localization framework using
+    Normal Distributions Transform (NDT) point-cloud map
+    matching</strong>.
+  </p>
+
+  <p>
+    A high-resolution 3D map of the operating environment is
+    generated in advance and stored as a point-cloud map.
+    During vehicle operation, real-time LiDAR measurements are
+    aligned against this reference map to continuously estimate
+    the six-degree-of-freedom vehicle pose.
+  </p>
+
+  <p>
+    The localization framework was integrated with
+    <strong>Autoware</strong> and designed to support multiple
+    complementary localization sources, including
+    LiDAR map matching, GNSS/RTK positioning, and dead reckoning.
+    The system was extensively evaluated under diverse real-world
+    driving environments, including
+    <strong>urban roads, highways, and long tunnel scenarios</strong>,
+    where each environment introduces different localization
+    challenges.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOTIVATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Why Precise Vehicle Localization?</h2>
+
+  <p>
+    Autonomous vehicles require continuous knowledge of their
+    position and orientation relative to the road and map.
+    Errors in localization directly affect downstream planning,
+    lane-level navigation, object association, and vehicle
+    control.
+  </p>
+
+  <p>
+    GNSS/RTK can provide accurate global position in open
+    environments, but its reliability decreases near tall
+    buildings, under bridges, and especially inside tunnels.
+    LiDAR map matching provides an important complementary
+    localization source because it estimates vehicle pose from
+    the geometric structure of the environment.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Design objective:</strong>
+    combine global positioning, LiDAR map matching, and vehicle
+    motion estimation so that accurate localization can be
+    maintained even when one sensing modality becomes degraded
+    or temporarily unavailable.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     VEHICLE AND MAP
+     ========================================================= -->
+
+<section>
+
+  <h2>Experimental Vehicle and 3D Map</h2>
+
+  <p>
+    The experimental autonomous vehicle was equipped with a
+    roof-mounted Velodyne LiDAR and high-accuracy GNSS/RTK
+    positioning. A dense 3D point-cloud representation of the
+    driving environment was generated prior to autonomous
+    operation.
+  </p>
+
+  <p>
+    The reference point-cloud map is loaded by the localization
+    system and acts as the global geometric representation
+    against which each incoming LiDAR scan is aligned.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/localize_vehicle_setup.png"
+      alt="Vehicle, Velodyne LiDAR, GNSS RTK and point-cloud map">
+
+    <p class="caption">
+      Experimental vehicle equipped with Velodyne LiDAR and
+      GNSS/RTK together with the reference 3D point-cloud map
+      and Autoware localization configuration.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     AUTOWARE INTEGRATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Autoware Localization Integration</h2>
+
+  <p>
+    The localization framework was integrated into Autoware
+    through separate modules for map loading, sensor configuration,
+    localization, and vehicle-state estimation.
+  </p>
+
+  <p>
+    The map module loads the pre-generated point-cloud map,
+    while the sensing module configures the LiDAR interface.
+    Localization parameters define the NDT matching behavior,
+    coordinate transformations, and initialization strategy.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/localize_vehicle_module.png"
+      alt="Autoware localization modules">
+
+    <p class="caption">
+      Autoware integration showing point-cloud map loading,
+      sensor initialization, coordinate-frame configuration,
+      and localization modules.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MULTI-SOURCE LOCALIZATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Multi-Source Localization Architecture</h2>
+
+  <p>
+    The localization subsystem is designed to use complementary
+    positioning sources depending on sensor availability and
+    environmental conditions.
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>GNSS Localizer</h3>
+
+      <p>
+        Provides absolute global positioning when satellite
+        visibility and RTK corrections are available.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>LiDAR Localizer</h3>
+
+      <p>
+        Estimates the vehicle pose by matching live LiDAR
+        measurements against the pre-built 3D point-cloud map.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Dead Reckoning</h3>
+
+      <p>
+        Propagates vehicle motion using inertial and vehicle-state
+        information between reliable absolute localization
+        updates.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/localize_vehicle_module.png"
+      alt="GNSS LiDAR and dead reckoning localization modules">
+
+    <p class="caption">
+      Localization architecture combining GNSS positioning,
+      LiDAR map matching, and dead-reckoning information.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     NDT EXPLANATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Normal Distributions Transform (NDT)</h2>
+
+  <p>
+    Normal Distributions Transform is a probabilistic
+    point-cloud registration method commonly used for LiDAR
+    localization. Instead of comparing every live LiDAR point
+    directly with individual map points, NDT divides the map
+    into spatial cells.
+  </p>
+
+  <p>
+    The points contained within each cell are represented by a
+    Gaussian distribution characterized by a mean and covariance.
+    These distributions provide a compact local description of
+    the map geometry.
+  </p>
+
+  <p>
+    During localization, the current LiDAR scan is transformed
+    according to a candidate vehicle pose. The transformed
+    points are evaluated against the Gaussian distributions
+    stored in the reference map. An iterative optimization then
+    adjusts the vehicle transformation to maximize the alignment
+    likelihood.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Conceptually:</strong><br><br>
+
+    Current LiDAR Scan
+    &nbsp;&rarr;&nbsp;
+    Candidate Vehicle Transformation
+    &nbsp;&rarr;&nbsp;
+    NDT Map Probability Evaluation
+    &nbsp;&rarr;&nbsp;
+    Pose Optimization
+    &nbsp;&rarr;&nbsp;
+    Vehicle Pose
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     NDT WORKFLOW
+     ========================================================= -->
+
+<section>
+
+  <h2>NDT Localization Workflow</h2>
+
+  <div class="pipeline">
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">1</div>
+
+      <h3>Acquire LiDAR Scan</h3>
+
+      <p>
+        The vehicle continuously acquires three-dimensional
+        point-cloud measurements from the Velodyne LiDAR.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Point Filtering</h3>
+
+      <p>
+        A voxel-grid filter reduces the number of scan points
+        while preserving the important geometric structure.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">3</div>
+
+      <h3>Load Reference Map</h3>
+
+      <p>
+        The pre-generated PCD map provides the global
+        environmental representation.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Initial Pose</h3>
+
+      <p>
+        GNSS, dead reckoning, or the previous localization
+        solution provides the initial estimate for NDT.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">5</div>
+
+      <h3>NDT Matching</h3>
+
+      <p>
+        The filtered scan is iteratively aligned with the
+        probabilistic representation of the global map.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">6</div>
+
+      <h3>Vehicle Pose</h3>
+
+      <p>
+        The optimized transformation produces the final
+        position and orientation used by the autonomous-driving
+        stack.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/localize_architecture.png"
+      alt="NDT point cloud map matching architecture">
+
+    <p class="caption">
+      NDT localization pipeline including LiDAR scan filtering,
+      PCD map loading, initial pose estimation, scan-to-map
+      matching, and vehicle-pose output.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PREPROCESSING
+     ========================================================= -->
+
+<section>
+
+  <h2>Point-Cloud Preprocessing</h2>
+
+  <p>
+    Raw LiDAR measurements contain a large number of points,
+    and processing every point at the sensor acquisition rate
+    can significantly increase computational cost.
+  </p>
+
+  <p>
+    A voxel-grid filter is therefore applied before NDT
+    registration. The filter divides the point cloud into
+    three-dimensional voxels and represents points within each
+    voxel using a smaller subset or representative point.
+  </p>
+
+  <p>
+    The filtering resolution must balance two competing goals:
+    retaining enough structural information for reliable
+    registration while reducing computation sufficiently for
+    real-time vehicle localization.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     INITIALIZATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Initial Pose Estimation</h2>
+
+  <p>
+    NDT is an iterative optimization method and therefore
+    benefits from a reasonable initial estimate of the vehicle
+    pose. A poor initialization can increase convergence time or
+    cause the optimization to converge to an incorrect local
+    solution.
+  </p>
+
+  <p>
+    The proposed localization framework can initialize NDT from
+    multiple sources:
+  </p>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>GNSS / RTK</h3>
+
+      <p>
+        Provides global initialization in open-sky driving
+        environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Previous NDT Pose</h3>
+
+      <p>
+        During continuous localization, the previous optimized
+        pose provides a strong initialization for the next scan.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Dead Reckoning</h3>
+
+      <p>
+        Vehicle velocity and inertial information can propagate
+        pose estimates during periods where global positioning
+        is degraded.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     NDT IMPLEMENTATION
+     ========================================================= -->
+
+<section>
+
+  <h2>NDT Implementation and Acceleration</h2>
+
+  <p>
+    Multiple NDT implementations can be selected depending on
+    computational hardware and deployment requirements.
+    The localization module supports alternative implementations
+    such as generic CPU-based matching, optimized CPU execution,
+    OpenMP-based parallelization, and GPU-accelerated processing.
+  </p>
+
+  <div class="figure">
+
+    <img
+      src="/images/localize_module_param.png"
+      alt="NDT localization implementation alternatives">
+
+    <p class="caption">
+      LiDAR-localizer configuration supporting different
+      NDT implementations and initialization strategies.
+    </p>
+
+  </div>
+
+  <p>
+    Computational acceleration becomes particularly important
+    when high-resolution LiDAR is used or when localization must
+    operate at high update rates during high-speed driving.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     KEY PARAMETERS
+     ========================================================= -->
+
+<section>
+
+  <h2>Important NDT Parameters</h2>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Map Resolution</h3>
+
+      <p>
+        Determines the spatial size of the NDT cells.
+        Finer resolution represents geometry in greater detail
+        but increases computational cost.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Transformation Step Size</h3>
+
+      <p>
+        Controls how aggressively the optimizer changes the
+        estimated transformation during registration.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Maximum Iterations</h3>
+
+      <p>
+        Limits the amount of computation available for each
+        localization update.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Convergence Threshold</h3>
+
+      <p>
+        Determines when iterative pose optimization is considered
+        sufficiently stable.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Voxel Filter Size</h3>
+
+      <p>
+        Controls the number of real-time LiDAR points passed
+        to the map-matching stage.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Initial Pose Quality</h3>
+
+      <p>
+        Strong initialization improves convergence speed and
+        reduces the probability of incorrect map alignment.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     EXPERIMENTAL EVALUATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Real-Vehicle Experimental Evaluation</h2>
+
+  <p>
+    The localization framework was evaluated through extensive
+    real-vehicle experiments spanning environments with
+    significantly different geometric and GNSS characteristics.
+    Particular attention was given to
+    <strong>urban roads, highways, and tunnel environments</strong>.
+  </p>
+
+  <p>
+    These scenarios allow evaluation not only of average
+    localization accuracy, but also of convergence behavior,
+    continuity, computational stability, sensitivity to the
+    environment, and the ability to recover when one localization
+    source becomes degraded.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     URBAN
+     ========================================================= -->
+
+<section>
+
+  <h2>Urban Driving Evaluation</h2>
+
+  <div class="environment">
+
+    <h3>Dense Geometric Features</h3>
+
+    <p>
+      Urban environments generally contain buildings,
+      curbs, poles, roadside structures, parked vehicles,
+      intersections, and other distinctive geometric features.
+      These structures provide strong constraints for NDT
+      scan-to-map alignment.
+    </p>
+
+    <p>
+      At the same time, urban scenes contain many dynamic objects
+      such as vehicles and pedestrians. These transient points
+      do not necessarily exist in the reference map and can
+      introduce inconsistencies into the scan-matching process.
+    </p>
+
+    <p>
+      Urban localization experiments therefore examine whether
+      the static environmental geometry remains sufficiently
+      dominant for stable pose estimation despite substantial
+      scene dynamics.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     HIGHWAY
+     ========================================================= -->
+
+<section>
+
+  <h2>Highway Driving Evaluation</h2>
+
+  <div class="environment">
+
+    <h3>High Vehicle Speed and Reduced Geometry</h3>
+
+    <p>
+      Highway environments introduce a different challenge.
+      The ego vehicle travels at higher speed while surrounding
+      geometry may be relatively repetitive or sparse compared
+      with dense urban areas.
+    </p>
+
+    <p>
+      Guardrails, barriers, road edges, overhead structures,
+      embankments, and nearby infrastructure become important
+      localization features.
+    </p>
+
+    <p>
+      High-speed operation also increases the importance of
+      low processing latency. The localization system must
+      complete scan filtering, registration, and pose estimation
+      before the vehicle has moved significantly from the
+      measurement location.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TUNNEL
+     ========================================================= -->
+
+<section>
+
+  <h2>Tunnel and GNSS-Denied Evaluation</h2>
+
+  <div class="environment">
+
+    <h3>Localization Without Reliable GNSS</h3>
+
+    <p>
+      Tunnel environments are particularly important for
+      evaluating LiDAR-based localization because satellite
+      positioning becomes unavailable or severely degraded.
+    </p>
+
+    <p>
+      In these scenarios, the localization system must depend
+      on LiDAR map matching and dead reckoning to maintain a
+      continuous estimate of vehicle pose.
+    </p>
+
+    <p>
+      Tunnels can also contain long stretches of geometrically
+      repetitive surfaces. Parallel walls, similar tunnel
+      cross-sections, and limited distinctive landmarks may
+      make longitudinal localization more difficult.
+    </p>
+
+    <p>
+      Reliable operation therefore depends on accurate map
+      construction, good initialization before entering the
+      tunnel, stable NDT convergence, and continuous motion
+      propagation between scan-matching updates.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ANALYSIS
+     ========================================================= -->
+
+<section>
+
+  <h2>Experimental Analysis</h2>
+
+  <p>
+    Evaluation of an NDT localization system involves more than
+    measuring the final position error. Several aspects of the
+    registration process must be analyzed to determine whether
+    the localization result is reliable enough for autonomous
+    vehicle operation.
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Localization Error</h3>
+
+      <p>
+        Estimated position and orientation are compared with
+        high-accuracy reference trajectories when available.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Convergence Behavior</h3>
+
+      <p>
+        The number of optimization iterations and convergence
+        consistency indicate how efficiently the scan aligns
+        with the map.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Matching Score</h3>
+
+      <p>
+        Registration quality provides an indication of how
+        strongly the current scan agrees with the local map
+        geometry.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Processing Latency</h3>
+
+      <p>
+        Localization must satisfy real-time constraints,
+        especially during highway operation.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Pose Continuity</h3>
+
+      <p>
+        Sudden pose jumps are undesirable because they can
+        destabilize motion planning and vehicle control.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Sensor Availability</h3>
+
+      <p>
+        Experiments evaluate localization behavior as GNSS
+        availability changes and LiDAR map matching becomes
+        the primary positioning source.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ENVIRONMENT COMPARISON
+     ========================================================= -->
+
+<section>
+
+  <h2>Localization Across Driving Environments</h2>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Urban Roads</h3>
+
+      <p>
+        Strong geometric constraints from buildings and roadside
+        infrastructure, but significant interference from
+        dynamic objects and GNSS multipath.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Highways</h3>
+
+      <p>
+        Faster vehicle motion and potentially fewer distinctive
+        geometric features place greater emphasis on real-time
+        processing and stable initialization.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Long Tunnels</h3>
+
+      <p>
+        GNSS becomes unavailable and geometric repetition can
+        increase ambiguity, making LiDAR map matching and dead
+        reckoning particularly important.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FAILURE CASES
+     ========================================================= -->
+
+<section>
+
+  <h2>Localization Challenges and Failure Modes</h2>
+
+  <p>
+    NDT map matching is highly effective when the live LiDAR scan
+    contains sufficient geometric correspondence with the
+    reference map. However, performance can degrade under several
+    conditions.
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Poor Initial Pose</h3>
+
+      <p>
+        A large initial position or heading error can cause
+        registration to converge to an incorrect solution.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Repetitive Geometry</h3>
+
+      <p>
+        Long tunnels and similar-looking road segments can
+        provide weak constraints along certain directions.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Map Changes</h3>
+
+      <p>
+        Construction, large structural changes, or major
+        environmental modifications can reduce agreement with
+        the reference point cloud.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Dynamic Objects</h3>
+
+      <p>
+        Traffic that is absent from the reference map introduces
+        measurements that do not correspond to static map
+        geometry.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Sparse Structures</h3>
+
+      <p>
+        Roads with few nearby three-dimensional structures can
+        provide weaker registration constraints.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Processing Delay</h3>
+
+      <p>
+        Excessive registration time can make an otherwise accurate
+        pose estimate outdated by the time it reaches the
+        planning and control modules.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ROBUST LOCALIZATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Robust Multi-Modal Localization Strategy</h2>
+
+  <p>
+    The experiments highlight that no individual localization
+    source is ideal across every driving environment.
+    GNSS performs well in open environments but fails in tunnels;
+    NDT provides strong map-relative localization but depends on
+    environmental structure and map quality; dead reckoning
+    maintains short-term continuity but accumulates drift.
+  </p>
+
+  <p>
+    Combining these localization sources therefore provides a
+    more robust architecture for autonomous-driving deployment.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Operational strategy:</strong><br><br>
+
+    Open-sky road
+    &nbsp;&rarr;&nbsp;
+    GNSS/RTK + NDT
+    <br><br>
+
+    Urban environment
+    &nbsp;&rarr;&nbsp;
+    NDT + GNSS + motion estimation
+    <br><br>
+
+    Tunnel entry
+    &nbsp;&rarr;&nbsp;
+    NDT initialized from last reliable global pose
+    <br><br>
+
+    Tunnel operation
+    &nbsp;&rarr;&nbsp;
+    NDT + dead reckoning
+    <br><br>
+
+    Tunnel exit
+    &nbsp;&rarr;&nbsp;
+    gradual recovery of global GNSS information
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     KEY CONTRIBUTIONS
+     ========================================================= -->
+
+<section>
+
+  <h2>Key Contributions</h2>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Real-Vehicle NDT Localization</h3>
+
+      <p>
+        Development and deployment of a point-cloud
+        map-matching localization pipeline on an autonomous
+        research vehicle.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Autoware Integration</h3>
+
+      <p>
+        Integration of mapping, sensing, localization,
+        coordinate transforms, and vehicle-pose generation
+        within an autonomous-driving software stack.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Multiple Localization Sources</h3>
+
+      <p>
+        Support for LiDAR localization, GNSS/RTK positioning,
+        and dead-reckoning-based motion estimation.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Environment-Specific Analysis</h3>
+
+      <p>
+        Detailed evaluation across urban, highway, and
+        tunnel/GNSS-denied driving environments.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Localization Robustness</h3>
+
+      <p>
+        Analysis of convergence, map geometry, initialization,
+        computational performance, and localization continuity.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Real-World Autonomous Deployment</h3>
+
+      <p>
+        Localization was evaluated as part of a complete
+        physical autonomous-driving system rather than only
+        using offline point-cloud sequences.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     IMPACT
+     ========================================================= -->
+
+<section>
+
+  <h2>Research Impact</h2>
+
+  <p>
+    Reliable localization is a fundamental requirement for
+    Level-4 autonomous driving. The NDT map-matching framework
+    demonstrates how detailed LiDAR maps can provide precise
+    map-relative positioning while complementing GNSS and
+    dead-reckoning systems.
+  </p>
+
+  <p>
+    More importantly, the experimental results across different
+    environments illustrate that localization should be designed
+    as an adaptive multi-sensor system rather than as a single
+    standalone algorithm.
+  </p>
+
+  <p>
+    The resulting framework provides a practical basis for
+    autonomous vehicle operation across complex urban roads,
+    high-speed highways, GNSS-degraded regions, and extended
+    tunnel environments.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCES
+     ========================================================= -->
+
+<section>
+
+  <h2>Resources</h2>
+
+  <p>
+    Additional publications, localization experiments,
+    trajectory evaluations, maps, and implementation details
+    will be added as they become available.
+  </p>
+
+  <!--
+
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Code</a> |
+    <a href="#">Dataset</a> |
+    <a href="#">Demo</a>
+  </p>
+
+  -->
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    Robust Vehicle Localization Using
+    NDT Point-Cloud Map Matching
+  </strong>
+
+  <br>
+
+  Autonomous Vehicle Localization Research
+
+</footer>
+
+
+</body>
+
+</html>
