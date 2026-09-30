@@ -1,87 +1,1523 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>ReACT2</title>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="VLM-driven proactive escalation for autonomous vehicle teleoperation using safety-aware preference alignment and structured reasoning.">
+
+  <title>
+    VLM-Driven Proactive Escalation for Autonomous Vehicle Teleoperation
+  </title>
+
   <style>
-    body{
-      max-width:1200px;
-      margin:auto;
-      font-family:Arial, sans-serif;
-      line-height:1.6;
-      padding:20px;
+
+    * {
+      box-sizing: border-box;
     }
 
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
+    :root {
+      --primary: #155f82;
+      --primary-light: #edf6fa;
+      --green: #23854d;
+      --yellow: #c38a08;
+      --red: #9e3328;
+      --dark: #17233c;
+      --text: #252525;
+      --muted: #666666;
+      --light: #f7f9fb;
+      --border: #e2e7ed;
+      --accent: #dc7633;
     }
 
-    .hero img{
-      width:100%;
-      max-width:1000px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .video{
-      margin-top:20px;
-      text-align:center;
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+
+      color: var(--text);
+      background: #ffffff;
     }
 
-    video{
-      width:100%;
-      max-width:900px;
+    h1,
+    h2,
+    h3 {
+      color: var(--dark);
     }
+
+    h1 {
+      margin-bottom: 12px;
+
+      font-size: 2.35rem;
+      line-height: 1.22;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+
+      margin: 15px 0 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 950px;
+
+      margin: 12px auto 18px;
+
+      color: var(--muted);
+
+      font-size: 1.08rem;
+    }
+
+    .authors {
+      margin: 16px auto 25px;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+
+      margin: 30px auto 0;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 15px rgba(0, 0, 0, 0.10);
+    }
+
+
+    /* =========================================================
+       Tags
+       ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      background: var(--primary-light);
+      color: var(--primary);
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Figures
+       ========================================================= */
+
+    .figure {
+      margin: 28px auto 45px;
+
+      text-align: center;
+    }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      max-width: 970px;
+
+      margin: 10px auto 0;
+
+      color: var(--muted);
+
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      color: var(--primary);
+    }
+
+
+    /* =========================================================
+       Triage cards
+       ========================================================= */
+
+    .triage-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+      gap: 18px;
+
+      margin: 25px 0;
+    }
+
+    .triage {
+      padding: 20px;
+
+      border-radius: 10px;
+
+      border: 1px solid var(--border);
+    }
+
+    .triage.autonomy {
+      border-top: 5px solid var(--green);
+      background: #f2faf5;
+    }
+
+    .triage.supervision {
+      border-top: 5px solid var(--yellow);
+      background: #fffaf0;
+    }
+
+    .triage.teleoperation {
+      border-top: 5px solid var(--red);
+      background: #fff4f2;
+    }
+
+    .triage.autonomy h3 {
+      color: var(--green);
+    }
+
+    .triage.supervision h3 {
+      color: var(--yellow);
+    }
+
+    .triage.teleoperation h3 {
+      color: var(--red);
+    }
+
+
+    /* =========================================================
+       Pipeline
+       ========================================================= */
+
+    .pipeline {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(185px, 1fr));
+
+      gap: 14px;
+
+      margin: 24px 0;
+    }
+
+    .pipeline-step {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #ffffff;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
+
+      border-radius: 50%;
+
+      background: var(--primary);
+      color: #ffffff;
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Results
+       ========================================================= */
+
+    .metrics {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(170px, 1fr));
+
+      gap: 16px;
+
+      margin: 28px 0;
+    }
+
+    .metric {
+      padding: 20px;
+
+      text-align: center;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--light);
+    }
+
+    .metric .number {
+      display: block;
+
+      margin-bottom: 4px;
+
+      color: var(--primary);
+
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+
+    /* =========================================================
+       Highlight
+       ========================================================= */
+
+    .highlight {
+      margin: 28px 0;
+
+      padding: 22px 25px;
+
+      border-left: 5px solid var(--accent);
+      border-radius: 5px;
+
+      background: #fff8f1;
+    }
+
+
+    /* =========================================================
+       Comparison table
+       ========================================================= */
+
+    .table-wrap {
+      overflow-x: auto;
+
+      margin-top: 25px;
+    }
+
+    table {
+      width: 100%;
+
+      border-collapse: collapse;
+
+      font-size: 0.96rem;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+
+      border-bottom: 1px solid var(--border);
+
+      text-align: left;
+    }
+
+    th {
+      background: var(--light);
+
+      color: var(--dark);
+    }
+
+    .best {
+      font-weight: 700;
+
+      color: var(--green);
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 65px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777777;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
-<div class="hero">
-  <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
 
-  <p>
-    Rushikesh Zende,
-    Vivek Kumar,
-    Lalitaditya Divakarla,
-    Kalyan Sai,
-    <strong>Ajay Kumar</strong>,
-    Zhi-Li Zhang
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    VLM-Driven Proactive Escalation
+    for Autonomous Vehicle Teleoperation
+  </h1>
+
+  <p class="subtitle">
+    A vision-language reasoning framework that determines
+    when an autonomous vehicle should remain autonomous,
+    request human supervision, or escalate to direct
+    teleoperation based on semantic understanding of the
+    driving situation.
   </p>
 
-  <img src="../../images/9.png">
-</div>
+  <div class="tags">
 
-<h2>Abstract</h2>
+    <span class="tag">
+      Vision-Language Models
+    </span>
 
-<p>
-Autonomous robots increasingly rely on teleoperation...
-</p>
+    <span class="tag">
+      Remote Driving
+    </span>
 
-<h2>Framework Overview</h2>
+    <span class="tag">
+      Human-in-the-Loop Autonomy
+    </span>
 
-<img src="../../images/react2_framework.png"
-     style="width:100%;">
+    <span class="tag">
+      Safety-Aware DPO
+    </span>
 
-<h2>Video Demo</h2>
+    <span class="tag">
+      Reasoning Distillation
+    </span>
 
-<div class="video">
-  <video controls>
-    <source src="../../videos/ReACT2.mp4"
-            type="video/mp4">
-  </video>
-</div>
+    <span class="tag">
+      Teleoperation
+    </span>
 
-<h2>Results</h2>
+  </div>
 
-<img src="../../images/react2_results.png"
-     style="width:100%;">
+  <p class="authors">
+    <strong>Ajay Kumar</strong> and collaborators
+  </p>
 
-<h2>Resources</h2>
+  <img
+    src="/images/React_Overview.png"
+    alt="VLM-driven teleoperation escalation framework">
 
-<p>
-<a href="#">Paper</a> |
-<a href="#">Code</a> |
-<a href="#">Dataset</a>
-</p>
+</section>
+
+
+
+<!-- =========================================================
+     ABSTRACT
+     ========================================================= -->
+
+<section>
+
+  <h2>Project Overview</h2>
+
+  <p>
+    Autonomous vehicles can handle an increasing range of
+    everyday driving situations, but long-tail events,
+    ambiguous road interactions, degraded visibility,
+    temporary traffic control, and unusual environmental
+    conditions can still exceed the operational capability
+    of the onboard autonomy system.
+  </p>
+
+  <p>
+    Existing remote-assistance frameworks commonly rely on
+    confidence thresholds, predefined rules, or heuristic
+    failure triggers. Such mechanisms can identify obvious
+    system failures, but they provide limited understanding
+    of the semantic context that explains
+    <strong>why human assistance is required</strong>.
+  </p>
+
+  <p>
+    This project introduces a
+    <strong>vision-language reasoning-driven escalation
+    framework</strong> that interprets front-camera observations
+    and classifies each driving situation into one of three
+    human-intervention levels:
+    <strong>AUTONOMY, SUPERVISION, or TELEOPERATION</strong>.
+    The model additionally generates a concise explanation
+    and recommended operator action.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     WHY
+     ========================================================= -->
+
+<section>
+
+  <h2>Why Reasoning-Based Escalation?</h2>
+
+  <p>
+    The central problem is not simply detecting uncertainty.
+    Some difficult driving situations require understanding
+    scene semantics, traffic intent, environmental conditions,
+    and contextual relationships between road users.
+  </p>
+
+  <p>
+    For example, an autonomous vehicle may perceive a police
+    officer correctly but still need to reason that a hand
+    gesture overrides a conventional traffic signal.
+    Similarly, heavy glare may not constitute a sensor failure,
+    yet it may significantly reduce the reliability of lane
+    perception and therefore warrant closer human supervision.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Core idea:</strong>
+    replace reactive confidence-based escalation with
+    context-aware semantic reasoning that determines both
+    <em>whether</em> human intervention is needed and
+    <em>what level</em> of intervention is appropriate.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TRIAGE LEVELS
+     ========================================================= -->
+
+<section>
+
+  <h2>Three-Level Intervention Triage</h2>
+
+
+  <div class="triage-grid">
+
+
+    <div class="triage autonomy">
+
+      <h3>AUTONOMY</h3>
+
+      <p>
+        The vehicle can safely continue without operator
+        involvement.
+      </p>
+
+      <p>
+        Typical cases include standard vehicle following,
+        normal lane navigation, and routine interactions
+        that remain within the capability of the autonomous
+        driving system.
+      </p>
+
+    </div>
+
+
+    <div class="triage supervision">
+
+      <h3>SUPERVISION</h3>
+
+      <p>
+        The vehicle can continue operating, but scene
+        complexity or degraded environmental conditions
+        reduce confidence in perception or planning.
+      </p>
+
+      <p>
+        The remote operator should monitor the scene closely,
+        although immediate manual takeover is not yet required.
+      </p>
+
+    </div>
+
+
+    <div class="triage teleoperation">
+
+      <h3>TELEOPERATION</h3>
+
+      <p>
+        The autonomous vehicle has reached an operational
+        limit and should not safely continue without direct
+        human assistance.
+      </p>
+
+      <p>
+        Examples include blocked roads, unusual traffic
+        control, or situations requiring immediate
+        operator takeover.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SYSTEM
+     ========================================================= -->
+
+<section>
+
+  <h2>System Architecture</h2>
+
+  <p>
+    The framework operates as a monitoring layer at the
+    teleoperation center rather than modifying the vehicle's
+    onboard autonomy stack.
+  </p>
+
+  <p>
+    Front-camera frames are processed by a compact
+    SA-DPO-aligned vision-language model. The model combines
+    visual encoding with contextual reasoning and produces
+    a structured triage output that can be presented directly
+    to a remote operator.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/React_Overview.png"
+      alt="SA-DPO aligned VLM system architecture">
+
+    <p class="caption">
+      Runtime architecture. A lightweight aligned VLM analyzes
+      the autonomous vehicle's front-camera feed and generates
+      AUTONOMY, SUPERVISION, or TELEOPERATION decisions together
+      with contextual reasoning for the teleoperator.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     STRUCTURED OUTPUT
+     ========================================================= -->
+
+<section>
+
+  <h2>Interpretable Output for Remote Operators</h2>
+
+  <p>
+    Each inference produces structured information rather
+    than only a numerical confidence value. The output contains:
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Triage Level</h3>
+
+      <p>
+        Indicates whether the scene should remain under
+        autonomy, receive operator supervision, or be
+        escalated to direct teleoperation.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Reasoning</h3>
+
+      <p>
+        Provides a concise semantic explanation of the
+        contextual factors that led to the escalation decision.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Recommended Action</h3>
+
+      <p>
+        Communicates the expected operator response, enabling
+        faster interpretation during multi-vehicle monitoring.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     DATASET
+     ========================================================= -->
+
+<section>
+
+  <h2>Edge-Case-Oriented Training Dataset</h2>
+
+  <p>
+    Because existing autonomous-driving datasets do not
+    directly provide teleoperation-triage labels, the project
+    constructs a preference-alignment dataset from
+    <strong>nuScenes front-camera keyframes</strong>.
+  </p>
+
+  <p>
+    Approximately <strong>9,500 frames</strong> are selected
+    for preference training, with sampling biased toward
+    difficult situations such as pedestrians near the roadway,
+    construction activity, complex intersections, rain,
+    fog, and strong glare.
+  </p>
+
+  <p>
+    An additional <strong>1,000 frames</strong> are reserved
+    for held-out evaluation.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     TRAINING
+     ========================================================= -->
+
+<section>
+
+  <h2>Teacher-Student Reasoning Alignment</h2>
+
+  <p>
+    The training framework uses a teacher-student strategy
+    to transfer complex driving-context reasoning into a
+    smaller model suitable for deployment across multiple
+    vehicle feeds.
+  </p>
+
+
+  <div class="pipeline">
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">1</div>
+
+      <h3>Edge-Case Sampling</h3>
+
+      <p>
+        Challenging nuScenes frames are deliberately
+        over-represented during training-data construction.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Teacher Reasoning</h3>
+
+      <p>
+        Cosmos-Reason2-8B generates contextual reasoning
+        together with the preferred triage decision.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">3</div>
+
+      <h3>Human Verification</h3>
+
+      <p>
+        Generated labels and reasoning are reviewed and
+        corrected for ambiguous intervention cases.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Rejected Response</h3>
+
+      <p>
+        The unaligned Qwen3-VL-2B model generates a
+        zero-shot response for the same scene.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">5</div>
+
+      <h3>SA-DPO Alignment</h3>
+
+      <p>
+        Chosen and rejected responses form preference pairs
+        used to align the lightweight student model.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/React_Training.png"
+      alt="SA-DPO training pipeline">
+
+    <p class="caption">
+      Data-generation and alignment pipeline using teacher
+      reasoning, human verification, rejected zero-shot
+      responses, Safety-Aware DPO, and LoRA-based adaptation
+      of the compact student VLM.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SA-DPO
+     ========================================================= -->
+
+<section>
+
+  <h2>Safety-Aware Direct Preference Optimization</h2>
+
+  <p>
+    Standard Direct Preference Optimization treats all
+    preference mistakes equally. For autonomous-driving
+    escalation, however, the consequences are asymmetric.
+  </p>
+
+  <p>
+    Mistakenly predicting AUTONOMY when direct
+    TELEOPERATION is required is significantly more
+    safety-critical than unnecessarily asking an operator
+    to monitor a benign scene.
+  </p>
+
+  <p>
+    Safety-Aware DPO therefore introduces different
+    training weights according to the severity of
+    under-escalation:
+  </p>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>TELEOPERATION → AUTONOMY</h3>
+
+      <p>
+        Highest safety penalty.
+      </p>
+
+      <p>
+        <strong>Weight: 5.0</strong>
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>TELEOPERATION → SUPERVISION</h3>
+
+      <p>
+        Moderate under-escalation penalty.
+      </p>
+
+      <p>
+        <strong>Weight: 2.0</strong>
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Other Preference Pairs</h3>
+
+      <p>
+        Standard preference-learning weight.
+      </p>
+
+      <p>
+        <strong>Weight: 1.0</strong>
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="highlight">
+
+    SA-DPO places additional optimization emphasis on
+    rare but safety-critical intervention cases without
+    requiring artificial oversampling of TELEOPERATION
+    events.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MODEL
+     ========================================================= -->
+
+<section>
+
+  <h2>Lightweight Deployment Model</h2>
+
+  <p>
+    The aligned student is based on
+    <strong>Qwen3-VL-2B-Instruct</strong>, selected for its
+    balance between reasoning capability and computational
+    cost.
+  </p>
+
+  <p>
+    Rather than fine-tuning the full model, the framework
+    applies <strong>Low-Rank Adaptation (LoRA)</strong> to
+    a small subset of parameters. This enables efficient
+    task-specific adaptation while retaining the student's
+    pretrained vision-language representations.
+  </p>
+
+  <p>
+    At inference time, the aligned model can process
+    front-camera streams at approximately
+    <strong>8–10 FPS per stream</strong> on an NVIDIA RTX A6000
+    while generating the complete structured output.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESULTS
+     ========================================================= -->
+
+<section>
+
+  <h2>Experimental Results</h2>
+
+  <p>
+    Evaluation was performed on a held-out benchmark of
+    <strong>1,000 nuScenes front-camera frames</strong>
+    containing 467 AUTONOMY, 388 SUPERVISION, and
+    145 TELEOPERATION scenarios.
+  </p>
+
+
+  <div class="metrics">
+
+    <div class="metric">
+
+      <span class="number">
+        92.1%
+      </span>
+
+      <span class="label">
+        Overall Accuracy
+      </span>
+
+    </div>
+
+
+    <div class="metric">
+
+      <span class="number">
+        0.907
+      </span>
+
+      <span class="label">
+        Macro-F1
+      </span>
+
+    </div>
+
+
+    <div class="metric">
+
+      <span class="number">
+        2.1%
+      </span>
+
+      <span class="label">
+        Under-Escalation Rate
+      </span>
+
+    </div>
+
+
+    <div class="metric">
+
+      <span class="number">
+        1.5%
+      </span>
+
+      <span class="label">
+        Over-Escalation Rate
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div class="table-wrap">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Method</th>
+
+          <th>Accuracy</th>
+
+          <th>Macro-F1</th>
+
+          <th>Under-Escalation</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr>
+
+          <td>
+            Baseline Zero-Shot
+          </td>
+
+          <td>
+            47.5%
+          </td>
+
+          <td>
+            0.292
+          </td>
+
+          <td>
+            71.0%
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td>
+            Standard DPO
+          </td>
+
+          <td>
+            73.0%
+          </td>
+
+          <td>
+            0.624
+          </td>
+
+          <td>
+            37.9%
+          </td>
+
+        </tr>
+
+
+        <tr>
+
+          <td class="best">
+            SA-DPO
+          </td>
+
+          <td class="best">
+            92.1%
+          </td>
+
+          <td class="best">
+            0.907
+          </td>
+
+          <td class="best">
+            2.1%
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RECALL / ERRORS
+     ========================================================= -->
+
+<section>
+
+  <h2>Escalation Performance</h2>
+
+  <p>
+    The safety-aware alignment substantially improves
+    recognition of intervention-critical scenes.
+    SA-DPO achieves strong recall across all three
+    escalation categories while sharply reducing dangerous
+    under-escalation.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/React_Analysis.png"
+      alt="SA-DPO class recall and escalation error analysis">
+
+    <p class="caption">
+      Comparison of per-class recall and escalation errors.
+      SA-DPO achieves balanced performance across AUTONOMY,
+      SUPERVISION, and TELEOPERATION while substantially
+      reducing safety-critical missed escalations.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     CONFUSION MATRIX
+     ========================================================= -->
+
+<section>
+
+  <h2>Confusion Matrix Analysis</h2>
+
+  <p>
+    The zero-shot student model strongly favors AUTONOMY,
+    causing many supervision and teleoperation cases to be
+    missed. Standard DPO improves the distinction between
+    routine and uncertain scenes but continues to
+    under-detect direct takeover requirements.
+  </p>
+
+  <p>
+    SA-DPO produces a substantially more balanced confusion
+    matrix, including strong recognition of
+    TELEOPERATION-level scenarios.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/React_Analys.png"
+      alt="Confusion matrices for zero-shot DPO and SA-DPO">
+
+    <p class="caption">
+      Confusion matrices for the zero-shot baseline,
+      Standard DPO, and Safety-Aware DPO on the
+      1,000-frame evaluation benchmark.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     KEY CONTRIBUTIONS
+     ========================================================= -->
+
+<section>
+
+  <h2>Key Contributions</h2>
+
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Reasoning-Driven Escalation</h3>
+
+      <p>
+        Introduces semantic scene understanding into the
+        decision of when an autonomous vehicle should request
+        remote human assistance.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Safety-Aware Alignment</h3>
+
+      <p>
+        Extends DPO with asymmetric weighting that emphasizes
+        safety-critical missed intervention requests.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Teacher-Student Distillation</h3>
+
+      <p>
+        Transfers rich contextual driving reasoning from a
+        larger teacher VLM into a compact deployment model.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Interpretable Triage</h3>
+
+      <p>
+        Generates both the escalation category and a concise
+        explanation suitable for remote operator interfaces.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Edge-Case Evaluation</h3>
+
+      <p>
+        Focuses training and evaluation on visually and
+        semantically challenging long-tail driving scenarios.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Scalable Human Oversight</h3>
+
+      <p>
+        Uses a lightweight center-side VLM so multiple
+        autonomous vehicle feeds can be monitored without
+        consuming onboard vehicle compute.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     IMPACT
+     ========================================================= -->
+
+<section>
+
+  <h2>Research Impact</h2>
+
+  <p>
+    This work shifts remote-driving escalation from a
+    reactive failure-detection mechanism toward a
+    <strong>reasoning-based human-AI collaboration layer</strong>.
+  </p>
+
+  <p>
+    Instead of requiring human attention whenever a numerical
+    confidence threshold falls below a predefined level,
+    the framework reasons about the driving context and
+    determines the appropriate degree of operator engagement.
+  </p>
+
+  <p>
+    Such an approach can support future autonomous fleets
+    in which a limited number of remote operators supervise
+    many vehicles and must focus attention primarily on
+    situations where human judgment is genuinely needed.
+  </p>
+
+
+  <div class="highlight">
+
+    <strong>Overall goal:</strong>
+    preserve autonomy during routine operation while escalating
+    uncertain or safety-critical situations early enough for
+    meaningful human intervention.
+
+  </div>
+
+</section>
+
+
+  <!-- =========================================================
+     VIDEO DEMONSTRATION
+     ========================================================= -->
+
+<section>
+
+  <h2>System Demonstration</h2>
+
+  <p>
+    The following video demonstrates the proposed ReACT2
+    reasoning-driven escalation framework for autonomous vehicle
+    teleoperation. The system analyzes challenging driving scenes
+    and determines whether the vehicle should continue under
+    <strong>AUTONOMY</strong>, request
+    <strong>SUPERVISION</strong>, or escalate to direct
+    <strong>TELEOPERATION</strong>.
+  </p>
+
+  <p>
+    The demonstration highlights context-aware scene reasoning,
+    structured escalation decisions, and the communication of
+    interpretable information to the remote operator.
+  </p>
+
+  <div class="video-card">
+
+    <h3>
+      ReACT2: VLM-Driven Proactive Escalation Demonstration
+    </h3>
+
+    <video
+      controls
+      preload="metadata"
+      playsinline>
+
+      <source
+        src="/videos/ReACT2.mp4"
+        type="video/mp4">
+
+      Your browser does not support HTML5 video.
+
+    </video>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     RESOURCES
+     ========================================================= -->
+
+<section>
+
+  <h2>Resources</h2>
+
+  <p>
+    Publication, code, extended demonstrations, and additional
+    evaluation resources will be added as they become available.
+  </p>
+
+  <!--
+
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Code</a> |
+    <a href="#">Demo</a>
+  </p>
+
+  -->
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    VLM-Driven Proactive Escalation for
+    Autonomous Vehicle Teleoperation
+  </strong>
+
+  <br>
+
+  Vision-Language Reasoning · Human-in-the-Loop Autonomy · Remote Driving
+
+</footer>
+
 
 </body>
+
 </html>
