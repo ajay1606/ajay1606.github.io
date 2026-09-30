@@ -1,87 +1,1281 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>ReACT2</title>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <meta name="description"
+        content="Lightweight lane-level vehicle localization using abstract lane maps, visual and LiDAR lane features, and learning-enhanced IMU dead reckoning for robust autonomous driving.">
+
+  <title>
+    Lightweight Lane-Level Localization with Learned IMU Dead Reckoning
+  </title>
+
   <style>
-    body{
-      max-width:1200px;
-      margin:auto;
-      font-family:Arial, sans-serif;
-      line-height:1.6;
-      padding:20px;
+
+    * {
+      box-sizing: border-box;
     }
 
-    .hero{
-      text-align:center;
-      margin-bottom:40px;
+    :root {
+      --primary: #1f5fae;
+      --secondary: #3c7bf2;
+      --accent: #ef7a24;
+      --dark: #17233c;
+      --text: #242424;
+      --muted: #666666;
+      --light: #f7f9fc;
+      --border: #e2e7ed;
     }
 
-    .hero img{
-      width:100%;
-      max-width:1000px;
+    html {
+      scroll-behavior: smooth;
     }
 
-    .video{
-      margin-top:20px;
-      text-align:center;
+    body {
+      max-width: 1200px;
+      margin: auto;
+      padding: 28px;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      line-height: 1.65;
+      color: var(--text);
+      background: #ffffff;
     }
 
-    video{
-      width:100%;
-      max-width:900px;
+    h1,
+    h2,
+    h3 {
+      color: var(--dark);
     }
+
+    h1 {
+      font-size: 2.4rem;
+      line-height: 1.22;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin-top: 55px;
+      margin-bottom: 18px;
+
+      padding-bottom: 8px;
+
+      font-size: 1.65rem;
+
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+
+    .hero {
+      text-align: center;
+      margin: 15px 0 45px;
+    }
+
+    .hero .subtitle {
+      max-width: 930px;
+      margin: 12px auto 18px;
+
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .authors {
+      margin: 16px auto 25px;
+    }
+
+    .hero img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: 30px auto 0;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+
+    /* =========================================================
+       Tags
+       ========================================================= */
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+
+      border-radius: 999px;
+
+      background: #edf4ff;
+      color: var(--primary);
+
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+
+    /* =========================================================
+       Cards
+       ========================================================= */
+
+    .cards {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      padding: 19px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .card h3 {
+      color: var(--primary);
+    }
+
+
+    /* =========================================================
+       Pipeline
+       ========================================================= */
+
+    .pipeline {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(190px, 1fr));
+
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .pipeline-step {
+      padding: 18px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: #ffffff;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin-bottom: 10px;
+
+      border-radius: 50%;
+
+      color: #ffffff;
+      background: var(--primary);
+
+      font-weight: 700;
+    }
+
+
+    /* =========================================================
+       Figures
+       ========================================================= */
+
+    .figure {
+      margin: 28px auto 45px;
+      text-align: center;
+    }
+
+    .figure img {
+      width: 100%;
+      max-width: 1100px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 9px;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      max-width: 970px;
+      margin: 10px auto 0;
+
+      color: #6b6b6b;
+
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+
+    /* =========================================================
+       Figure grid
+       ========================================================= */
+
+    .figure-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(420px, 1fr));
+
+      gap: 22px;
+      margin-top: 25px;
+    }
+
+    .figure-card {
+      padding: 16px;
+
+      border: 1px solid var(--border);
+      border-radius: 9px;
+
+      background: var(--light);
+    }
+
+    .figure-card img {
+      width: 100%;
+      height: auto;
+
+      display: block;
+
+      border-radius: 7px;
+    }
+
+    .figure-card p {
+      margin-bottom: 0;
+
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+
+    /* =========================================================
+       Highlight
+       ========================================================= */
+
+    .highlight {
+      margin: 28px 0;
+
+      padding: 22px 25px;
+
+      border-left: 5px solid var(--accent);
+      border-radius: 5px;
+
+      background: #fff8f1;
+    }
+
+
+    /* =========================================================
+       Videos
+       ========================================================= */
+
+    .video-grid {
+      display: grid;
+
+      grid-template-columns: 1fr;
+
+      gap: 32px;
+      margin-top: 25px;
+    }
+
+    .video-card {
+      padding: 20px;
+
+      border: 1px solid var(--border);
+      border-radius: 10px;
+
+      background: var(--light);
+    }
+
+    .video-card h3 {
+      color: var(--primary);
+    }
+
+    .video-card p {
+      color: var(--muted);
+    }
+
+    .video-card video {
+      width: 100%;
+      max-width: 980px;
+      height: auto;
+
+      display: block;
+      margin: auto;
+
+      border-radius: 8px;
+
+      background: #000000;
+
+      box-shadow:
+        0 3px 14px rgba(0, 0, 0, 0.12);
+    }
+
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+
+    footer {
+      margin-top: 60px;
+
+      padding-top: 22px;
+      padding-bottom: 28px;
+
+      border-top: 1px solid var(--border);
+
+      text-align: center;
+
+      color: #777777;
+      font-size: 0.9rem;
+    }
+
+
+    /* =========================================================
+       Mobile
+       ========================================================= */
+
+    @media (max-width: 700px) {
+
+      body {
+        padding: 16px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+      }
+
+      .figure-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
   </style>
 </head>
 
+
 <body>
 
-<div class="hero">
-  <h1>ReACT2: VLM Reasoning for Remote Driving Escalation</h1>
 
-  <p>
-    Rushikesh Zende,
-    Vivek Kumar,
-    Lalitaditya Divakarla,
-    Kalyan Sai,
-    <strong>Ajay Kumar</strong>,
-    Zhi-Li Zhang
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<section class="hero">
+
+  <h1>
+    Lightweight Lane-Level Localization
+    with Learned IMU Dead Reckoning
+  </h1>
+
+  <p class="subtitle">
+    Robust ego-vehicle localization using lightweight
+    lane-level maps, multimodal lane-feature matching,
+    and learning-enhanced inertial dead reckoning without
+    relying on dense 3D point-cloud maps.
   </p>
 
-  <img src="../../images/9.png">
-</div>
+  <div class="tags">
 
-<h2>Abstract</h2>
+    <span class="tag">
+      Vehicle Localization
+    </span>
 
-<p>
-Autonomous robots increasingly rely on teleoperation...
-</p>
+    <span class="tag">
+      Lane-Level Maps
+    </span>
 
-<h2>Framework Overview</h2>
+    <span class="tag">
+      LiDAR + Camera
+    </span>
 
-<img src="../../images/react2_framework.png"
-     style="width:100%;">
+    <span class="tag">
+      IMU Dead Reckoning
+    </span>
 
-<h2>Video Demo</h2>
+    <span class="tag">
+      Kalman Filtering
+    </span>
 
-<div class="video">
-  <video controls>
-    <source src="../../videos/react2_demo.mp4"
-            type="video/mp4">
-  </video>
-</div>
+    <span class="tag">
+      Deep Learning
+    </span>
 
-<h2>Results</h2>
+    <span class="tag">
+      Autonomous Driving
+    </span>
 
-<img src="../../images/react2_results.png"
-     style="width:100%;">
+  </div>
 
-<h2>Resources</h2>
+  <p class="authors">
+    <strong>Ajay Kumar</strong> and collaborators
+  </p>
 
-<p>
-<a href="#">Paper</a> |
-<a href="#">Code</a> |
-<a href="#">Dataset</a>
-</p>
+  <img
+    src="/images/Niro_localize_approach.png"
+    alt="Lightweight lane-level vehicle localization framework">
+
+</section>
+
+
+
+<!-- =========================================================
+     PROJECT OVERVIEW
+     ========================================================= -->
+
+<section>
+
+  <h2>Project Overview</h2>
+
+  <p>
+    This work investigates a lightweight localization framework
+    for autonomous vehicles that reduces dependence on
+    large-scale, high-resolution 3D point-cloud maps.
+    Instead, the proposed approach uses
+    <strong>abstract lane-level maps and lightweight lane
+    representations</strong> to localize the ego vehicle.
+  </p>
+
+  <p>
+    Camera and LiDAR measurements are used to extract
+    road and lane features that can be matched against a
+    pre-generated lane-level map. The resulting localization
+    measurements are combined with GNSS, IMU, and vehicle-motion
+    information through probabilistic sensor fusion.
+  </p>
+
+  <p>
+    To maintain localization when external observations become
+    unavailable or unreliable, we additionally develop a
+    <strong>learning-enhanced IMU dead-reckoning framework</strong>.
+    The method combines an invariant Extended Kalman Filter with
+    a neural network that dynamically adapts the inertial-noise
+    parameters used by the filter.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     MOTIVATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Motivation</h2>
+
+  <p>
+    Many autonomous-driving localization systems depend on
+    dense LiDAR point-cloud maps containing detailed geometric
+    information about the surrounding environment. Although
+    these maps can provide high localization accuracy, they
+    require significant storage, map-generation effort, and
+    continuous maintenance when the environment changes.
+  </p>
+
+  <p>
+    Lane geometry provides a considerably more compact
+    representation of the road network. By matching locally
+    observed lane features to an
+    <strong>abstract lane-level map</strong>, localization can
+    be performed using a lightweight map representation while
+    preserving information that is highly relevant to vehicle
+    navigation.
+  </p>
+
+  <div class="highlight">
+
+    <strong>Core idea:</strong>
+    use lightweight road and lane geometry as the primary map
+    representation, while combining multimodal perception and
+    learned inertial dead reckoning to maintain robust vehicle
+    localization across changing sensor conditions.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     KEY CONTRIBUTIONS
+     ========================================================= -->
+
+<section>
+
+  <h2>Key Contributions</h2>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Lightweight Lane-Level Map</h3>
+
+      <p>
+        The vehicle is localized against an abstract road
+        representation rather than a dense 3D point-cloud map,
+        reducing map size and complexity.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Multimodal Lane Features</h3>
+
+      <p>
+        Lane and road features extracted from camera and LiDAR
+        observations provide geometric constraints for
+        map-based localization.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Feature-to-Map Matching</h3>
+
+      <p>
+        Locally detected road features are matched against
+        lane-level map elements to estimate the ego-vehicle pose.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Learned IMU Dead Reckoning</h3>
+
+      <p>
+        A deep neural network dynamically estimates the
+        inertial-noise parameters used by the state estimator,
+        improving dead-reckoning robustness.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Adaptive Kalman Filtering</h3>
+
+      <p>
+        An invariant Extended Kalman Filter estimates vehicle
+        position, velocity, orientation, covariance, and IMU
+        biases.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Multi-Sensor Localization</h3>
+
+      <p>
+        LiDAR, camera, GNSS, CAN, and IMU information can be
+        integrated depending on sensor availability and the
+        surrounding driving environment.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     LOCALIZATION OVERVIEW
+     ========================================================= -->
+
+<section>
+
+  <h2>Multi-Sensor Localization Framework</h2>
+
+  <p>
+    The overall localization framework is designed to support
+    multiple pose-estimation sources. Depending on environmental
+    conditions and sensor availability, localization can use
+    GNSS, LiDAR, camera observations, or combinations of these
+    sensing modalities.
+  </p>
+
+  <p>
+    Vehicle motion estimated from CAN and IMU measurements
+    provides complementary velocity and orientation information.
+    Pose and motion estimates, together with their uncertainty,
+    are fused to produce a consistent estimate of the vehicle
+    state.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Niro_localize_overview.png"
+      alt="Multi-sensor vehicle localization framework">
+
+    <p class="caption">
+      Localization architecture supporting multiple pose
+      estimators from GNSS, LiDAR, and camera observations,
+      combined with CAN and IMU motion estimates through
+      probabilistic sensor fusion.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     LANE MAP LOCALIZATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Lane-Level Map Localization</h2>
+
+  <p>
+    Instead of storing a dense point-cloud representation of
+    every road environment, the proposed localization method
+    relies on a compact lane-level map containing geometric
+    information relevant to autonomous driving.
+  </p>
+
+  <p>
+    The local perception system detects lane boundaries and
+    other road structures from the vehicle's camera and LiDAR
+    measurements. These features are transformed into the vehicle
+    coordinate system and associated with corresponding elements
+    in the global lane map.
+  </p>
+
+
+  <div class="pipeline">
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">1</div>
+
+      <h3>Sensor Observation</h3>
+
+      <p>
+        Camera and LiDAR capture local road and lane
+        geometry around the vehicle.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">2</div>
+
+      <h3>Feature Extraction</h3>
+
+      <p>
+        Navigation-relevant lane and road features are
+        extracted from the local observations.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">3</div>
+
+      <h3>Map Matching</h3>
+
+      <p>
+        Local observations are matched to the corresponding
+        geometric structures in the abstract lane map.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">4</div>
+
+      <h3>Pose Estimation</h3>
+
+      <p>
+        Feature correspondences generate a corrected
+        ego-vehicle position and orientation.
+      </p>
+
+    </div>
+
+
+    <div class="pipeline-step">
+
+      <div class="step-number">5</div>
+
+      <h3>State Fusion</h3>
+
+      <p>
+        Lane localization is fused with inertial and vehicle
+        motion estimates to maintain a continuous state.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Niro_localize_approach.png"
+      alt="Lane map based vehicle localization">
+
+    <p class="caption">
+      Lightweight localization concept combining lane-feature
+      extraction, map matching, GNSS information, and inertial
+      dead reckoning.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FEATURE EXTRACTION
+     ========================================================= -->
+
+<section>
+
+  <h2>Lane Feature Extraction and Map Matching</h2>
+
+  <p>
+    Road features observed from onboard sensors provide the
+    connection between the vehicle and the lane-level map.
+    Camera imagery captures visually distinctive lane boundaries,
+    while LiDAR measurements provide complementary geometric
+    information about road markings and surrounding structure.
+  </p>
+
+  <p>
+    The extracted observations are projected into a common
+    coordinate frame and compared with corresponding lane
+    structures in the map. The resulting geometric alignment
+    provides localization corrections while avoiding the storage
+    and matching complexity associated with dense point-cloud maps.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Niro_feature_match.png"
+      alt="Camera and LiDAR lane feature extraction and map matching">
+
+    <p class="caption">
+      Camera and LiDAR observations used to extract lane
+      geometry and align locally observed road structures
+      with the lightweight lane-level map.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     LEARNED IMU
+     ========================================================= -->
+
+<section>
+
+  <h2>Learning-Enhanced IMU Dead Reckoning</h2>
+
+  <p>
+    Pure inertial dead reckoning is particularly useful when
+    GNSS, camera, or LiDAR localization becomes temporarily
+    unavailable. However, traditional IMU integration suffers
+    from rapidly accumulating errors caused by sensor noise,
+    bias drift, and uncertainty in the inertial measurement model.
+  </p>
+
+  <p>
+    To address this limitation, the proposed method combines an
+    <strong>Invariant Extended Kalman Filter (InEKF)</strong>
+    with a deep neural network that dynamically adapts the IMU
+    noise parameters used by the filter.
+  </p>
+
+  <p>
+    Given accelerometer and gyroscope measurements, the learned
+    noise-parameter adapter predicts the uncertainty parameters
+    required by the state estimator. These parameters are then
+    incorporated into the Kalman-filter update to estimate the
+    vehicle's 3D position, velocity, and orientation while
+    simultaneously estimating IMU biases.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Niro_method.png"
+      alt="Learning enhanced IMU dead reckoning architecture">
+
+    <p class="caption">
+      Learning-enhanced inertial dead reckoning combining an
+      AI-based noise-parameter adapter with an invariant Extended
+      Kalman Filter for vehicle-state and uncertainty estimation.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     IMU DATA
+     ========================================================= -->
+
+<section>
+
+  <h2>Vehicle Inertial Measurements</h2>
+
+  <p>
+    The inertial localization module continuously processes
+    three-axis acceleration and angular-rate measurements.
+    Vehicle turns, acceleration, braking, road disturbances,
+    and vibration produce different characteristics in the
+    accelerometer and gyroscope signals.
+  </p>
+
+  <p>
+    Learning sensor uncertainty from these motion patterns allows
+    the filter to adapt its confidence in the incoming inertial
+    measurements instead of relying on fixed noise assumptions.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Niro_acceldata.png"
+      alt="Vehicle IMU accelerometer and gyroscope measurements">
+
+    <p class="caption">
+      Representative accelerometer and gyroscope measurements
+      collected during vehicle operation and used by the
+      inertial dead-reckoning framework.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     KITTI
+     ========================================================= -->
+
+<section>
+
+  <h2>KITTI Odometry Evaluation</h2>
+
+  <p>
+    The learned inertial dead-reckoning framework was evaluated
+    using the <strong>KITTI odometry dataset</strong>.
+    The experiments examine whether vehicle motion can be
+    reconstructed accurately using IMU measurements while
+    dynamically adapting the uncertainty parameters of the
+    estimator.
+  </p>
+
+  <p>
+    The resulting trajectories demonstrate that the inertial
+    framework can estimate vehicle motion over diverse driving
+    sequences and can maintain estimates of position, velocity,
+    orientation, and IMU bias without continuously relying on
+    external localization observations.
+  </p>
+
+
+  <div class="figure">
+
+    <img
+      src="/images/Niro_experiment.png"
+      alt="Vehicle localization trajectory evaluation">
+
+    <p class="caption">
+      Representative trajectory comparisons between estimated
+      vehicle motion and reference trajectories across diverse
+      driving sequences.
+    </p>
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     EXPERIMENTAL EVALUATION
+     ========================================================= -->
+
+<section>
+
+  <h2>Real-Vehicle Experimental Evaluation</h2>
+
+  <p>
+    The complete localization framework was additionally evaluated
+    across diverse driving conditions to study the behavior of
+    lane-level map matching, inertial dead reckoning, and
+    multi-sensor fusion under realistic vehicle motion.
+  </p>
+
+  <p>
+    Different sensor combinations can be selected according to
+    the operating environment. GNSS observations provide global
+    position information when available, while lane-map matching
+    and inertial dead reckoning provide complementary localization
+    capabilities in environments where satellite positioning is
+    degraded or where dense 3D maps are undesirable.
+  </p>
+
+
+  <div class="highlight">
+
+    <strong>Design objective:</strong>
+    provide a flexible localization architecture that can
+    transition between GNSS, lane-feature localization,
+    LiDAR/camera sensing, and learned inertial dead reckoning
+    according to sensor availability and environmental conditions.
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     VIDEOS
+     ========================================================= -->
+
+<section>
+
+  <h2>Localization Demonstrations</h2>
+
+  <p>
+    The following demonstrations illustrate the lane-level
+    localization system and the behavior of the vehicle
+    localization framework during real driving experiments.
+  </p>
+
+
+  <div class="video-grid">
+
+
+    <div class="video-card">
+
+      <h3>
+        Lane-Level Localization Demonstration
+      </h3>
+
+      <p>
+        Demonstration of ego-vehicle localization using detected
+        road and lane features aligned with the lightweight
+        lane-level map.
+      </p>
+
+      <video
+        controls
+        preload="metadata"
+        playsinline>
+
+        <source
+          src="/videos/lane_localize.mp4"
+          type="video/mp4">
+
+        Your browser does not support HTML5 video.
+
+      </video>
+
+    </div>
+
+
+
+    <div class="video-card">
+
+      <h3>
+        Real-Vehicle Localization Evaluation
+      </h3>
+
+      <p>
+        Demonstration of the localization system during
+        real-vehicle operation, showing the integration of
+        perception, feature matching, inertial estimation,
+        and map-based localization.
+      </p>
+
+      <video
+        controls
+        preload="metadata"
+        playsinline>
+
+        <source
+          src="/videos/lane_loc.mp4"
+          type="video/mp4">
+
+        Your browser does not support HTML5 video.
+
+      </video>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     ADVANTAGES
+     ========================================================= -->
+
+<section>
+
+  <h2>Why Lightweight Lane-Level Localization?</h2>
+
+  <div class="cards">
+
+
+    <div class="card">
+
+      <h3>Reduced Map Storage</h3>
+
+      <p>
+        Abstract lane geometry is substantially more compact
+        than storing dense LiDAR point clouds for the complete
+        driving environment.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Easier Map Maintenance</h3>
+
+      <p>
+        Lane-level representations can be updated more
+        efficiently when road layouts or lane configurations
+        change.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Navigation-Relevant Features</h3>
+
+      <p>
+        The representation focuses on road and lane structures
+        that directly influence vehicle navigation.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Sensor Flexibility</h3>
+
+      <p>
+        The architecture supports multiple localization sources
+        rather than depending on a single sensing modality.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>GNSS-Degraded Operation</h3>
+
+      <p>
+        Lane-map matching and inertial propagation provide
+        complementary localization when satellite positioning
+        becomes unreliable.
+      </p>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>Learning-Based Adaptation</h3>
+
+      <p>
+        Dynamic noise estimation allows the inertial filter
+        to adapt to changing vehicle motion and IMU behavior.
+      </p>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESEARCH IMPACT
+     ========================================================= -->
+
+<section>
+
+  <h2>Research Impact</h2>
+
+  <p>
+    The work demonstrates an alternative to localization
+    architectures that rely heavily on dense environmental maps.
+    By combining a lightweight lane-map representation with
+    adaptive inertial estimation, the framework provides a
+    foundation for scalable localization across large road
+    networks.
+  </p>
+
+  <p>
+    The underlying concepts can also support autonomous-driving
+    systems that must operate across different localization
+    regimes, including urban roads, highways, GNSS-degraded
+    areas, and environments where maintaining detailed
+    point-cloud maps is impractical.
+  </p>
+
+</section>
+
+
+
+<!-- =========================================================
+     RESOURCES
+     ========================================================= -->
+
+<section>
+
+  <h2>Resources</h2>
+
+  <p>
+    Additional publications, datasets, implementation details,
+    and experimental results will be added as they become
+    available.
+  </p>
+
+  <!--
+  <p>
+    <a href="#">Paper</a> |
+    <a href="#">Code</a> |
+    <a href="#">Dataset</a>
+  </p>
+  -->
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer>
+
+  <strong>
+    Lightweight Lane-Level Localization
+    with Learned IMU Dead Reckoning
+  </strong>
+
+  <br>
+
+  Autonomous Vehicle Localization Research
+
+</footer>
+
 
 </body>
 </html>
